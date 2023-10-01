@@ -12,3 +12,4 @@ According to the documentation, the API allows users to access projects, check t
 The JIRA API will allow us to contact the Server application, which we can leverage to our advantage, as it can help us store, retrieve and distribute the assignments.
 
 
+![image](https://github.com/k9pranav/CSC207-Project1/assets/132021752/73271187-b7e6-4431-ae6a-3155b9f8e8b0)
