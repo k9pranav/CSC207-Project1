@@ -3,7 +3,7 @@ This is the git hub repository for our CSC207 project
 
 The project domain is Task Management Software for UofT Students and Professors.
 
-The idea is to build a program where professors can upload the exam, quiz, assignment dates along with their description and their students will recieve them. This would ensure that students have a centralized system where they can keep track of all their assignents, exams and quizes all on centralized platform.
+The idea is to build a program where professors can upload exam, quiz and assignment dates along with their description and their students will recieve them. This would ensure that students have a centralized system where they can keep track of all their assignents, exams and quizzes all on centralized platform.
 
 The API that we are planning on using is the JIRA API. The link: https://developer.atlassian.com/server/jira/platform/rest-apis/.
 
