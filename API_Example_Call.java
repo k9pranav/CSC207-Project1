@@ -1,0 +1,44 @@
+import java.io.IOException;
+
+public class API_Example_Call {
+    // this is what was in the lab example:
+    // private static final String API_URL = "https://jira.atlassian.com/rest/api/latest/issue/";
+    // private static final String API_TOKEN = System.getenv("API_TOKEN");
+    //public static String getApiToken() {
+    //        return API_TOKEN;
+    //    }
+
+    public String setDueDate(String issue, String dueDate) throws JSONException {
+        OkHttpClient client = new OkHttpClient().newBuilder()
+                .build();
+        MediaType mediaType = MediaType.parse("application/json");
+        JSONObject requestBody = new JSONObject();
+        requestBody.put("issue", issue);
+        requestBody.put("duedate", dueDate);
+        RequestBody body = RequestBody.create(mediaType, requestBody.toString());
+        Request request = new Request.Builder()
+                .url("https://jira.atlassian.com/rest/api/latest/issue/") //JRA-9 is a specific issue
+                .method("POST", body)
+                .addHeader("Authorization", API_TOKEN)
+                .addHeader("Content-Type", "application/json")
+                .build();
+
+        try {
+            Response response = client.newCall(request).execute();
+            System.out.println(response);
+            JSONObject responseBody = new JSONObject(response.body().string());
+
+            if (responseBody.getInt("status_code") == 200) {
+                return null;
+            } else {
+                throw new RuntimeException(responseBody.getString("message"));
+            }
+        }
+        catch (IOException | JSONException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
+}
+
