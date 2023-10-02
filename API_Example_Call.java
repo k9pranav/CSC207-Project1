@@ -1,3 +1,5 @@
+// this is attempting to get the information of an issue from the JIRA API.
+
 package api;
 
 import okhttp3.*;
@@ -7,7 +9,6 @@ import org.json.JSONObject;
 import java.io.IOException;
 
 public class API_Example_Call {
-    // this is what was in the lab example:
     private static final String API_URL = "https://jira.atlassian.com/rest/api/latest/issue/";
     private static final String API_TOKEN = System.getenv("API_TOKEN");
     public static String getApiToken() {
