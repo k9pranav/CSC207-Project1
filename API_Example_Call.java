@@ -1,23 +1,28 @@
+package api;
+
+import okhttp3.*;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
 
 public class API_Example_Call {
     // this is what was in the lab example:
-    // private static final String API_URL = "https://jira.atlassian.com/rest/api/latest/issue/";
-    // private static final String API_TOKEN = System.getenv("API_TOKEN");
-    //public static String getApiToken() {
-    //        return API_TOKEN;
-    //    }
+    private static final String API_URL = "https://jira.atlassian.com/rest/api/latest/issue/";
+    private static final String API_TOKEN = System.getenv("API_TOKEN");
+    public static String getApiToken() {
+            return API_TOKEN;
+        }
 
-    public String setDueDate(String issue, String dueDate) throws JSONException {
+    public String getIssue(String issue) throws JSONException {
         OkHttpClient client = new OkHttpClient().newBuilder()
                 .build();
         MediaType mediaType = MediaType.parse("application/json");
         JSONObject requestBody = new JSONObject();
         requestBody.put("issue", issue);
-        requestBody.put("duedate", dueDate);
         RequestBody body = RequestBody.create(mediaType, requestBody.toString());
         Request request = new Request.Builder()
-                .url("https://jira.atlassian.com/rest/api/latest/issue/") //JRA-9 is a specific issue
+                .url("https://jira.atlassian.com/rest/api/latest/issue/JRA-9")
                 .method("POST", body)
                 .addHeader("Authorization", API_TOKEN)
                 .addHeader("Content-Type", "application/json")
@@ -41,4 +46,5 @@ public class API_Example_Call {
 
 
 }
+
 
