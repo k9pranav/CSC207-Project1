@@ -17,5 +17,5 @@ The JIRA API will allow us to contact the Server application, which we can lever
 List of Technical Problems that we might face:
   1) Getting the API itself to work
   2) Re-formatting project to Exam, Assignment and Quiz types
-  3) Managing the acess levels for the two types of users: Students and Professors
+  3) Managing the access levels for the two types of users: Students and Professors
 
