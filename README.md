@@ -17,7 +17,7 @@ Screenshot of using a tool to try out the API (using https://www.postman.com):
 ### List of Technical Problems that we might face:
   1) Getting the API itself to work
   2) Re-formatting project to Exam, Assignment and Quiz types
-  3) Managing the access levels for the two types of users: Students and Professors
+  3) Managing the access levels for the two types of users: Students and Admins
 
 ### Project Blueprint
 
