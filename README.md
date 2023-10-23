@@ -14,7 +14,7 @@ The JIRA API will allow us to contact the Server application, which we can lever
 Screenshot of using a tool to try out the API (using https://www.postman.com):
 ![image](https://github.com/k9pranav/CSC207-Project1/assets/132021752/73271187-b7e6-4431-ae6a-3155b9f8e8b0)
 
-List of Technical Problems that we might face:
+### List of Technical Problems that we might face:
   1) Getting the API itself to work
   2) Re-formatting project to Exam, Assignment and Quiz types
   3) Managing the access levels for the two types of users: Students and Professors
