@@ -19,3 +19,6 @@ Screenshot of using a tool to try out the API (using https://www.postman.com):
   2) Re-formatting project to Exam, Assignment and Quiz types
   3) Managing the access levels for the two types of users: Students and Professors
 
+### Project Blueprint
+
+
