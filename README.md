@@ -10,7 +10,7 @@ The API that we are planning on using is the JIRA API. The link: https://develop
 According to the documentation, the API allows users to access projects, check their progress, create and distribute projects. The projects can be thought of as exams, quizzes, and tests that are distributed to the students, and the students can get summary of the project. The JIRA API can be used in that regard.
 
 The JIRA API will allow us to contact the Server application, which we can leverage to our advantage, as it can help us store, retrieve and distribute the assignments.
-
+### Screenshot of using the API
 Screenshot of using a tool to try out the API (using https://www.postman.com):
 ![image](https://github.com/k9pranav/CSC207-Project1/assets/132021752/73271187-b7e6-4431-ae6a-3155b9f8e8b0)
 
