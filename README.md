@@ -21,4 +21,22 @@ Screenshot of using a tool to try out the API (using https://www.postman.com):
 
 ### Project Blueprint
 
+#### Domain:
+Organizational/Task Management software
+
+#### Software Specifications:
+The program would allow Professors/Course Coordinators to distribute assignment deadlines, quiz dates, exam dates and other deliverables to students. This will allow students to get a centralized calendar with all their exam/quiz/assignment deadlines in a centralized calendar. There would be two types of users: administrators (professors, coordinators etc.), who will create/post the deliverables for their course, and students, who will be able to receive the information about their assignment deadlines. This allows students to access this information at one single stop. The student can add their own internal deadlines and tasks in the software.
+
+#### User Stories:
+  1) A student Creamy Goat wants to check for upcoming assignments. He would like to see any deadlines around Canadian Thanksgiving so that he can plan his trip and relax accordingly. Instead of looping through the syllabus of every single course, he can just log in to the software to check for his deadlines around the thanksgiving.
+  2) Professor Cries is releasing an assignment to his students. He would like to set a due date for this assignment, notify his students about it, and provide details on the assignment’s description and priority. He opens the task management software, logs in as a professor, and creates a new assignment. He enters the information he wants to release to the students, and posts the assignment for the students to see. [Nadja’s story]
+  3) Bob has multiple different assignments due during midterm week. The deadlines for each assignment are on different Quercus pages. Bob needs to see the different deadlines all at once and their priority levels to be able to create his study schedule.  [Lasanda’s story]
+  4) A student wants to check his course grade up until today. Instead of logging in to the quercus, calculating his grade up until that point (possibly making a mistake in the calculation) he can just log in to the Creamy GOAT’s software, and check his progress up until the course, ie check (i) The total overall percentage he has earned (ii) Out of all assignments whose grades have been released, how much have they earned. [Pranav’s story]
+  5) A UofT student has 6 courses and is late for work. He is not sure where to start and how to organize himself to complete all his tasks on time. The task organizer and priority checker will list the deliverables that he has to complete. He will just be able to follow the suggested order of tasks given (and can edit if needed) and be able to stay on top of his work. [Adrien’s story]
+
+#### Proposed Entities for the Domain:
+ 
+    - 
+
+
 
