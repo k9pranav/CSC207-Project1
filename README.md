@@ -83,10 +83,22 @@ Use Cases:
 - Admin logs out
 - Admin creates task for a course
 - Student checks for the list of tasks they have
+- Student sorts tasks by weight
+- Student sorts tasks by Course
+- Student checks the list of tasks for a specific course
+- Student sorts tasks by deadline
 - Student checks for the list of all of their grades
 - Student checks for the list of all of their grades in a specific course
 - Student checks for their current grade in a course
 - Admin assigns grades
+- Admin edits task grade
+- Admin edits task deadline
+- Admin edits task weight
+- Student creates their own task
+- Student marks task as complete
+- Student gets list of passed tasks
+- Admin removes student from Course
+- Admin adds student from Course
   
 
 
