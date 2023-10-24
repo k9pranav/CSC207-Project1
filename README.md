@@ -35,8 +35,47 @@ The program would allow Professors/Course Coordinators to distribute assignment 
   5) A UofT student has 6 courses and is late for work. He is not sure where to start and how to organize himself to complete all his tasks on time. The task organizer and priority checker will list the deliverables that he has to complete. He will just be able to follow the suggested order of tasks given (and can edit if needed) and be able to stay on top of his work. [Adrien’s story]
 
 #### Proposed Entities for the Domain:
- 
-    - 
+Courses
+  String courseName
+  String courseCode
+  Integer courseID
+  ArrayList<SuperTask> courseTasks
+  String courseDescription 
+  Administrator courseAdmin
+  ArrayList <Student> studentEnrolled 
+
+MasterTask
+  Float taskWeight
+  String taskName
+  String taskDescription
+  LocalDateTime taskDueDate
+  Float taskGradeAchieved
+
+Edit_Task
+  Bool isComplete
+  String submissionTime
+  Bool Lateness
+  File submissionFile
+  Float taskGrade
+
+Student
+  ArrayList<Task> taskList 
+  ArrayList<Courses> enrolledCourses
+  String password
+  String username
+  ArrayList<Task> studentTasks
+  Dictionary<String, Integer> studentGrades
+
+Methods:
+courseTasks (courseID) -> returns a list of all the tasks for that courseID
+
+Administrator
+  ArrayList<Courses> coursesList
+  String adminName
+  String AdminID
+  String username
+  String password
+
 
 
 
