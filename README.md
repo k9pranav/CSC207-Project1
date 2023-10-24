@@ -77,11 +77,9 @@ Administrator:
   - String password
 
 Use Cases:
+Student:
 - Student logs in
 - Student logs out
-- Admin logs in
-- Admin logs out
-- Admin creates task for a course
 - Student checks for the list of tasks they have
 - Student sorts tasks by weight
 - Student sorts tasks by Course
@@ -90,15 +88,30 @@ Use Cases:
 - Student checks for the list of all of their grades
 - Student checks for the list of all of their grades in a specific course
 - Student checks for their current grade in a course
+- Student creates their own task
+- Student marks task as complete
+- Student gets list of passed tasks
+- Student checks average grade for students enrolled in course
+- Student checks average grade for a task for students enrolled in the course
+- Student changes deadline for their own task
+- Student changes name of their own task
+- Student changes password
+
+Admin:
+- Admin logs in
+- Admin logs out
+- Admin creates task for a course
 - Admin assigns grades
 - Admin edits task grade
 - Admin edits task deadline
 - Admin edits task weight
-- Student creates their own task
-- Student marks task as complete
-- Student gets list of passed tasks
 - Admin removes student from Course
 - Admin adds student from Course
+- Admin changes Course name
+- Admin checks average grade for students enrolled in course
+- Admin checks average grade for a task for students enrolled in the course
+- Admin changes password
+  
   
 
 
