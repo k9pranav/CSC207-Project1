@@ -76,6 +76,18 @@ Administrator:
   - String username
   - String password
 
+Use Cases:
+- Student logs in
+- Student logs out
+- Admin logs in
+- Admin logs out
+- Admin creates task for a course
+- Student checks for the list of tasks they have
+- Student checks for the list of all of their grades
+- Student checks for the list of all of their grades in a specific course
+- Student checks for their current grade in a course
+- Admin assigns grades
+  
 
 
 
