@@ -17,7 +17,7 @@ Screenshot of using a tool to try out the API (using https://www.postman.com):
 ### List of Technical Problems that we might face:
   1) Getting the API itself to work
   2) Re-formatting project to Exam, Assignment and Quiz types
-  3) Managing the access levels for the two types of users: Students and Professors
+  3) Managing the access levels for the two types of users: Students and Admins
 
 ### Project Blueprint
 
@@ -35,8 +35,59 @@ The program would allow Professors/Course Coordinators to distribute assignment 
   5) A UofT student has 6 courses and is late for work. He is not sure where to start and how to organize himself to complete all his tasks on time. The task organizer and priority checker will list the deliverables that he has to complete. He will just be able to follow the suggested order of tasks given (and can edit if needed) and be able to stay on top of his work. [Adrien’s story]
 
 #### Proposed Entities for the Domain:
- 
-    - 
+Courses
+  String courseName
+  String courseCode
+  Integer courseID
+  ArrayList<SuperTask> courseTasks
+  String courseDescription 
+  Administrator courseAdmin
+  ArrayList <Student> studentEnrolled 
+
+MasterTask
+  Float taskWeight
+  String taskName
+  String taskDescription
+  LocalDateTime taskDueDate
+  Float taskGradeAchieved
+
+Edit_Task
+  Bool isComplete
+  String submissionTime
+  Bool Lateness
+  File submissionFile
+  Float taskGrade
+
+Student
+  ArrayList<Task> taskList 
+  ArrayList<Courses> enrolledCourses
+  String password
+  String username
+  ArrayList<Task> studentTasks
+  Dictionary<String, Integer> studentGrades
+
+Methods:
+courseTasks (courseID) -> returns a list of all the tasks for that courseID
+
+Administrator
+  ArrayList<Courses> coursesList
+  String adminName
+  String AdminID
+  String username
+  String password
+
+Use Cases:
+- Student logs in
+- Student logs out
+- Admin logs in
+- Admin logs out
+- Admin creates task for a course
+- Student checks for the list of tasks they have
+- Student checks for the list of all of their grades
+- Student checks for the list of all of their grades in a specific course
+- Student checks for their current grade in a course
+- Admin assigns grades
+  
 
 
 
