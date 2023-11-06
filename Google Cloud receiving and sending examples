@@ -1,0 +1,9 @@
+To get a CSV file from google cloud (changes must me made based on our stuff):
+          StorageOptions options = 
+          StorageOptions.newBuilder().setProjectId(GCP_PROJECT_ID)
+                  .setCredentials(gcsConfig.getCredentials()).build();
+          Storage storage = options.getService();
+          Blob blob = storage.get(BUCKET_NAME, FILE_NAME);
+          ReadChannel readChannel = blob.reader();
+          BufferedReader br = new BufferedReader(Channels.newReader(readChannel, "UTF-8"));
+
