@@ -44,19 +44,23 @@ Courses:
   - Administrator courseAdmin
   - ArrayList <Student> studentEnrolled 
 
-MasterTask:
-  - Float taskWeight
+Task:
   - String taskName
-  - String taskDescription
-  - LocalDateTime taskDueDate
-  - Float taskGradeAchieved
+  - String type
+  - DateTime deadline
 
-Edit_Task:
-  - Bool isComplete
-  - String submissionTime
-  - Bool Lateness
-  - File submissionFile
-  - Float taskGrade
+Task:
+- String taskName
+- String type
+- DateTime deadline
+
+Task:
+- String taskName
+- String type
+- DateTime deadline
+- Course taskCourse
+- Double taskGrade
+- Double taskWeight
 
 Student
   - ArrayList<Task> taskList 
