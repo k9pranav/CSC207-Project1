@@ -49,12 +49,12 @@ Task:
   - String type
   - DateTime deadline
 
-Task:
+StudentTask:
 - String taskName
 - String type
 - DateTime deadline
 
-Task:
+CourseTask:
 - String taskName
 - String type
 - DateTime deadline
