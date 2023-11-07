@@ -82,7 +82,7 @@ public class CreateCalendar {
 
         // Create a new calendar
         com.google.api.services.calendar.model.Calendar calendar = new com.google.api.services.calendar.model.Calendar();
-        calendar.setSummary("calendarSummary");
+        calendar.setSummary("test2");
         calendar.setTimeZone("America/Los_Angeles");
 
         // Insert the new calendar
@@ -90,5 +90,4 @@ public class CreateCalendar {
 
         System.out.println(createdCalendar.getId());
     }
-
 }
