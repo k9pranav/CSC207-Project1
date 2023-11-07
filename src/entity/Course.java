@@ -6,7 +6,7 @@ public class Course {
     private final String courseName;
     private final String courseCode;
     private final Integer courseID;
-    private final ArrayList<Task> courseTasks;
+    private final ArrayList<CourseTask> courseTasks;
     private final String courseDescription;
     private final Admin courseAdmin;
     private final ArrayList<Student> studentEnrolled;
@@ -23,7 +23,7 @@ public class Course {
         this.courseCode = courseCode;
         this.courseID = courseID;
         this.courseDescription = courseDescription;
-        this.courseTasks = new ArrayList<Task>();
+        this.courseTasks = new ArrayList<CourseTask>();
         this.courseAdmin = courseAdmin;
         this.studentEnrolled = new ArrayList<Student>();
 
@@ -33,7 +33,15 @@ public class Course {
     public String getCourseCode(){return courseCode;}
     public String getCourseDescription(){return courseDescription;}
     public Integer getCourseID(){return courseID;}
+    public Admin getCourseAdmin(){return courseAdmin;}
 
+    public ArrayList<Student> getStudentEnrolled() {
+        return studentEnrolled;
+    }
+
+    public ArrayList<CourseTask> getCourseTasks(){
+        return courseTasks;
+    }
     public void addStudent(Student student){
         studentEnrolled.add(student);
     }
@@ -42,16 +50,16 @@ public class Course {
         studentEnrolled.remove(student);
     }
 
-    public void addTask(Task task){
+    public void addTask(CourseTask task){
         courseTasks.add(task);
     }
 
-    public void removeTask(Task task){
+    public void removeTask(CourseTask task){
         courseTasks.remove(task);
     }
     public Double getAverageGrade(){
         Double total = 0.0;
-        for (Task courseTask : courseTasks) {
+        for (CourseTask courseTask : courseTasks) {
             total = total + courseTask.getGrade();
         }
         if (total != null){
