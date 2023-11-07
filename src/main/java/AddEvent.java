@@ -13,6 +13,7 @@ import com.google.api.services.calendar.Calendar;
 import com.google.api.services.calendar.CalendarScopes;
 import com.google.api.services.calendar.model.Event;
 import com.google.api.services.calendar.model.EventDateTime;
+import com.google.api.services.calendar.Calendar;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -110,8 +111,7 @@ public class AddEvent {
         //Adding the event in the calendar.
         event1 = service.events().insert(calendarId, event1).execute();
         System.out.printf("Event created: %s\n", event1.getHtmlLink());
-
     }
 
-
 }
+
