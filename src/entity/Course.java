@@ -5,11 +5,12 @@ import java.util.ArrayList;
 public class Course {
     private final String courseName;
     private final String courseCode;
-    private final Integer courseID;
-    private final ArrayList<CourseTask> courseTasks;
+    private final Integer courseYear;
+    private final String courseSession
+    private ArrayList<CourseTask> courseTasks;
     private final String courseDescription;
     private final Admin courseAdmin;
-    private final ArrayList<Student> studentEnrolled;
+    private ArrayList<Student> studentEnrolled;
 
     /**
      *
@@ -18,10 +19,12 @@ public class Course {
      * @param courseID: the unique id of the offering of the course
      * @param courseDescription: description of the course
      */
-    Course(String courseName, String courseCode, Integer courseID, String courseDescription, Admin courseAdmin){
+    Course(String courseName, String courseCode, Integer courseYear, String courseSession,
+           String courseDescription, Admin courseAdmin){
         this.courseName = courseName;
         this.courseCode = courseCode;
-        this.courseID = courseID;
+        this.courseYear = courseYear;
+        this.courseSession = courseSession;
         this.courseDescription = courseDescription;
         this.courseTasks = new ArrayList<CourseTask>();
         this.courseAdmin = courseAdmin;
@@ -32,8 +35,12 @@ public class Course {
     public String getCourseName(){return courseName;}
     public String getCourseCode(){return courseCode;}
     public String getCourseDescription(){return courseDescription;}
-    public Integer getCourseID(){return courseID;}
+    // public Integer getCourseID(){return courseID;}
     public Admin getCourseAdmin(){return courseAdmin;}
+
+    public Integer getCourseYear() {return courseYear;}
+
+    public String getCourseSession() {return courseSession;}
 
     public ArrayList<Student> getStudentEnrolled() {
         return studentEnrolled;
@@ -67,4 +74,27 @@ public class Course {
         }
         else {return 0.0;}
     }
+
+    public static class courseBuilder {
+        private final String courseName;
+        private final Integer courseYear;
+        private final String courseSession
+        private ArrayList<CourseTask> courseTasks;
+        private final String courseDescription;
+        private final Admin courseAdmin;
+        private ArrayList<Student> studentEnrolled;
+
+        public void addCourseTask(CourseTask courseTask){
+            courseTasks.add(courseTask);
+        }
+
+        public void addStudent(Student student){
+            studentEnrolled.add(student);
+        }
+
+        public Course build(){
+            return new Course(this);
+        }
+    }
+
 }
