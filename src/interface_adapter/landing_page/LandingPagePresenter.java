@@ -3,6 +3,7 @@ package interface_adapter.landing_page;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.admin_landing_page.AdminLandingPageState;
 import interface_adapter.admin_landing_page.AdminLandingPageViewModel;
+import interface_adapter.student_landing_page.StudentLandingPageState;
 import interface_adapter.student_landing_page.StudentLandingPageViewModel;
 import use_case.landing_page.LandingPageOutputBoundary;
 

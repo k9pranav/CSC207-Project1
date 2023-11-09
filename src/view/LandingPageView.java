@@ -2,6 +2,7 @@ package view;
 
 
 import interface_adapter.landing_page.LandingPageController;
+import interface_adapter.landing_page.LandingPageState;
 import interface_adapter.landing_page.LandingPageViewModel;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -49,8 +50,11 @@ public class LandingPageView extends JPanel implements ActionListener, PropertyC
         this.add(buttons);
     }
 
-    public void actionPerformed(ActionEvent evt) {
-    }
     public void propertyChange(PropertyChangeEvent evt){
+        LandingPageState state = (LandingPageState) evt.getNewValue();
+    }
+
+    public void actionPerformed(ActionEvent e) {
+
     }
 }
