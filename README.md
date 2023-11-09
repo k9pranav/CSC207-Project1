@@ -81,11 +81,14 @@ Administrator:
   - String password
 
 Use Cases:
+- Student signs in
+- Admin signs in
 - Student logs in
 - Student logs out
 - Admin logs in
 - Admin logs out
 - Admin creates task for a course
+- Student creates task 
 - Student checks for the list of tasks they have
 - Student checks for the list of all of their grades
 - Student checks for the list of all of their grades in a specific course

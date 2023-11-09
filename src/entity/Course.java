@@ -6,7 +6,7 @@ public class Course {
     private final String courseName;
     private final String courseCode;
     private final Integer courseYear;
-    private final String courseSession
+    private final String courseSession;
     private ArrayList<CourseTask> courseTasks;
     private final String courseDescription;
     private final Admin courseAdmin;
@@ -14,10 +14,12 @@ public class Course {
 
     /**
      *
-     * @param courseName: the name of the Course
-     * @param courseCode: the course code of the course
-     * @param courseID: the unique id of the offering of the course
-     * @param courseDescription: description of the course
+     * @param courseName
+     * @param courseCode
+     * @param courseYear
+     * @param courseSession
+     * @param courseDescription
+     * @param courseAdmin
      */
     Course(String courseName, String courseCode, Integer courseYear, String courseSession,
            String courseDescription, Admin courseAdmin){
@@ -78,11 +80,21 @@ public class Course {
     public static class courseBuilder {
         private final String courseName;
         private final Integer courseYear;
-        private final String courseSession
+        private final String courseSession;
         private ArrayList<CourseTask> courseTasks;
         private final String courseDescription;
         private final Admin courseAdmin;
         private ArrayList<Student> studentEnrolled;
+
+        public courseBuilder(String courseName, Integer courseYear, String courseSession, String courseDescription, Admin courseAdmin,  ArrayList<Student> studentEnrolled){
+            this.courseName = courseName;
+            this.courseYear = courseYear;
+            this.courseSession = courseSession;
+            this.courseTasks = new ArrayList<CourseTask>();
+            this.courseDescription = courseDescription;
+            this.courseAdmin = courseAdmin;
+            this.studentEnrolled = new ArrayList<Student>();
+        }
 
         public void addCourseTask(CourseTask courseTask){
             courseTasks.add(courseTask);
