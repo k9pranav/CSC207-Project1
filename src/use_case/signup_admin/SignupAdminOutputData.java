@@ -8,7 +8,7 @@ public class SignupAdminOutputData {
 
     private boolean useCaseFailed;
 
-    public SignupOutputData(String firstName, String lastName,
+    public SignupAdminOutputData(String firstName, String lastName,
                             String email, boolean useCaseFailed) {
         this.firstName = firstName;
         this.lastName = lastName;

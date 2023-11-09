@@ -2,20 +2,20 @@ package use_case.signup_admin;
 
 public class SignupAdminInputData {
 
-    final private String firstName;
-    final private String lastName;
+    private final String firstName;
+    private final String lastName;
 
-    final private String password;
-    final private String repeatPassword;
+    private final String password;
+    private final String repeatPassword;
 
     private final String email;
 
-    public SignupInputData(String firstName, String lastName,
-                           String Password, String repeatPassword,
-                           String email) {
+    public SignupAdminInputData(String firstName, String lastName,
+                                String password, String repeatPassword,
+                                String email) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.Password = Password;
+        this.password = password;
         this.repeatPassword = repeatPassword;
         this.email = email;
     }

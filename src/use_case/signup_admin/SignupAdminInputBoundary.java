@@ -1,5 +1,5 @@
 package use_case.signup_admin;
 
 public interface SignupAdminInputBoundary {
-    void execute (SignupInputData signupInputData);
+    void execute (SignupAdminInputData signupInputData);
 }

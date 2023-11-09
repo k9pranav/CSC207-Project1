@@ -2,7 +2,7 @@ package use_case.signup_admin;
 
 public interface SignupAdminOutputBoundary {
 
-    void prepareSuccessView(SignupOutputData admin);
+    void prepareSuccessView(SignupAdminOutputData admin);
 
     void prepareFailView(String error);
 }

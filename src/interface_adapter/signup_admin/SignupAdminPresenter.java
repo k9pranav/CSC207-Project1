@@ -1,4 +1,6 @@
 package interface_adapter.signup_admin;
 
-public class SignupAdminPresenter {
-}
+import use_case.signup_admin.SignupAdminOutputBoundary;
+import use_case.signup_admin.SignupAdminOutputData;
+
+
