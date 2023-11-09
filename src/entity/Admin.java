@@ -53,4 +53,6 @@ public class Admin implements Person{
     public ArrayList<String> getCourses(){
         return null;
     }
+
+    public String getCalendarId () {return Calendar.getId();}
 }
