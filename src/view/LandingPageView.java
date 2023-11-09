@@ -2,6 +2,9 @@ package view;
 
 import interface_adapter.*;
 
+import interface_adapter.signup_student.SignupStudentController;
+import interface_adapter.signup_admin.SignupAdminController;
+import interface_adapter.landing_page.LandingPageViewModel;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -18,15 +21,16 @@ public class LandingPageView {
     private final JButton student;
     private final JButton admin;
 
-    public LandingPageView(StudentSignupController studentSignupController, AdminSignupController adminSignupController, LandingPageViewModel landingPageViewModel){
-        this.landingPageController = controller;
+    public LandingPageView(SignupStudentController studentSignupController, SignupAdminController adminSignupController, LandingPageViewModel landingPageViewModel){
+        this.studentSignupController = studentSignupController;
+        this.adminSignupController = adminSignupController;
         this.landingPageViewModel = landingPageViewModel;
         landingPageViewModel.addPropertyChangeListener(this);
 
         JPanel buttons = new JPanel();
         student = new JButton(landingPageViewModel.STUDENT_BUTTON_LABEL);
         buttons.add(student);
-        admin = new JButton(signupViewModel.ADMIN_BUTTON_LABEL);
+        admin = new JButton(landingPageViewModel.ADMIN_BUTTON_LABEL);
         buttons.add(admin);
 
         student.addActionListener(
