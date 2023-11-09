@@ -1,7 +1,10 @@
 package interface_adapter.signup_admin;
 
-public class SignupAdminController {
-    public void execute(){
+import use_case.signup_admin.SignupAdminInputBoundary;
+import use_case.signup_admin.SignupAdminInputData;
 
-    }
+public class SignupAdminController {
+
+
+
 }
