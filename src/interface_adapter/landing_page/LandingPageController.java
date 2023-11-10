@@ -1,10 +1,11 @@
 package interface_adapter.landing_page;
+import use_case.landing_page.LandingPageInputBoundary;
 import use_case.landing_page.LandingPageUseCaseInteractor;
 
 public class LandingPageController {
-    private final LandingPageUseCaseInteractor landingPageUseCaseInteractor;
+    private final LandingPageInputBoundary landingPageUseCaseInteractor;
 
-    public LandingPageController(LandingPageUseCaseInteractor landingPageUseCaseInteractor){
+    public LandingPageController(LandingPageInputBoundary landingPageUseCaseInteractor){
         this.landingPageUseCaseInteractor = landingPageUseCaseInteractor;
     }
     public void execute(String userType){
