@@ -1,6 +1,8 @@
 package interface_adapter.admin_landing_page;
 
 import interface_adapter.ViewManagerModel;
+import interface_adapter.login_admin.LoginAdminState;
+import interface_adapter.login_admin.LoginAdminViewModel;
 import interface_adapter.signup_admin.SignupAdminState;
 import interface_adapter.signup_admin.SignupAdminViewModel;
 import use_case.admin_landing_page.AdminLandingPageOutputBoundary;
@@ -28,8 +30,8 @@ public class AdminLandingPagePresenter implements AdminLandingPageOutputBoundary
     }
     @Override
     public void prepareLoginLandingPage(){
-        SignupAdminState loginState = loginViewModel.getState();
-        this.loginViewModel.setState(signupState);
+        LoginAdminState loginState = loginViewModel.getState();
+        this.loginViewModel.setState(loginState);
         loginViewModel.firePropertyChanged();
         viewManagerModel.setActiveView(loginViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
