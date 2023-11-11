@@ -84,6 +84,41 @@ public class AdminSignupView extends JPanel implements ActionListener, PropertyC
                     }
                 });
 
+        firstNameInputField.addKeyListener(
+                new KeyListener() {
+                    @Override
+                    public void keyTyped(KeyEvent e) {
+                        SignupAdminState currentState = signupViewModel.getState();
+                        currentState.setFirstName(firstNameInputField.getText() + e.getKeyChar());
+                        signupViewModel.setState(currentState);
+                    }
+
+                    @Override
+                    public void keyPressed(KeyEvent e) {
+                    }
+
+                    @Override
+                    public void keyReleased(KeyEvent e) {
+                    }
+                });
+
+        lastNameInputField.addKeyListener(
+                new KeyListener() {
+                    @Override
+                    public void keyTyped(KeyEvent e) {
+                        SignupAdminState currentState = signupViewModel.getState();
+                        currentState.setLastName(lastNameInputField.getText() + e.getKeyChar());
+                        signupViewModel.setState(currentState);
+                    }
+
+                    @Override
+                    public void keyPressed(KeyEvent e) {
+                    }
+
+                    @Override
+                    public void keyReleased(KeyEvent e) {
+                    }
+                });
         repeatPasswordInputField.addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent e) {
@@ -126,6 +161,8 @@ public class AdminSignupView extends JPanel implements ActionListener, PropertyC
 
         this.add(title);
         this.add(usernameInfo);
+        this.add(firstNameInfo);
+        this.add(lastNameInfo);
         this.add(passwordInfo);
         this.add(repeatPasswordInfo);
         this.add(buttons);
@@ -135,7 +172,6 @@ public class AdminSignupView extends JPanel implements ActionListener, PropertyC
      * React to a button click that results in evt.
      */
     public void actionPerformed(ActionEvent evt) {
-        System.out.println("Cancel not implemented yet.");
     }
 
     @Override
@@ -143,6 +179,12 @@ public class AdminSignupView extends JPanel implements ActionListener, PropertyC
         SignupAdminState state = (SignupAdminState) evt.getNewValue();
         if (state.getEmailError() != null) {
             JOptionPane.showMessageDialog(this, state.getEmailError());
+        }
+        else if (state.getFirstNameError() != null){
+            JOptionPane.showMessageDialog(this, state.getFirstNameError());
+        }
+        else if (state.getLastNameError() != null){
+            JOptionPane.showMessageDialog(this, state.getLastNameError());
         }
     }
 }
