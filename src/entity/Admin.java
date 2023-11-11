@@ -11,15 +11,18 @@ public class Admin implements Person{
 
     private final String repeatPassword;
 
+    private final String id;
+
     private final String email;
 
     public ArrayList<Course> coursesList = new ArrayList<>();
 
-    public Admin(String firstName, String lastName, String password, String repeatPassword, String email) {
+    public Admin(String firstName, String lastName, String password, String id, String repeatPassword, String email) {
         super();
         this.firstName = firstName;
         this.lastName = lastName;
         this.password = password;
+        this.id = id;
         this.repeatPassword = repeatPassword;
         this.email = email;
     }
@@ -43,6 +46,8 @@ public class Admin implements Person{
     public String getRepeatPassword() {
         return repeatPassword;
     }
+
+    public String get_person_ID(){return id;}
 
     @Override
     public String getEmail() {
