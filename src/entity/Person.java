@@ -9,8 +9,6 @@ public interface Person {
 
     String getPassword();
 
-    String get_person_ID();
-
     String getRepeatPassword();
 
     String getEmail();

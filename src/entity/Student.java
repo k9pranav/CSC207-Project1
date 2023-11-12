@@ -12,8 +12,6 @@ public class Student implements Person{
 
     private final String lastName;
 
-    private final String id;
-
     private final String password;
 
     private final String repeatPassword;
@@ -26,11 +24,10 @@ public class Student implements Person{
 
     public Dictionary<String, Integer> studentGrades = new Hashtable<>();
 
-    public Student(String firstName, String lastName, String ID, String password, String repeatPassword, String email) {
+    public Student(String firstName, String lastName, String password, String repeatPassword, String email) {
         super();
         this.firstName = firstName;
         this.lastName = lastName;
-        this.id = ID;
         this.password = password;
         this.repeatPassword = repeatPassword;
         this.email = email;
@@ -60,8 +57,6 @@ public class Student implements Person{
     public String getPassword() {
         return password;
     }
-
-    public String get_person_ID(){return id;}
 
     @Override
     public String getRepeatPassword() {
