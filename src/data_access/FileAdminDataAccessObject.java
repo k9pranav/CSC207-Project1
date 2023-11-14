@@ -3,7 +3,7 @@ package data_access;
 import entity.Admin;
 import entity.AdminFactory;
 
-import use_case.signup_admin.SignUpAdminDataAccessInterface;
+import use_case.signup_admin.SignupAdminDataAccessInterface;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -19,7 +19,36 @@ import java.util.Map;
 //Need to reconsider whether to use Json or CSV
 //The only concern with CSV is that a person can be admin of multiple courses
 //There is no limit to the courses an admin object administrates
-public class FileAdminDataAccessObject implements SignUpAdminDataAccessInterface {
+
+//Need to reconsider whether to use Json or CSV
+//The only concern with CSV is that a person can be admin of multiple courses
+//There is no limit to the courses an admin object administrates
+//Using JSON files
+// The Structure of JSON files would be:
+
+/*
+  { "Admins":
+    [
+     {"firstname":Pranav,
+      "lastname":Kansal,
+      "password": somePassword,
+      "repeatpassword": somePassword,
+      "email": someEmail,
+      "courseList": [courseObject1, courseObject2, courseObject2]
+      },
+     {"firstname":Pranav,
+      "lastname":Kansal,
+      "password": somePassword,
+      "repeatpassword": somePassword,
+      "email": someEmail,
+      "courseList": [courseObject1, courseObject2, courseObject2]
+      }
+    ]
+  }
+*/
+
+
+public class FileAdminDataAccessObject implements SignupAdminDataAccessInterface {
 
     private final JSONObject jsonObject;
 
@@ -32,4 +61,13 @@ public class FileAdminDataAccessObject implements SignUpAdminDataAccessInterface
     }
 
 
+    @Override
+    public boolean existsByEmail(String email) {
+        return false;
+    }
+
+    @Override
+    public void save(Admin admin) {
+
+    }
 }
