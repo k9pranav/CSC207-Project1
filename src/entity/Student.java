@@ -14,8 +14,6 @@ public class Student implements Person{
 
     private final String password;
 
-    private final String repeatPassword;
-
     private final String email;
 
     private final CreateCalendar Calendar;
@@ -24,12 +22,11 @@ public class Student implements Person{
 
     public Dictionary<String, Integer> studentGrades = new Hashtable<>();
 
-    public Student(String firstName, String lastName, String password, String repeatPassword, String email) {
+    public Student(String firstName, String lastName, String password, String email) {
         super();
         this.firstName = firstName;
         this.lastName = lastName;
         this.password = password;
-        this.repeatPassword = repeatPassword;
         this.email = email;
 
         com.google.api.services.calendar.model.Calendar calendar = new
@@ -56,11 +53,6 @@ public class Student implements Person{
     @Override
     public String getPassword() {
         return password;
-    }
-
-    @Override
-    public String getRepeatPassword() {
-        return repeatPassword;
     }
 
     @Override
