@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.Dictionary;
 import java.util.Hashtable;
 
-
 public class Student implements Person{
     private final String firstName;
 
@@ -15,9 +14,6 @@ public class Student implements Person{
     private final String password;
 
     private final String email;
-
-    private final CreateCalendar Calendar;
-
     public ArrayList<Course> coursesList = new ArrayList<>();
 
     public Dictionary<String, Integer> studentGrades = new Hashtable<>();
@@ -28,16 +24,6 @@ public class Student implements Person{
         this.lastName = lastName;
         this.password = password;
         this.email = email;
-
-        com.google.api.services.calendar.model.Calendar calendar = new
-                com.google.api.services.calendar.model.Calendar();
-        calendar.setSummary(email);
-        calendar.setTimeZone("America/Toronto");
-        com.google.api.services.calendar.model.Calendar createdCalendar =
-                service.calendars().insert(calendar).execute();
-
-        this.Calendar = createdCalendar;
-
     }
 
     @Override
@@ -67,7 +53,4 @@ public class Student implements Person{
     public Dictionary<String, Integer> getStudentGrades(){
         return studentGrades;
     }
-
-    //Gets the id for the user's google calendar
-    public String getCalendarId () {return Calendar.getId();}
 }

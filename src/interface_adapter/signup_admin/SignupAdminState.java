@@ -54,8 +54,9 @@ public class SignupAdminState {
     public void setRepeatPassword(String repeatPassword){this.repeatPassword = repeatPassword;}
     public void setRepeatPasswordError(String repeatPasswordError){this.repeatPasswordError
             = repeatPasswordError;}
-    public void getEmail(String email){this.email = email;}
+    public void setEmail(String email){this.email = email;}
     public void getEmailError(String emailError) {this.emailError = emailError;}
+
 
     public String toString() {
         return "SignupState{" +

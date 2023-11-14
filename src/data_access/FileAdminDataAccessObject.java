@@ -28,7 +28,7 @@ public class FileAdminDataAccessObject implements SignUpAdminDataAccessInterface
     public FileAdminDataAccessObject(String jsonPath, AdminFactory adminFactory)
             throws IOException {
 
-        jsonObject = new JSONObject()
+        jsonObject = new JSONObject();
     }
 
 
