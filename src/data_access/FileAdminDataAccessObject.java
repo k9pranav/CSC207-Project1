@@ -7,8 +7,8 @@ import use_case.signup_admin.SignupAdminDataAccessInterface;
 
 import java.io.FileWriter;
 import java.io.IOException;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.io.*;
 import java.time.LocalDateTime;
@@ -45,7 +45,7 @@ public class FileAdminDataAccessObject implements SignupAdminDataAccessInterface
     private AdminFactory adminFactory;
 
     private final Map<String,Integer> headers = new LinkedHashMap<>();
-    // headers stores what index each header is in in the JSON file
+    // headers stores what index each header is in, in the JSON file
     private final Map<String, Admin> accounts = new HashMap<>();
     //list of all the admin accounts mapped email -> entity
     private static final String APPLICATION_NAME = "Creamy GOATS";
@@ -56,12 +56,12 @@ public class FileAdminDataAccessObject implements SignupAdminDataAccessInterface
 
     private static final List<String> SCOPES =
             Collections.singletonList(CalendarScopes.CALENDAR);
-    private static final String CREDENTIALS_FILE_PATH = "/credentials.json";
+    private static final String CREDENTIALS_FILE_PATH = "main/resources/credentials.json";
 
     public FileAdminDataAccessObject(AdminFactory adminFactory){
         this.adminFactory = adminFactory;
         jsonObject = new JSONObject();
-        // headers might not be necessary:
+        // headers might not be necessary, but shows the order of the columns in JSON file
         headers.put("firstname", 0);
         headers.put("lastname", 1);
         headers.put("password", 2);
@@ -69,12 +69,13 @@ public class FileAdminDataAccessObject implements SignupAdminDataAccessInterface
         headers.put("calendarId", 4);
         headers.put("courseList", 5);
 
+
         // read the file, create user for each user in file and add user to accounts
     }
     private static Credential getCredentials(final NetHttpTransport HTTP_TRANSPORT)
             throws IOException {
         // Load client secrets.
-        InputStream in = AddEvent.class.getResourceAsStream(CREDENTIALS_FILE_PATH);
+        InputStream in = FileAdminDataAccessObject.class.getResourceAsStream(CREDENTIALS_FILE_PATH);
         if (in == null) {
             throw new FileNotFoundException("Resource not found: " + CREDENTIALS_FILE_PATH);
         }
@@ -92,7 +93,7 @@ public class FileAdminDataAccessObject implements SignupAdminDataAccessInterface
         //returns an authorized Credential object.
         return credential;
     }
-    public void createCalendar(Admin admin){
+    public void createCalendar(Admin admin) {
         // use case interactor calls this method when a person signs up to add calendar to new user
         final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
 
