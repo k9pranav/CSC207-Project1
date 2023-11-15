@@ -15,6 +15,8 @@ public class Admin implements Person{
 
     public ArrayList<Course> coursesList = new ArrayList<>();
 
+    private String calendarID;
+
     public Admin(String firstName, String lastName, String password, String repeatPassword, String email) {
         super();
         this.firstName = firstName;
@@ -39,7 +41,6 @@ public class Admin implements Person{
         return password;
     }
 
-    @Override
     public String getRepeatPassword() {
         return repeatPassword;
     }
@@ -54,5 +55,7 @@ public class Admin implements Person{
         return null;
     }
 
-    public String getCalendarId () {return Calendar.getId();}
+    public void setCalendarID(String id){this.calendarID = id;}
+
+    public String getCalendarId () {return this.calendarID;}
 }

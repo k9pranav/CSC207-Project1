@@ -6,4 +6,6 @@ public interface SignupAdminDataAccessInterface {
     boolean existsByEmail(String email);
 
     void save(Admin admin);
+
+    void createCalendar(Admin admin);
 }

@@ -2,7 +2,8 @@ package use_case.signup_student;
 
 import entity.Student;
 import entity.StudentFactory;
-import use_case.signup_admin.SignupAdminOutputData;
+import use_case.signup_student.SignupStudentOutputData;
+import use_case.signup_student.SignupStudentOutputBoundary;
 
 public class SignupStudentInteractor implements SignupStudentInputBoundary{
     final SignupStudentDataAccessInterface userDataAccessObject;
@@ -52,16 +53,15 @@ public class SignupStudentInteractor implements SignupStudentInputBoundary{
     public void execute(SignupStudentInputData signupStudentInputData) {
         if (studentDataAccessObject.existsByEmail(signupStudentInputData.getEmail())) {
             studentPresenter.prepareFailView("User already exists.");
-        } else if (!signupStudentInputData.getPassword().equals(signupStudentInputData.getRepeatPassword())) {
+        } else if (!signupStudentInputData.getPassword().equals(signupStudentInputData.getRepeatPassword()))
             studentPresenter.prepareFailView("Passwords don't match.");
         } else {
 
-            LocalDateTime now = LocalDateTime.now();
-            Student student = (Student) studentFactory.create(signupStudentInputData.getEmail(), signupStudentInputData.getPassword(), now);
+            Student student = (Student) studentFactory.create(signupStudentInputData.getEmail(), signupStudentInputData.getPassword(), signupStudentInputData.getRepeatPassword(), signupStudentInputData.getEmail());
             studentDataAccessObject.save(student);
 
             SignupStudentOutputData signupStudentOutputData = new SignupStudentOutputData(student.getFirstName(), now.toString(), false);
             studentPresenter.prepareSuccessView(signupStudentOutputData);
         }
     }
-}
+}}
