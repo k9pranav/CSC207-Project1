@@ -39,8 +39,6 @@ public class FileAdminDataAccessObject implements SignupAdminDataAccessInterface
 
     private AdminFactory adminFactory;
 
-    private final Map<String,Integer> headers = new LinkedHashMap<>();
-    // headers stores what index each header is in, in the JSON file
     private final Map<String, Admin> accounts = new HashMap<>();
     //list of all the admin accounts mapped email -> entity
     private static final String APPLICATION_NAME = "Creamy GOATS";
@@ -61,14 +59,6 @@ public class FileAdminDataAccessObject implements SignupAdminDataAccessInterface
         File jsonFile = new File(pathToFile);
         this.jsonObject = new JSONObject(jsonFile);
         // the JSON file with all the admins
-
-        // headers might not be necessary, but shows the order of the columns in JSON file
-        headers.put("firstname", 0);
-        headers.put("lastname", 1);
-        headers.put("password", 2);
-        headers.put("email", 3);
-        headers.put("calendarId", 4);
-        headers.put("courseList", 5);
 
         try {
             JSONArray admins = jsonObject.getJSONArray("admins");
@@ -138,8 +128,7 @@ public class FileAdminDataAccessObject implements SignupAdminDataAccessInterface
 
     private void save() throws IOException{
         for (Admin admin : accounts.values()){
-            // new json object (I think)
-            JSONObject jsonObj = new JSONObject()
+            JSONObject jsonObj = new JSONObject();
             jsonObj.put("firstname", admin.getFirstName());
             jsonObj.put("lastname", admin.getLastName());
             jsonObj.put("password", admin.getPassword());
