@@ -116,7 +116,7 @@ public class FileAdminDataAccessObject implements SignupAdminDataAccessInterface
     }
 
     @Override
-    public void save(Admin admin) {
+    public void save(Admin admin) throws IOException {
         accounts.put(admin.getEmail(), admin);
         this.save();
     }
@@ -130,8 +130,8 @@ public class FileAdminDataAccessObject implements SignupAdminDataAccessInterface
             jsonObject.put("calendarId", admin.getCalendarId());
             jsonObject.put("courseList", admin.getCourses());
         }
-        fileWriter file = new FileWriter("path-to-file", false);
-        file.write(jsonObject.toJSONString());
+        FileWriter file = new FileWriter("path-to-file", false);
+        file.write(jsonObject.toString());
         file.close();
     }
 }
