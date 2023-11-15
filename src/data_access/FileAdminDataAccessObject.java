@@ -13,7 +13,6 @@ import org.json.JSONObject;
 
 import java.security.GeneralSecurityException;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.Map;
 
 import com.google.api.client.auth.oauth2.Credential;
@@ -60,21 +59,26 @@ public class FileAdminDataAccessObject implements SignupAdminDataAccessInterface
         this.jsonObject = new JSONObject(jsonFile);
         // the JSON file with all the admins
 
-        try {
-            JSONArray admins = jsonObject.getJSONArray("admins");
-            for (int i = 0; i < admins.length(); i++) {
-                JSONObject j = new JSONObject(admins.get(i));
-                String firstName = (String) j.get("firstName");
-                String lastName = (String) j.get("lastName");
-                String password = (String) j.get("password");
-                String repeatPassword = (String) j.get("password");
-                String email = (String) j.get("email");
-                Admin admin = adminFactory.create(firstName, lastName, password, repeatPassword, email);
-                accounts.put(admin.getEmail(), admin);
+        if (jsonFile.length() == 0){
+            jsonObject.put("admins", new JSONArray());
+            save();
+        }else {
+            try {
+                JSONArray admins = jsonObject.getJSONArray("admins");
+                for (int i = 0; i < admins.length(); i++) {
+                    JSONObject j = new JSONObject(admins.get(i));
+                    String firstName = (String) j.get("firstName");
+                    String lastName = (String) j.get("lastName");
+                    String password = (String) j.get("password");
+                    String repeatPassword = (String) j.get("password");
+                    String email = (String) j.get("email");
+                    Admin admin = adminFactory.create(firstName, lastName, password, repeatPassword, email);
+                    accounts.put(admin.getEmail(), admin);
+                }
+                // the file has emails as the key and then a list of JSON files for each admin
+            } catch (JSONException e) {
+                throw new RuntimeException(e);
             }
-            // the file has emails as the key and then a list of JSON files for each admin
-        } catch (JSONException e) {
-            throw new RuntimeException(e);
         }
     }
         private static Credential getCredentials(final NetHttpTransport HTTP_TRANSPORT)
@@ -135,7 +139,7 @@ public class FileAdminDataAccessObject implements SignupAdminDataAccessInterface
             jsonObj.put("email", admin.getEmail());
             jsonObj.put("calendarId", admin.getCalendarId());
             jsonObj.put("courseList", admin.getCourses());
-            JSONArray adminUpdated = jsonObject.getJSONArray("admins").append(jsonObj);
+            JSONArray adminUpdated = jsonObject.getJSONArray("admins").put(jsonObj);
             jsonObject.put("admins", adminUpdated);
         }
         FileWriter file = new FileWriter(pathToFile, false);
