@@ -3,12 +3,16 @@ package data_access;
 import entity.Admin;
 import entity.AdminFactory;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import use_case.signup_admin.SignupAdminDataAccessInterface;
 
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
+
 import org.json.JSONObject;
 
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.security.GeneralSecurityException;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -27,9 +31,6 @@ import com.google.api.client.util.store.FileDataStoreFactory;
 import com.google.api.services.calendar.Calendar;
 import com.google.api.services.calendar.CalendarScopes;
 
-import java.io.FileNotFoundException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.Collections;
 import java.util.List;
 
@@ -54,9 +55,14 @@ public class FileAdminDataAccessObject implements SignupAdminDataAccessInterface
             Collections.singletonList(CalendarScopes.CALENDAR);
     private static final String CREDENTIALS_FILE_PATH = "main/resources/credentials.json";
 
-    public FileAdminDataAccessObject(AdminFactory adminFactory){
+    private final String pathToFile;
+    public FileAdminDataAccessObject(String pathToFile, AdminFactory adminFactory) throws IOException {
+
         this.adminFactory = adminFactory;
+        this.pathToFile = pathToFile;
         jsonObject = new JSONObject();
+        File jsonFile = new File(pathToFile); // the JSON file with all the admins
+
         // headers might not be necessary, but shows the order of the columns in JSON file
         headers.put("firstname", 0);
         headers.put("lastname", 1);
@@ -65,10 +71,25 @@ public class FileAdminDataAccessObject implements SignupAdminDataAccessInterface
         headers.put("calendarId", 4);
         headers.put("courseList", 5);
 
-
-        // read the file, create user for each user in file and add user to accounts
+        try {
+            JSONObject o = new JSONObject(jsonFile);
+            JSONArray emails = o.getJSONArray("emails");
+            for (int i = 0; i < emails.length(); i++) {
+                JSONObject j = new JSONObject(emails.get(i));
+                String firstName = (String) j.get("firstName");
+                String lastName = (String) j.get("lastName");
+                String password = (String) j.get("password");
+                String repeatPassword = (String) j.get("password");
+                String email = (String) j.get("email");
+                Admin admin = adminFactory.create(firstName, lastName, password, repeatPassword, email);
+                accounts.put(admin.getEmail(), admin);
+            }
+            // the file has emails as the key and then a list of JSON files for each admin
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
     }
-    private static Credential getCredentials(final NetHttpTransport HTTP_TRANSPORT)
+        private static Credential getCredentials(final NetHttpTransport HTTP_TRANSPORT)
             throws IOException {
         // Load client secrets.
         InputStream in = FileAdminDataAccessObject.class.getResourceAsStream(CREDENTIALS_FILE_PATH);
@@ -126,7 +147,7 @@ public class FileAdminDataAccessObject implements SignupAdminDataAccessInterface
             jsonObject.put("calendarId", admin.getCalendarId());
             jsonObject.put("courseList", admin.getCourses());
         }
-        FileWriter file = new FileWriter("path-to-file", false);
+        FileWriter file = new FileWriter(pathToFile, false);
         file.write(jsonObject.toString());
         file.close();
     }
