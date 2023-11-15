@@ -7,11 +7,9 @@ import use_case.signup_admin.SignupAdminDataAccessInterface;
 
 import java.io.FileWriter;
 import java.io.IOException;
-import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.io.*;
-import java.time.LocalDateTime;
+import java.security.GeneralSecurityException;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -30,10 +28,8 @@ import com.google.api.services.calendar.Calendar;
 import com.google.api.services.calendar.CalendarScopes;
 
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.security.GeneralSecurityException;
 import java.util.Collections;
 import java.util.List;
 
@@ -93,7 +89,7 @@ public class FileAdminDataAccessObject implements SignupAdminDataAccessInterface
         //returns an authorized Credential object.
         return credential;
     }
-    public void createCalendar(Admin admin) {
+    public void createCalendar(Admin admin) throws IOException, GeneralSecurityException {
         // use case interactor calls this method when a person signs up to add calendar to new user
         final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
 
