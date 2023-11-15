@@ -11,8 +11,6 @@ import java.io.*;
 
 import org.json.JSONObject;
 
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.security.GeneralSecurityException;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -60,8 +58,9 @@ public class FileAdminDataAccessObject implements SignupAdminDataAccessInterface
 
         this.adminFactory = adminFactory;
         this.pathToFile = pathToFile;
-        jsonObject = new JSONObject();
-        File jsonFile = new File(pathToFile); // the JSON file with all the admins
+        File jsonFile = new File(pathToFile);
+        this.jsonObject = new JSONObject(jsonFile);
+        // the JSON file with all the admins
 
         // headers might not be necessary, but shows the order of the columns in JSON file
         headers.put("firstname", 0);
@@ -72,10 +71,9 @@ public class FileAdminDataAccessObject implements SignupAdminDataAccessInterface
         headers.put("courseList", 5);
 
         try {
-            JSONObject o = new JSONObject(jsonFile);
-            JSONArray emails = o.getJSONArray("emails");
-            for (int i = 0; i < emails.length(); i++) {
-                JSONObject j = new JSONObject(emails.get(i));
+            JSONArray admins = jsonObject.getJSONArray("admins");
+            for (int i = 0; i < admins.length(); i++) {
+                JSONObject j = new JSONObject(admins.get(i));
                 String firstName = (String) j.get("firstName");
                 String lastName = (String) j.get("lastName");
                 String password = (String) j.get("password");
@@ -140,12 +138,16 @@ public class FileAdminDataAccessObject implements SignupAdminDataAccessInterface
 
     private void save() throws IOException{
         for (Admin admin : accounts.values()){
-            jsonObject.put("firstname", admin.getFirstName());
-            jsonObject.put("lastname", admin.getLastName());
-            jsonObject.put("password", admin.getPassword());
-            jsonObject.put("email", admin.getEmail());
-            jsonObject.put("calendarId", admin.getCalendarId());
-            jsonObject.put("courseList", admin.getCourses());
+            // new json object (I think)
+            JSONObject jsonObj = new JSONObject()
+            jsonObj.put("firstname", admin.getFirstName());
+            jsonObj.put("lastname", admin.getLastName());
+            jsonObj.put("password", admin.getPassword());
+            jsonObj.put("email", admin.getEmail());
+            jsonObj.put("calendarId", admin.getCalendarId());
+            jsonObj.put("courseList", admin.getCourses());
+            JSONArray adminUpdated = jsonObject.getJSONArray("admins").append(jsonObj);
+            jsonObject.put("admins", adminUpdated);
         }
         FileWriter file = new FileWriter(pathToFile, false);
         file.write(jsonObject.toString());
