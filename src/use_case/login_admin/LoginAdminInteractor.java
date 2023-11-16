@@ -33,6 +33,10 @@ public class LoginAdminInteractor implements LoginAdminInputBoundary {
         }
 
     }
+
+    public void executeCancel(){
+        // for the cancel button
+    }
 }
 
 

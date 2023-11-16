@@ -53,7 +53,9 @@ public class AdminLoginView extends JPanel implements ActionListener, PropertyCh
                 new ActionListener(){
                     public void actionPerformed(ActionEvent evt){
                         if (evt.getSource().equals(logIn)){
-                            adminLoginController.execute("login");
+                            adminLoginController.execute("login",
+                                    loginViewModel.getState().getUsername(),
+                                    loginViewModel.getState().getPassword());
                         }
                     }
                 }
@@ -62,7 +64,7 @@ public class AdminLoginView extends JPanel implements ActionListener, PropertyCh
                 new ActionListener(){
                     public void actionPerformed(ActionEvent evt){
                         if (evt.getSource().equals(cancel)){
-                            adminLoginController.execute("cancel");
+                            adminLoginController.execute("cancel", "", "");
                         }
                     }
                 }
