@@ -1,12 +1,12 @@
 package use_case.login_admin;
 
 import entity.Admin;
+import use_case.landing_page.LandingPageOutputBoundary;
 
 public class LoginAdminInteractor implements LoginAdminInputBoundary {
     final LoginAdminDataAccessInterface adminDataAccessObject;
 
     final LoginAdminOutputBoundary loginAdminPresenter;
-
     public LoginAdminInteractor(LoginAdminDataAccessInterface adminDataAccessObject, LoginAdminOutputBoundary loginAdminOutputBoundary) {
         this.adminDataAccessObject = adminDataAccessObject;
         this.loginAdminPresenter = loginAdminOutputBoundary;
@@ -35,7 +35,7 @@ public class LoginAdminInteractor implements LoginAdminInputBoundary {
     }
 
     public void executeCancel(){
-        // for the cancel button
+        loginAdminPresenter.prepareCancelView();
     }
 }
 
