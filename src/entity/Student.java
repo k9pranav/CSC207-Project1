@@ -1,6 +1,5 @@
 package entity;
 
-import com.google.api.services.calendar.Calendar;
 
 import java.util.ArrayList;
 import java.util.Dictionary;
@@ -14,6 +13,8 @@ public class Student implements Person{
     private final String password;
 
     private final String email;
+
+    private String calendarId;
     public ArrayList<Course> coursesList = new ArrayList<>();
 
     public Dictionary<String, Integer> studentGrades = new Hashtable<>();
@@ -45,6 +46,13 @@ public class Student implements Person{
     public String getEmail() {
         return email;
     }
+
+    public void setCalendarId(String calendarId) {
+        this.calendarId = calendarId;
+    }
+
+    public String getCalendarId(){return this.calendarId;}
+
     @Override
     public ArrayList<String> getCourses(){
         return null; // TODO: implement this

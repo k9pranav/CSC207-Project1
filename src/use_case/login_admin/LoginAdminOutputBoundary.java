@@ -4,4 +4,6 @@ public interface LoginAdminOutputBoundary {
     void prepareSuccessView(LoginAdminOutputData admin);
 
     void prepareFailView(String error);
+
+    void prepareCancelView();
 }
