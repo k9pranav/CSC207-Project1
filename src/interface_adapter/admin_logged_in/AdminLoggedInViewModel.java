@@ -1,8 +1,7 @@
 package interface_adapter.admin_logged_in;
 
 public class AdminLoggedInViewModel {
-    public AdminLoggedInState getState() {
-    }
+    public AdminLoggedInState getState() {return new AdminLoggedInState();}
 
     public void setState(AdminLoggedInState loggedInState) {
     }
@@ -10,6 +9,6 @@ public class AdminLoggedInViewModel {
     public void firePropertyChanged() {
     }
 
-    public String getViewName() {
+    public String getViewName() {return "";
     }
 }
