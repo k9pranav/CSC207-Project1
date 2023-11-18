@@ -102,7 +102,7 @@ public class StudentTasksView extends JPanel implements ActionListener, Property
         this.add(secondButtonPanel);
     }
 
-    public void actionPerformed(ActionEvent evt){System.out.println("Click" + evt.getActionCommand());)}
+    public void actionPerformed(ActionEvent evt){System.out.println("Click" + evt.getActionCommand());}
 
     public void propertyChange(PropertyChangeEvent evt){}
 
