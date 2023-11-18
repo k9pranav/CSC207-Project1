@@ -21,6 +21,7 @@ public class StudentTasksView extends JPanel implements ActionListener, Property
     public final String viewName = "student tasks page";
     private final StudentTasksViewModel taskViewModel;
     private final StudentTasksController taskController;
+    private final ArrayList<entity.Task> allTasks;
     final JButton newStudentTask;
 
     final JButton exit;
@@ -41,6 +42,7 @@ public class StudentTasksView extends JPanel implements ActionListener, Property
 
         // make JList with tasks
         ArrayList<entity.Task> allTasks = student.getTasks();
+        this.allTasks = allTasks;
         String[] str = new String[allTasks.size()];
         for (int i = 0; i < allTasks.size(); i++) {
             str[i] = allTasks.get(i).getTaskName();
@@ -70,7 +72,7 @@ public class StudentTasksView extends JPanel implements ActionListener, Property
             public void mouseClicked(MouseEvent e) {
                 if (e.getClickCount() == 2) {
                     // Double-click detected
-                    taskController.execute(tasks.getSelectedValue());
+                    taskController.executeTask(tasks.getSelectedValue(), taskViewModel.getState().getLoggedInUser());
                 }
             }
         });
