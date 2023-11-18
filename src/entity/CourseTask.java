@@ -31,6 +31,8 @@ public class CourseTask extends Task implements CreateCourseTask {
     @Override
     public void setWeight(Float newWeight){taskWeight = newWeight;}
 
+    public Float getWeight(){return taskWeight;}
+
     @Override
     public void setDeadline(SimpleDateFormat newDeadline) {
         deadLine = newDeadline;

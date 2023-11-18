@@ -54,6 +54,16 @@ public class Student implements Person{
 
     public ArrayList<Task> getTasks(){return tasks;}
 
+    public Task getTaskFromName(String taskName){
+        Task currentTask = null;
+        for (int i = 0; i < tasks.size(); i++) {
+            if ((taskName).equals(tasks.get(i).getTaskName())){
+                currentTask = tasks.get(i);
+            }
+        }
+        return currentTask;
+    }
+
     public void setCalendarId(String calendarId) {
         this.calendarId = calendarId;
     }
