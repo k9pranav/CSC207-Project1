@@ -17,6 +17,8 @@ public class Student implements Person{
     private String calendarId;
     public ArrayList<Course> coursesList = new ArrayList<>();
 
+    private ArrayList<Task> tasks;
+
     public Dictionary<String, Integer> studentGrades = new Hashtable<>();
 
     public Student(String firstName, String lastName, String password, String email) {
@@ -25,6 +27,7 @@ public class Student implements Person{
         this.lastName = lastName;
         this.password = password;
         this.email = email;
+        this.tasks = new ArrayList<>();
     }
 
     @Override
@@ -46,6 +49,10 @@ public class Student implements Person{
     public String getEmail() {
         return email;
     }
+
+    public void setTask(StudentTask task){this.tasks.add(task);}
+
+    public ArrayList<Task> getTasks(){return tasks;}
 
     public void setCalendarId(String calendarId) {
         this.calendarId = calendarId;

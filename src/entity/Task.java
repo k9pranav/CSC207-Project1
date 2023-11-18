@@ -2,7 +2,7 @@ package entity;
 
 import java.text.SimpleDateFormat;
 
-abstract class Task {
+public abstract class Task {
     String taskName;
 
     String type;
@@ -16,7 +16,7 @@ abstract class Task {
         this.deadLine = deadLine;
     }
 
-
+    public String getTaskName(){return this.taskName;}
     public SimpleDateFormat getDeadLine() {return deadLine;}
 
 
