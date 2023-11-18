@@ -10,7 +10,7 @@ public class CourseTask extends Task implements CreateCourseTask {
 
     private Float taskWeight;
 
-    private Boolean gradeReleased;
+    private Boolean gradeReleased; // idk if we need this
 
 
     public CourseTask(String taskName, String type, SimpleDateFormat deadLine,

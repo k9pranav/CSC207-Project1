@@ -18,7 +18,7 @@ import java.util.ArrayList;
 
 
 public class StudentTasksView extends JPanel implements ActionListener, PropertyChangeListener {
-    public final String viewName = "student tasks view";
+    public final String viewName = "student tasks page";
     private final StudentTasksViewModel taskViewModel;
     private final StudentTasksController taskController;
     final JButton newStudentTask;
@@ -104,9 +104,6 @@ public class StudentTasksView extends JPanel implements ActionListener, Property
 
     public void actionPerformed(ActionEvent evt){System.out.println("Click" + evt.getActionCommand());)}
 
-    @Override
-    public void propertyChange(PropertyChangeEvent evt){
-        StudentTasksState state = (StudentTasksState) evt.getNewValue();
-    }
+    public void propertyChange(PropertyChangeEvent evt){}
 
 }
