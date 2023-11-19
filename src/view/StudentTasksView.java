@@ -108,9 +108,28 @@ public class StudentTasksView extends JPanel implements ActionListener, Property
 
     public void propertyChange(PropertyChangeEvent evt) {
         String propName = evt.getPropertyName();
-        if (propName.equals("state")) {
+        if (propName.equals("popup")) {
             StudentTasksState currState = (StudentTasksState) evt.getNewValue();
-            JOptionPane.showMessageDialog(this, currState.getCurrentTaskInfo());
+            // if its a CourseTask, no edit button
+            if (currState.getCurrentTaskInfo().contains("Weight:") &&
+                    currState.getCurrentTaskInfo().contains("Grade:") &&
+                    currState.getCurrentTaskInfo().contains("Course:")){
+                // student cannot edit, no edit button
+                JOptionPane.showMessageDialog(this, currState.getCurrentTaskInfo());
+            }else{
+                JPanel panel = new JPanel();
+                JLabel taskInfoLabel = new JLabel(currState.getCurrentTaskInfo());
+                JButton editTaskButton = new JButton("Edit");
+                panel.add(taskInfoLabel);
+                panel.add(editTaskButton);
+
+                editTaskButton.addActionListener(e -> {
+                    // call the presenter ?
+                    // open the edit task view
+                });
+
+                JOptionPane.showMessageDialog(this, panel);
+            }
         }
     }
 }

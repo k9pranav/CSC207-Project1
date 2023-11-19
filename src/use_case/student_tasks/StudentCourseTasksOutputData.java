@@ -26,4 +26,10 @@ public class StudentCourseTasksOutputData {
     public SimpleDateFormat getDeadline(){
         return this.deadline;
     }
+
+    public Float getWeight(){return this.weight;}
+    public Float getGrade(){return this.grade;}
+    public String getCourseName(){return this.course.getCourseName();}
+
+    public String getCourseCode(){return this.course.getCourseCode();}
 }

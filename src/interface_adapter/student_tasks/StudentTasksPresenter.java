@@ -33,7 +33,18 @@ public class StudentTasksPresenter implements StudentTasksOutputBoundary {
 
     @Override
     public void prepareTaskPopup(StudentCourseTasksOutputData outputData){
+        StudentTasksState tasksState = tasksViewModel.getState();
 
+        String taskInfo = "";
+        taskInfo = taskInfo + "Task Name: " + outputData.getName() + "\n";
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        taskInfo = taskInfo + "Deadline: " + dateFormat.format(outputData.getDeadline())+ "\n";
+        taskInfo = taskInfo + "Weight: " + outputData.getWeight().toString() + "\n";
+        taskInfo = taskInfo + "Grade: " + outputData.getGrade().toString() + "\n";
+        taskInfo = taskInfo + "Course: " + outputData.getCourseCode() + ": " + outputData.getCourseName() + "\n";
+
+        tasksState.setCurrentTaskInfo(taskInfo);
+        tasksViewModel.firePropertyChangedPopup();
     }
     @Override
     public void prepareTaskPopup(StudentTasksOutputData outputData){
@@ -45,15 +56,14 @@ public class StudentTasksPresenter implements StudentTasksOutputBoundary {
         taskInfo = taskInfo + "Deadline: " + dateFormat.format(outputData.getDeadline());
 
         tasksState.setCurrentTaskInfo(taskInfo);
-        tasksViewModel.firePropertyChanged();
-        // how to add a button in the popup to lead to Edit Task View :(
+        tasksViewModel.firePropertyChangedPopup();
     }
     @Override
     public void prepareExit(Student student){
-        // need to figure out how to differentiate between this firePropertyChanged() in the StudentTaskView
         AdminLoggedInState loggedInState = homePageViewModel.getState();
         this.homePageViewModel.setState(loggedInState);
         this.homePageViewModel.getState().setLoggedInUser(student);
+        // should set it to the currently logged in user's home page
         homePageViewModel.firePropertyChanged();
         viewManagerModel.setActiveView(loggedInViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
@@ -68,5 +78,8 @@ public class StudentTasksPresenter implements StudentTasksOutputBoundary {
         editStudentTaskViewModel.firePropertyChanged();
         viewManagerModel.setActiveView(editStudentTaskViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
+    }
+    public void switchToEditTask(){
+
     }
 }
