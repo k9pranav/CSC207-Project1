@@ -12,7 +12,7 @@ public class StudentTasksInputData {
         this.loggedIn = loggedIn;
     }
 
-    String getTaskName(){return taskName;}
+    public String getTaskName(){return taskName;}
 
-    Student getLoggedIn(){return loggedIn;}
+    public Student getLoggedIn(){return loggedIn;}
 }

@@ -12,6 +12,7 @@ public class Admin implements Person{
     private final String repeatPassword;
 
     private final String email;
+    private ArrayList<CourseTask> tasks;
 
     public ArrayList<Course> coursesList = new ArrayList<>();
 
@@ -24,6 +25,7 @@ public class Admin implements Person{
         this.password = password;
         this.repeatPassword = repeatPassword;
         this.email = email;
+        this.tasks = new ArrayList<>();
     }
 
     @Override
@@ -58,4 +60,18 @@ public class Admin implements Person{
     public void setCalendarID(String id){this.calendarID = id;}
 
     public String getCalendarId () {return this.calendarID;}
+
+    public void setTask(CourseTask task){this.tasks.add(task);}
+
+    public ArrayList<CourseTask> getTasks(){return this.tasks;}
+
+    public CourseTask getTaskFromName(String taskName){
+        CourseTask currentTask = null;
+        for (int i = 0; i < tasks.size(); i++) {
+            if ((taskName).equals(tasks.get(i).getTaskName())){
+                currentTask = tasks.get(i);
+            }
+        }
+        return currentTask;
+    }
 }

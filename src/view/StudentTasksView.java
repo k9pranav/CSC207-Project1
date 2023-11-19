@@ -1,6 +1,5 @@
 package view;
 
-import com.eduworks.ec.task.Task;
 import entity.Student;
 import interface_adapter.student_tasks.StudentTasksController;
 import interface_adapter.student_tasks.StudentTasksState;

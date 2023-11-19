@@ -12,7 +12,7 @@ public class StudentTasksController {
         this.interactor = interactor;
     }
     public void execute(String buttonPressed, Student loggedIn) {
-        if ("new task".equals(buttonPressed)){
+        if (("new task").equals(buttonPressed)){
             interactor.executeNewTask(buttonPressed);
         }
         else if ("exit".equals(buttonPressed)){
