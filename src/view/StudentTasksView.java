@@ -106,6 +106,12 @@ public class StudentTasksView extends JPanel implements ActionListener, Property
 
     public void actionPerformed(ActionEvent evt){System.out.println("Click" + evt.getActionCommand());}
 
-    public void propertyChange(PropertyChangeEvent evt){}
-
+    public void propertyChange(PropertyChangeEvent evt) {
+        String propName = evt.getPropertyName();
+        // how to differentiate between regular event and when the task popup :(
+        if (propName.equals("state")) {
+            StudentTasksState currState = (StudentTasksState) evt.getNewValue();
+            JOptionPane.showMessageDialog(this, currState.getCurrentTaskInfo());
+        }
+    }
 }

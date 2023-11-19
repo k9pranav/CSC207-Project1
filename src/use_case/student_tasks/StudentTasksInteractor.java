@@ -55,6 +55,7 @@ public class StudentTasksInteractor implements StudentTasksInputBoundary {
         // when creating task asset that task name is unique
         StudentTask newTask = new StudentTask("", "", new SimpleDateFormat());
         tasksPresenter.prepareEditTaskView(newTask);
+        // interactor for edit task will create the new task
     }
 }
 
