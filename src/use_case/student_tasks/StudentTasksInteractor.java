@@ -36,9 +36,8 @@ public class StudentTasksInteractor implements StudentTasksInputBoundary {
             Course course = ((CourseTask) currentTask).getCourse();
             StudentCourseTasksOutputData outputData = new StudentCourseTasksOutputData(name, deadline, weight, grade, course);
             tasksPresenter.prepareTaskPopup(outputData);
-        } else {
-            StudentTasksOutputData outputData = new StudentTasksOutputData(name, deadline);
-            tasksPresenter.prepareTaskPopup(outputData);
+        } else { // StudentTask
+            tasksPresenter.prepareEditTaskView((StudentTask) currentTask);
         }
 
     }

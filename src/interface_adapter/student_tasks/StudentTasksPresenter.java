@@ -3,18 +3,14 @@ package interface_adapter.student_tasks;
 import entity.Student;
 import entity.StudentTask;
 import interface_adapter.ViewManagerModel;
-import interface_adapter.admin_landing_page.AdminLandingPageState;
 import interface_adapter.admin_logged_in.AdminLoggedInState;
 import interface_adapter.edit_student_task.EditStudentTaskState;
 import interface_adapter.edit_student_task.EditStudentTaskViewModel;
-import interface_adapter.login_admin.LoginAdminState;
 import interface_adapter.student_logged_in.StudentLoggedInViewModel;
 import use_case.student_tasks.StudentCourseTasksOutputData;
 import use_case.student_tasks.StudentTasksOutputBoundary;
-import use_case.student_tasks.StudentTasksOutputData;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 
 public class StudentTasksPresenter implements StudentTasksOutputBoundary {
 
@@ -47,18 +43,6 @@ public class StudentTasksPresenter implements StudentTasksOutputBoundary {
         tasksViewModel.firePropertyChangedPopup();
     }
     @Override
-    public void prepareTaskPopup(StudentTasksOutputData outputData){
-        StudentTasksState tasksState = tasksViewModel.getState();
-
-        String taskInfo = "";
-        taskInfo = taskInfo + "Task Name: " + outputData.getName() + "\n";
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        taskInfo = taskInfo + "Deadline: " + dateFormat.format(outputData.getDeadline());
-
-        tasksState.setCurrentTaskInfo(taskInfo);
-        tasksViewModel.firePropertyChangedPopup();
-    }
-    @Override
     public void prepareExit(Student student){
         AdminLoggedInState loggedInState = homePageViewModel.getState();
         this.homePageViewModel.setState(loggedInState);
@@ -78,8 +62,5 @@ public class StudentTasksPresenter implements StudentTasksOutputBoundary {
         editStudentTaskViewModel.firePropertyChanged();
         viewManagerModel.setActiveView(editStudentTaskViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
-    }
-    public void switchToEditTask(){
-
     }
 }
