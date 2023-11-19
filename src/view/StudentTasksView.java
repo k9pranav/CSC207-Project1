@@ -72,7 +72,7 @@ public class StudentTasksView extends JPanel implements ActionListener, Property
             public void mouseClicked(MouseEvent e) {
                 if (e.getClickCount() == 2) {
                     // Double-click detected
-                    taskController.executeTask(tasks.getSelectedValue(), taskViewModel.getState().getLoggedInUser());
+                    taskController.execute(tasks.getSelectedValue(), taskViewModel.getState().getLoggedInUser());
                 }
             }
         });
@@ -82,7 +82,7 @@ public class StudentTasksView extends JPanel implements ActionListener, Property
                     @Override
                     public void actionPerformed(ActionEvent evt){
                         if (evt.getSource().equals(newStudentTask)){
-                            taskController.execute("new task");
+                            taskController.execute("new task", taskViewModel.getState().getLoggedInUser());
                         }
                     }
                 }
@@ -92,7 +92,7 @@ public class StudentTasksView extends JPanel implements ActionListener, Property
                     @Override
                     public void actionPerformed(ActionEvent evt){
                         if (evt.getSource().equals(exit)){
-                            taskController.execute("exit");
+                            taskController.execute("exit", taskViewModel.getState().getLoggedInUser());
                         }
                     }
                 }
@@ -108,7 +108,6 @@ public class StudentTasksView extends JPanel implements ActionListener, Property
 
     public void propertyChange(PropertyChangeEvent evt) {
         String propName = evt.getPropertyName();
-        // how to differentiate between regular event and when the task popup :(
         if (propName.equals("state")) {
             StudentTasksState currState = (StudentTasksState) evt.getNewValue();
             JOptionPane.showMessageDialog(this, currState.getCurrentTaskInfo());

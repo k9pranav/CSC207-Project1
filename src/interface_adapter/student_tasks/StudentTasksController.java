@@ -11,17 +11,17 @@ public class StudentTasksController {
     public StudentTasksController(StudentTasksInputBoundary interactor){
         this.interactor = interactor;
     }
-    public void execute(String buttonPressed) {
+    public void execute(String buttonPressed, Student loggedIn) {
         if ("new task".equals(buttonPressed)){
             interactor.executeNewTask(buttonPressed);
         }
         else if ("exit".equals(buttonPressed)){
-            interactor.executeExit(buttonPressed);
+            StudentTasksInputData inputData = new StudentTasksInputData(buttonPressed, loggedIn);
+            interactor.executeExit(inputData);
+        }else{
+            // double click detected
+            StudentTasksInputData inputData = new StudentTasksInputData(buttonPressed, loggedIn);
+            interactor.execute(inputData);
         }
-    }
-    public void executeTask(String taskName, Student loggedIn){
-        // double click detected
-        StudentTasksInputData inputData = new StudentTasksInputData(taskName, loggedIn);
-        interactor.execute(inputData);
     }
 }

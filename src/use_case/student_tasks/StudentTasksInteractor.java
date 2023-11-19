@@ -44,9 +44,9 @@ public class StudentTasksInteractor implements StudentTasksInputBoundary {
 
     }
     @Override
-    public void executeExit(String str){
-        // x button pressed, go back to home screen
-        tasksPresenter.prepareExit();
+    public void executeExit(StudentTasksInputData inputData){
+        // x button pressed, go back to user's home screen
+        tasksPresenter.prepareExit(inputData.getLoggedIn());
     }
     @Override
     public void executeNewTask(String str){
@@ -55,7 +55,7 @@ public class StudentTasksInteractor implements StudentTasksInputBoundary {
         // when creating task asset that task name is unique
         StudentTask newTask = new StudentTask("", "", new SimpleDateFormat());
         tasksPresenter.prepareEditTaskView(newTask);
-        // interactor for edit task will create the new task
+        // interactor for edit task will create the new task & add to data
     }
 }
 

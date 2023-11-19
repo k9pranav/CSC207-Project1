@@ -1,8 +1,13 @@
 package interface_adapter.student_tasks;
 
+import entity.Student;
 import entity.StudentTask;
 import interface_adapter.ViewManagerModel;
+import interface_adapter.admin_landing_page.AdminLandingPageState;
+import interface_adapter.admin_logged_in.AdminLoggedInState;
+import interface_adapter.edit_student_task.EditStudentTaskState;
 import interface_adapter.edit_student_task.EditStudentTaskViewModel;
+import interface_adapter.login_admin.LoginAdminState;
 import interface_adapter.student_logged_in.StudentLoggedInViewModel;
 import use_case.student_tasks.StudentCourseTasksOutputData;
 import use_case.student_tasks.StudentTasksOutputBoundary;
@@ -44,17 +49,24 @@ public class StudentTasksPresenter implements StudentTasksOutputBoundary {
         // how to add a button in the popup to lead to Edit Task View :(
     }
     @Override
-    public void prepareExit(){
+    public void prepareExit(Student student){
         // need to figure out how to differentiate between this firePropertyChanged() in the StudentTaskView
-        StudentTasksState tasksState = tasksViewModel.getState();
-        this.tasksViewModel.setState(tasksState);
+        AdminLoggedInState loggedInState = homePageViewModel.getState();
+        this.homePageViewModel.setState(loggedInState);
+        this.homePageViewModel.getState().setLoggedInUser(student);
         homePageViewModel.firePropertyChanged();
-        viewManagerModel.setActiveView(homePageViewModel.getViewName());
+        viewManagerModel.setActiveView(loggedInViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
         // goes back to home page with calendar
     }
     @Override
     public void prepareEditTaskView(StudentTask editTask){
-        // editTask is the current task we need to open the editTask view for the specific task
+        EditStudentTaskState editTaskState = editStudentTaskViewModel.getState();
+        this.editStudentTaskViewModel.setState(editTaskState);
+        this.editStudentTaskViewModel.getState().setCurrentTask();
+        // sets the current task being edited
+        editStudentTaskViewModel.firePropertyChanged();
+        viewManagerModel.setActiveView(editStudentTaskViewModel.getViewName());
+        viewManagerModel.firePropertyChanged();
     }
 }
