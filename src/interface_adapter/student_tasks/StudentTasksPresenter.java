@@ -41,6 +41,7 @@ public class StudentTasksPresenter implements StudentTasksOutputBoundary {
 
         tasksState.setCurrentTaskInfo(taskInfo);
         tasksViewModel.firePropertyChanged();
+        // how to add a button in the popup to lead to Edit Task View :(
     }
     @Override
     public void prepareExit(){
