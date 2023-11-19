@@ -1,4 +1,4 @@
 package interface_adapter.edit_course_task;
 
-public class EditAdminTaskState {
+public class EditCourseTaskState {
 }

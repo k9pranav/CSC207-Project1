@@ -6,6 +6,7 @@ import interface_adapter.ViewManagerModel;
 import interface_adapter.admin_logged_in.AdminLoggedInState;
 import interface_adapter.edit_student_task.EditStudentTaskState;
 import interface_adapter.edit_student_task.EditStudentTaskViewModel;
+import interface_adapter.student_logged_in.StudentLoggedInState;
 import interface_adapter.student_logged_in.StudentLoggedInViewModel;
 import use_case.student_tasks.StudentCourseTasksOutputData;
 import use_case.student_tasks.StudentTasksOutputBoundary;
@@ -44,20 +45,20 @@ public class StudentTasksPresenter implements StudentTasksOutputBoundary {
     }
     @Override
     public void prepareExit(Student student){
-        AdminLoggedInState loggedInState = homePageViewModel.getState();
+        StudentLoggedInState loggedInState = homePageViewModel.getState();
         this.homePageViewModel.setState(loggedInState);
         this.homePageViewModel.getState().setLoggedInUser(student);
         // should set it to the currently logged in user's home page
         homePageViewModel.firePropertyChanged();
         viewManagerModel.setActiveView(loggedInViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
-        // goes back to home page with calendar
+        // goes back to home page
     }
     @Override
     public void prepareEditTaskView(StudentTask editTask){
         EditStudentTaskState editTaskState = editStudentTaskViewModel.getState();
         this.editStudentTaskViewModel.setState(editTaskState);
-        this.editStudentTaskViewModel.getState().setCurrentTask();
+        this.editStudentTaskViewModel.getState().setCurrentTask(editTask);
         // sets the current task being edited
         editStudentTaskViewModel.firePropertyChanged();
         viewManagerModel.setActiveView(editStudentTaskViewModel.getViewName());
