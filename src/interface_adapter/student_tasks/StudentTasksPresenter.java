@@ -44,6 +44,7 @@ public class StudentTasksPresenter implements StudentTasksOutputBoundary {
     }
     @Override
     public void prepareExit(){
+        // need to figure out how to differentiate between this firePropertyChanged() in the StudentTaskView
         StudentTasksState tasksState = tasksViewModel.getState();
         this.tasksViewModel.setState(tasksState);
         homePageViewModel.firePropertyChanged();
@@ -53,6 +54,6 @@ public class StudentTasksPresenter implements StudentTasksOutputBoundary {
     }
     @Override
     public void prepareEditTaskView(StudentTask editTask){
-        // editTask is the current task we need to open the editTask view for
+        // editTask is the current task we need to open the editTask view for the specific task
     }
 }
