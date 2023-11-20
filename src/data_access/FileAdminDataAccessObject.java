@@ -6,6 +6,13 @@ import entity.AdminFactory;
 import org.json.JSONArray;
 import org.json.JSONException;
 import use_case.signup_admin.SignupAdminDataAccessInterface;
+import
+
+
+import java.io.FileWriter;
+import java.io.IOException;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.io.*;
 
@@ -28,6 +35,16 @@ import com.google.api.client.util.store.FileDataStoreFactory;
 import com.google.api.services.calendar.Calendar;
 import com.google.api.services.calendar.CalendarScopes;
 
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.FileWriter;
+import java.security.GeneralSecurityException;
+import java.util.Collections;
+import java.util.List;
+
 import java.util.Collections;
 import java.util.List;
 
@@ -37,7 +54,7 @@ public class FileAdminDataAccessObject implements SignupAdminDataAccessInterface
     private final JSONObject jsonObject;
 
     private AdminFactory adminFactory;
-
+  
     private final Map<String, Admin> accounts = new HashMap<>();
     //list of all the admin accounts mapped email -> entity
     private static final String APPLICATION_NAME = "Creamy GOATS";
@@ -103,11 +120,13 @@ public class FileAdminDataAccessObject implements SignupAdminDataAccessInterface
         return credential;
     }
     public void createCalendar(Admin admin) throws IOException, GeneralSecurityException {
+
         // use case interactor calls this method when a person signs up to add calendar to new user
         final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
 
         Calendar service = new Calendar.Builder(HTTP_TRANSPORT, JSON_FACTORY, getCredentials(HTTP_TRANSPORT))
                 .setApplicationName("applicationName").build();
+
 
         // Create a new calendar
         com.google.api.services.calendar.model.Calendar calendar = new com.google.api.services.calendar.model.Calendar();
@@ -125,13 +144,16 @@ public class FileAdminDataAccessObject implements SignupAdminDataAccessInterface
     }
 
     @Override
+
     public void save(Admin admin) throws IOException {
+
         accounts.put(admin.getEmail(), admin);
         this.save();
     }
 
     private void save() throws IOException{
         for (Admin admin : accounts.values()){
+
             JSONObject jsonObj = new JSONObject();
             jsonObj.put("firstname", admin.getFirstName());
             jsonObj.put("lastname", admin.getLastName());

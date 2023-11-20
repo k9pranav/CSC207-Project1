@@ -1,6 +1,8 @@
-package interface_adapter.signup_student;
+package interface_adapter.login_student;
 
-public class SignupStudentState {
+import interface_adapter.signup_student.SignupStudentState;
+
+public class LoginStudentState {
     private String firstName = "";
     private String firstNameError = null;
     private String lastName = "";
@@ -12,7 +14,7 @@ public class SignupStudentState {
     private String email = "";
     private String emailError = null;
 
-    public SignupStudentState(SignupStudentState copy){
+    public LoginStudentState(LoginStudentState copy){
         firstName = copy.firstName;
         firstNameError = copy.firstNameError;
 
@@ -28,7 +30,8 @@ public class SignupStudentState {
         email = copy.email;
         emailError = copy.emailError;
     }
-    public SignupStudentState(){}
+
+    public LoginStudentState(){}
 
     public String getFirstName(){return firstName;}
     public String getFirstNameError(){return firstNameError;}
@@ -55,6 +58,7 @@ public class SignupStudentState {
     public void setEmail(String email){this.email = email;}
     public void setEmailError(String emailError) {this.emailError = emailError;}
 
+
     public String toString() {
         return "SignupState{" +
                 "firstname='" + firstName + '\'' +
@@ -64,4 +68,6 @@ public class SignupStudentState {
                 ", repeatPassword='" + repeatPassword + '\'' +
                 '}';
     }
+
+
 }
