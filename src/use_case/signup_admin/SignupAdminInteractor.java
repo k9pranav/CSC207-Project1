@@ -29,7 +29,9 @@ public class SignupAdminInteractor implements SignupAdminInputBoundary {
                     signupAdminInputData.getLastName(), signupAdminInputData.getPassword(),
                     signupAdminInputData.getRepeatPassword(), signupAdminInputData.getEmail());
 
+            userDataAccessObject.createCalendar(admin);
             userDataAccessObject.save(admin);
+
 
             SignupAdminOutputData signupAdminOutputData = new SignupAdminOutputData(admin.getFirstName(),
                     admin.getLastName(), admin.getEmail(), false);
