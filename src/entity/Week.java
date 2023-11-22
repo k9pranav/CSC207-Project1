@@ -4,13 +4,13 @@ import java.util.ArrayList;
 
 public class Week {
 
-    private final String month;
+    private final Month month;
 
     private final int weekInMonth;
 
     private ArrayList<Day> daysArrayList = new ArrayList<>();
 
-    public Week(String month, int weekInMonth) {
+    public Week(Month month, int weekInMonth) {
         this.month = month;
         this.weekInMonth = weekInMonth;
     }
@@ -24,7 +24,7 @@ public class Week {
         return weekInMonth;
     }
 
-    public String getMonth() {
+    public Month getMonth() {
         return month;
     }
 

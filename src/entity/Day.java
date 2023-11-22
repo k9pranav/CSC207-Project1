@@ -4,14 +4,14 @@ import java.util.HashMap;
 
 public class Day {
 
-    private final int month;
+    private final Month month;
     private final int dayOfTheMonth;
 
     private final int dayOfTheWeek;
 
     private HashMap<String, Task> mapOfTasks = new HashMap<>();
 
-    public Day(int month, int dayOfTheMonth, int dayOfTheWeek) {
+    public Day(Month month, int dayOfTheMonth, int dayOfTheWeek) {
         this.month = month;
         this.dayOfTheMonth = dayOfTheMonth;
         this.dayOfTheWeek = dayOfTheWeek;
@@ -29,7 +29,7 @@ public class Day {
         return dayOfTheWeek;
     }
 
-    public int getMonth() {
+    public Month getMonth() {
         return month;
     }
 
