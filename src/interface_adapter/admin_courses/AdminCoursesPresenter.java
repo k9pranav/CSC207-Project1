@@ -31,6 +31,8 @@ public class AdminCoursesPresenter implements AdminCoursesOutputBoundary {
         AdminCourseTasksState tasksState = tasksViewModel.getState();
         this.tasksViewModel.setState(tasksState);
         this.tasksViewModel.getState().setLoggedInUser(outputData.getLoggedInUser());
+        this.tasksViewModel.getState().setCourse(outputData.getCourse());
+        // set current course and the list of tasks for this course
         this.tasksViewModel.getState().setTasks(outputData.getTasks());
         tasksViewModel.firePropertyChanged();
         viewManagerModel.setActiveView(tasksViewModel.getViewName());

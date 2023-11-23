@@ -13,7 +13,8 @@ public class StudentTasksController {
     }
     public void execute(String buttonPressed, Student loggedIn) {
         if (("new task").equals(buttonPressed)){
-            interactor.executeNewTask(buttonPressed);
+            StudentTasksInputData inputData = new StudentTasksInputData(buttonPressed, loggedIn);
+            interactor.executeNewTask(inputData);
         }
         else if ("exit".equals(buttonPressed)){
             StudentTasksInputData inputData = new StudentTasksInputData(buttonPressed, loggedIn);

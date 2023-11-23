@@ -6,5 +6,5 @@ import entity.StudentTask;
 public interface StudentTasksOutputBoundary {
     void prepareTaskPopup(StudentCourseTasksOutputData outputData);
     void prepareExit(Student student);
-    void prepareEditTaskView(StudentTask newTask);
+    void prepareEditTaskView(StudentTask newTask, Student student);
 }

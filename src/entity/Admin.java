@@ -84,4 +84,13 @@ public class Admin implements Person{
         }
         return courseTasks;
     }
+    public Course getCourseFromCourseCode(String courseCode){
+        Course course = null;
+        for (int i = 0; i < coursesList.size(); i++) {
+            if ((courseCode).equals(coursesList.get(i).getCourseCode())){
+                course = coursesList.get(i);
+            }
+        }
+        return course;
+    }
 }

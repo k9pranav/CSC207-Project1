@@ -55,11 +55,12 @@ public class StudentTasksPresenter implements StudentTasksOutputBoundary {
         // goes back to home page
     }
     @Override
-    public void prepareEditTaskView(StudentTask editTask){
+    public void prepareEditTaskView(StudentTask editTask, Student student){
         EditStudentTaskState editTaskState = editStudentTaskViewModel.getState();
         this.editStudentTaskViewModel.setState(editTaskState);
         this.editStudentTaskViewModel.getState().setCurrentTask(editTask);
         // sets the current task being edited
+        editStudentTaskViewModel.getState().setLoggedIn(student);
         editStudentTaskViewModel.firePropertyChanged();
         viewManagerModel.setActiveView(editStudentTaskViewModel.getViewName());
         viewManagerModel.firePropertyChanged();

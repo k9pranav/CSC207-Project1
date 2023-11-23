@@ -1,5 +1,6 @@
 package use_case.admin_courses;
 
+import entity.Course;
 import entity.CourseTask;
 import java.util.ArrayList;
 
@@ -24,7 +25,8 @@ public class AdminCoursesInteractor implements AdminCoursesInputBoundary {
             // open tasks view for the courses' tasks
             String courseCode = input.getButton();
             ArrayList<CourseTask> tasks = input.getLoggedIn().getTasksForCourse(courseCode);
-            AdminCoursesOutputData outputData = new AdminCoursesOutputData(tasks, input.getLoggedIn());
+            Course currentCourse = input.getLoggedIn().getCourseFromCourseCode(courseCode);
+            AdminCoursesOutputData outputData = new AdminCoursesOutputData(tasks, input.getLoggedIn(), currentCourse);
             coursesPresenter.prepareCourseTasksView(outputData);
         }
     }
