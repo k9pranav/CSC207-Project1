@@ -2,6 +2,8 @@ package interface_adapter.admin_courses;
 
 import entity.Admin;
 import interface_adapter.ViewManagerModel;
+import interface_adapter.admin_course_tasks.AdminCourseTasksState;
+import interface_adapter.admin_course_tasks.AdminCourseTasksViewModel;
 import interface_adapter.admin_logged_in.AdminLoggedInState;
 import interface_adapter.admin_logged_in.AdminLoggedInViewModel;
 import interface_adapter.student_course_tasks.StudentCourseTasksState;
@@ -39,7 +41,7 @@ public class AdminCoursesPresenter implements AdminCoursesOutputBoundary {
     public void prepareExit(Admin admin){
         AdminLoggedInState loggedInState = homePageViewModel.getState();
         this.homePageViewModel.setState(loggedInState);
-        this.homePageViewModel.getState().setLoggedInUser(student);
+        this.homePageViewModel.getState().setLoggedInUser(admin);
         homePageViewModel.firePropertyChanged();
         viewManagerModel.setActiveView(homePageViewModel.getViewName());
         viewManagerModel.firePropertyChanged();

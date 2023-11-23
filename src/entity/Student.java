@@ -50,7 +50,6 @@ public class Student implements Person{
         return password;
     }
 
-    @Override
     public String getRepeatPassword() {
         return repeatPassword;
     }
