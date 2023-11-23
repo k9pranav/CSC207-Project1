@@ -101,6 +101,4 @@ public class Student implements Person{
     public HashMap<String, Integer> getStudentGrades(){
         return studentGrades;
     }
-
-    public String getCalendarId () {return Calendar.getId();}
 }

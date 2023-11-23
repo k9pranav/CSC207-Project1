@@ -45,7 +45,7 @@ public StudentCoursesPresenter(ViewManagerModel viewManagerModel, StudentCourses
     @Override
     public void prepareExit(Student student) {
         StudentLoggedInState loggedInState = homePageViewModel.getState();
-        this.homePageViewModel.getState(loggedInState);
+        this.homePageViewModel.setState(loggedInState);
         this.homePageViewModel.getState().setLoggedInUser(student);
         homePageViewModel.firePropertyChanged();
         viewManagerModel.setActiveView(homePageViewModel.getViewName());
