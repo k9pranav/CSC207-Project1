@@ -3,6 +3,7 @@ package entity;
 
 import java.util.ArrayList;
 import java.util.Dictionary;
+import java.util.HashMap;
 import java.util.Hashtable;
 
 public class Student implements Person{
@@ -19,7 +20,9 @@ public class Student implements Person{
     private String calendarId;
     public ArrayList<Course> coursesList = new ArrayList<>();
 
-    public Dictionary<String, Integer> studentGrades = new Hashtable<>();
+    private ArrayList<Task> tasks;
+
+    public HashMap<String, Integer> studentGrades = new HashMap<>();
 
     public Student(String firstName, String lastName, String password, String repeatPassword, String email) {
         super();
@@ -28,6 +31,8 @@ public class Student implements Person{
         this.password = password;
         this.repeatPassword = repeatPassword;
         this.email = email;
+        this.tasks = new ArrayList<>();
+        this.coursesList = new ArrayList<Course>();
     }
 
     @Override
@@ -55,6 +60,20 @@ public class Student implements Person{
         return email;
     }
 
+    public void setTask(StudentTask task){this.tasks.add(task);}
+
+    public ArrayList<Task> getTasks(){return tasks;}
+
+    public Task getTaskFromName(String taskName){
+        Task currentTask = null;
+        for (int i = 0; i < tasks.size(); i++) {
+            if ((taskName).equals(tasks.get(i).getTaskName())){
+                currentTask = tasks.get(i);
+            }
+        }
+        return currentTask;
+    }
+
     public void setCalendarId(String calendarId) {
         this.calendarId = calendarId;
     }
@@ -62,11 +81,24 @@ public class Student implements Person{
     public String getCalendarId(){return this.calendarId;}
 
     @Override
-    public ArrayList<String> getCourses(){
-        return null; // TODO: implement this
+    public ArrayList<Course> getCourses(){
+        return coursesList;
     }
 
-    public Dictionary<String, Integer> getStudentGrades(){
+    public ArrayList<CourseTask> getTasksForCourse(String courseCode){
+        ArrayList<CourseTask> courseTasks = null;
+        for (int i = 0; i < tasks.size(); i++) {
+            if((tasks.get(i)) instanceof CourseTask){
+                if(("courseCode").equals(((CourseTask) tasks.get(i)).getCourse().getCourseCode())){
+                    courseTasks.add((CourseTask) tasks.get(i));
+                }
+            }
+        }
+        return courseTasks;
+    }
+
+    public void setCourse(Course course){this.coursesList.add(course);}
+    public HashMap<String, Integer> getStudentGrades(){
         return studentGrades;
     }
 

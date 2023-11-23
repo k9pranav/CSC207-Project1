@@ -12,9 +12,4 @@ public class StudentTask extends Task {
         this.taskName = name;
     }
 
-    public void setTaskType(String type){
-        this.type = type;
-    }
-
-
 }
