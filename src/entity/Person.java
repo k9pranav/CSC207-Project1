@@ -11,7 +11,7 @@ public interface Person {
 
     String getEmail();
 
-    ArrayList<String> getCourses();
+    ArrayList<Course> getCourses();
 
 
 

@@ -50,7 +50,7 @@ public class StudentTasksPresenter implements StudentTasksOutputBoundary {
         this.homePageViewModel.getState().setLoggedInUser(student);
         // should set it to the currently logged in user's home page
         homePageViewModel.firePropertyChanged();
-        viewManagerModel.setActiveView(loggedInViewModel.getViewName());
+        viewManagerModel.setActiveView(homePageViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
         // goes back to home page
     }

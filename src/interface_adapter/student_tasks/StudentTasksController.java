@@ -18,7 +18,7 @@ public class StudentTasksController {
         else if ("exit".equals(buttonPressed)){
             StudentTasksInputData inputData = new StudentTasksInputData(buttonPressed, loggedIn);
             interactor.executeExit(inputData);
-        }else{
+        }else {
             // double click detected
             StudentTasksInputData inputData = new StudentTasksInputData(buttonPressed, loggedIn);
             interactor.execute(inputData);

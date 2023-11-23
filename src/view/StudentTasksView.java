@@ -113,4 +113,3 @@ public class StudentTasksView extends JPanel implements ActionListener, Property
         }
     }
 }
-

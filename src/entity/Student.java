@@ -3,6 +3,7 @@ package entity;
 
 import java.util.ArrayList;
 import java.util.Dictionary;
+import java.util.HashMap;
 import java.util.Hashtable;
 
 public class Student implements Person{
@@ -19,7 +20,7 @@ public class Student implements Person{
 
     private ArrayList<Task> tasks;
 
-    public Dictionary<String, Integer> studentGrades = new Hashtable<>();
+    public HashMap<String, Integer> studentGrades = new HashMap<>();
 
     public Student(String firstName, String lastName, String password, String email) {
         super();
@@ -28,6 +29,7 @@ public class Student implements Person{
         this.password = password;
         this.email = email;
         this.tasks = new ArrayList<>();
+        this.coursesList = new ArrayList<Course>();
     }
 
     @Override
@@ -71,11 +73,24 @@ public class Student implements Person{
     public String getCalendarId(){return this.calendarId;}
 
     @Override
-    public ArrayList<String> getCourses(){
-        return null; // TODO: implement this
+    public ArrayList<Course> getCourses(){
+        return coursesList;
     }
 
-    public Dictionary<String, Integer> getStudentGrades(){
+    public ArrayList<CourseTask> getTasksForCourse(String courseCode){
+        ArrayList<CourseTask> courseTasks = null;
+        for (int i = 0; i < tasks.size(); i++) {
+            if((tasks.get(i)) instanceof CourseTask){
+                if(("courseCode").equals(((CourseTask) tasks.get(i)).getCourse().getCourseCode())){
+                    courseTasks.add((CourseTask) tasks.get(i));
+                }
+            }
+        }
+        return courseTasks;
+    }
+
+    public void setCourse(Course course){this.coursesList.add(course);}
+    public HashMap<String, Integer> getStudentGrades(){
         return studentGrades;
     }
 }
