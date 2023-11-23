@@ -2,6 +2,7 @@ package interface_adapter.student_courses;
 
 import entity.Student;
 import interface_adapter.ViewManagerModel;
+import interface_adapter.student_course_tasks.StudentCourseTasksState;
 import interface_adapter.student_logged_in.StudentLoggedInState;
 import interface_adapter.student_logged_in.StudentLoggedInViewModel;
 import use_case.student_courses.StudentCoursesOutputBoundary;
