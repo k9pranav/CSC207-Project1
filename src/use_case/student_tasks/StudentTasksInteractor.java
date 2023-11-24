@@ -6,7 +6,6 @@ import entity.StudentTask;
 import entity.Task;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 
 public class StudentTasksInteractor implements StudentTasksInputBoundary {
     final StudentTasksDataAccessInterface tasksDAO;
@@ -34,7 +33,7 @@ public class StudentTasksInteractor implements StudentTasksInputBoundary {
             Float grade = ((CourseTask) currentTask).getGrade();
             Float weight = ((CourseTask) currentTask).getWeight();
             Course course = ((CourseTask) currentTask).getCourse();
-            StudentCourseTasksOutputData outputData = new StudentCourseTasksOutputData(name, deadline, weight, grade, course);
+            StudentTasksOutputData outputData = new StudentTasksOutputData(name, deadline, weight, grade, course);
             tasksPresenter.prepareTaskPopup(outputData);
         } else { // StudentTask
             tasksPresenter.prepareEditTaskView((StudentTask) currentTask, tasksInputData.getLoggedIn());
