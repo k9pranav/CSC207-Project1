@@ -44,7 +44,7 @@ public class Course {
 
     public String getCourseSession() {return courseSession;}
 
-    public ArrayList<Student> getStudentEnrolled() {
+    public ArrayList<Student> getStudentsEnrolled() {
         return studentEnrolled;
     }
 
