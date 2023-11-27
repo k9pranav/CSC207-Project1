@@ -126,4 +126,7 @@ public class Student implements Person{
         return studentGrades;
     }
 
+    public void setCalendarID(String id){
+        this.calendarId = id;
+    }
 }

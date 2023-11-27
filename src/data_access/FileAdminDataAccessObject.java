@@ -6,17 +6,12 @@ import entity.AdminFactory;
 import org.json.JSONArray;
 import org.json.JSONException;
 import use_case.signup_admin.SignupAdminDataAccessInterface;
-import
-
 
 import java.io.FileWriter;
 import java.io.IOException;
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.*;
-
-import org.json.JSONObject;
 
 import java.security.GeneralSecurityException;
 import java.util.HashMap;
@@ -37,14 +32,8 @@ import com.google.api.services.calendar.CalendarScopes;
 
 
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.FileWriter;
-import java.security.GeneralSecurityException;
-import java.util.Collections;
-import java.util.List;
-
 import java.util.Collections;
 import java.util.List;
 
