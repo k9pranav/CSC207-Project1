@@ -29,7 +29,7 @@ public class StudentCourseTasksInteractor implements StudentCourseTasksInputBoun
         Float grade = currentTask.getGrade();
         Float weight = currentTask.getWeight();
         Course course = currentTask.getCourse();
-        StudentTasksOutputData outputData = new StudentTasksOutputData(name, deadline, weight, grade, course);
+        StudentCourseTasksOutputData outputData = new StudentCourseTasksOutputData(name, deadline, weight, grade, course);
         tasksPresenter.prepareTaskPopup(outputData);
     }
 }

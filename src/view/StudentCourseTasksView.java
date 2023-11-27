@@ -27,7 +27,7 @@ public class StudentCourseTasksView extends JPanel implements ActionListener, Pr
         this.tasksViewModel = tasksViewModel;
         this.tasksViewModel.addPropertyChangeListener(this);
         this.tasksController = tasksController;
-        String courseCode = tasksViewModel.getState().getCourse().getCourseCode();
+        String courseCode = tasksViewModel.getState().getCurrentCourse().getCourseCode();
 
         setLayout(new BorderLayout());
 
@@ -58,7 +58,7 @@ public class StudentCourseTasksView extends JPanel implements ActionListener, Pr
                 if (e.getClickCount() == 2) {
                     // open popup w/ task info
                     // Double-click detected
-                    tasksController.execute(tasks.getSelectedValue(), taskViewModel.getState().getLoggedInUser());
+                    tasksController.execute(tasks.getSelectedValue(), tasksViewModel.getState().getLoggedInUser());
                 }
             }
         });
@@ -68,7 +68,7 @@ public class StudentCourseTasksView extends JPanel implements ActionListener, Pr
                     @Override
                     public void actionPerformed(ActionEvent evt){
                         if (evt.getSource().equals(exit)){
-                            tasksController.execute("exit", tasksViewModel.getState.getLoggedInUser());
+                            tasksController.execute("exit", tasksViewModel.getState().getLoggedInUser());
                         }
                     }
                 }

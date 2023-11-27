@@ -36,7 +36,7 @@ public StudentCoursesPresenter(ViewManagerModel viewManagerModel, StudentCourses
     public void prepareCourseTasksView(StudentCoursesOutputData outputData) {
         StudentCourseTasksState tasksState = tasksViewModel.getState();
         this.tasksViewModel.setState(tasksState);
-        this.tasksViewModel.getState().setLoggedInUser(outputData.getLoggedInUser());
+        this.tasksViewModel.getState().setStudentLoggedIn(outputData.getLoggedInUser());
         this.tasksViewModel.getState().setTasks(outputData.getTasks());
         tasksViewModel.firePropertyChanged();
         viewManagerModel.setActiveView(tasksViewModel.getViewName());

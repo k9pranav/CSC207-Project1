@@ -1,5 +1,6 @@
 package interface_adapter.student_course_tasks;
 
+import entity.Student;
 import use_case.student_course_tasks.StudentCourseTasksInputBoundary;
 import use_case.student_course_tasks.StudentCourseTasksInputData;
 
