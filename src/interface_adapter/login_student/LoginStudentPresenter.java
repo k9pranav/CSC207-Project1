@@ -39,4 +39,3 @@ public class LoginStudentPresenter implements LoginStudentOutputBoundary {
         loginStudentViewModel.firePropertyChanged();
     }
 }
-}
