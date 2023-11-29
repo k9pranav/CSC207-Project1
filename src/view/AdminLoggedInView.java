@@ -1,6 +1,9 @@
 package view;
 
+import interface_adapter.admin_logged_in.AdminLoggedInController;
 import interface_adapter.admin_logged_in.AdminLoggedInViewModel;
+
+import javax.swing.*;
 
 public class AdminLoggedInView {
     public final String viewName = "admin home page";
