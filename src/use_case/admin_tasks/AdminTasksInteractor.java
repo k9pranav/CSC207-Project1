@@ -1,7 +1,9 @@
 package use_case.admin_tasks;
 
+import entity.Course;
 import entity.CourseTask;
 import entity.StudentTask;
+import use_case.admin_course_tasks.AdminCourseTasksPopupOutputData;
 
 import java.text.SimpleDateFormat;
 
@@ -23,10 +25,14 @@ public class AdminTasksInteractor implements AdminTasksInputBoundary {
             AdminTasksOutputData outputData = new AdminTasksOutputData(newTask, inputData.getLoggedIn());
             tasksPresenter.prepareEditTaskView(outputData);
         } else {
-           String taskName = inputData.getButtonPressed();
-           CourseTask currentTask = inputData.getLoggedIn().getTaskFromName(taskName);
-           AdminTasksOutputData outputData = new AdminTasksOutputData(currentTask, inputData.getLoggedIn());
-           tasksPresenter.prepareEditTaskView(outputData);
+            String name = inputData.getButtonPressed();
+            CourseTask currentTask = inputData.getLoggedIn().getTaskFromName(name);
+            SimpleDateFormat deadline = currentTask.getDeadLine();
+            Float weight = currentTask.getWeight();
+            Course course = currentTask.getCourse();
+            String type = currentTask.getType();
+            AdminTasksOutputDataPopup outputData = new AdminTasksOutputDataPopup(name, deadline, weight, course, type);
+            tasksPresenter.prepareTaskPopup(outputData);
         }
     }
 }

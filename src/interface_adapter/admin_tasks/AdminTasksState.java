@@ -4,6 +4,7 @@ import entity.Admin;
 
 public class AdminTasksState {
     private Admin adminLoggedIn;
+    private String currentTaskInfo;
 
     public AdminTasksState(AdminTasksState copy){
         adminLoggedIn = copy.adminLoggedIn;
@@ -12,4 +13,8 @@ public class AdminTasksState {
     public void setAdminLoggedIn(Admin admin){this.adminLoggedIn = admin;}
     public Admin getLoggedInUser(){return this.adminLoggedIn;}
 
+    public void setCurrentTaskInfo(String taskInfo) {this.currentTaskInfo = taskInfo;
+    }
+
+    public Object getCurrentTaskInfo() {return this.currentTaskInfo;}
 }

@@ -17,4 +17,6 @@ public class AdminCourseTasksViewModel extends ViewModel {
         support.addPropertyChangeListener(listener);
     }
     public AdminCourseTasksState getState(){return state;}
+
+    public void firePropertyChangedPopup(){support.firePropertyChange("popup", null, this.state);}
 }

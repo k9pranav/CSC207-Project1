@@ -9,6 +9,7 @@ import interface_adapter.student_logged_in.StudentLoggedInState;
 import interface_adapter.student_logged_in.StudentLoggedInViewModel;
 import use_case.student_tasks.StudentTasksOutputData;
 import use_case.student_tasks.StudentTasksOutputBoundary;
+import use_case.student_tasks.StudentTasksOutputDataStudent;
 
 import java.text.SimpleDateFormat;
 
@@ -35,6 +36,7 @@ public class StudentTasksPresenter implements StudentTasksOutputBoundary {
         taskInfo = taskInfo + "Task Name: " + outputData.getName() + "\n";
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         taskInfo = taskInfo + "Deadline: " + dateFormat.format(outputData.getDeadline())+ "\n";
+        taskInfo = taskInfo + "Type: " + outputData.getType() + "\n";
         taskInfo = taskInfo + "Weight: " + outputData.getWeight().toString() + "\n";
         taskInfo = taskInfo + "Grade: " + outputData.getGrade().toString() + "\n";
         taskInfo = taskInfo + "Course: " + outputData.getCourseCode() + ": " + outputData.getCourseName() + "\n";
@@ -42,6 +44,21 @@ public class StudentTasksPresenter implements StudentTasksOutputBoundary {
         tasksState.setCurrentTaskInfo(taskInfo);
         tasksViewModel.firePropertyChangedPopup();
     }
+
+    @Override
+    public void prepareStudentTaskPopup(StudentTasksOutputDataStudent outputData) {
+        StudentTasksState tasksState = tasksViewModel.getState();
+
+        String taskInfo = "";
+        taskInfo = taskInfo + "Task Name: " + outputData.getName() + "\n";
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        taskInfo = taskInfo + "Deadline: " + dateFormat.format(outputData.getDeadline())+ "\n";
+        taskInfo = taskInfo + "Type: " + outputData.getType() + "\n";
+
+        tasksState.setCurrentTaskInfo(taskInfo);
+        tasksViewModel.firePropertyChangedPopup();
+    }
+
     @Override
     public void prepareExit(Student student){
         StudentLoggedInState loggedInState = homePageViewModel.getState();

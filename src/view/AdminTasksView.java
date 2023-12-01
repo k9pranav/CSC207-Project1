@@ -2,7 +2,9 @@ package view;
 
 import entity.Admin;
 import entity.CourseTask;
+import interface_adapter.admin_course_tasks.AdminCourseTasksState;
 import interface_adapter.admin_tasks.AdminTasksController;
+import interface_adapter.admin_tasks.AdminTasksState;
 import interface_adapter.admin_tasks.AdminTasksViewModel;
 
 import javax.swing.*;
@@ -98,7 +100,13 @@ public AdminTasksView(AdminTasksViewModel tasksViewModel, AdminTasksController t
 }
 public void actionPerformed(ActionEvent evt){System.out.println("Click" + evt.getActionCommand());}
 
-public void propertyChange(PropertyChangeEvent evt){}
+public void propertyChange(PropertyChangeEvent evt){
+    String propName = evt.getPropertyName();
+    if (propName.equals("popup")) {
+        AdminTasksState currState = (AdminTasksState) evt.getNewValue();
+        JOptionPane.showMessageDialog(this, currState.getCurrentTaskInfo());
+    }
+}
 }
 
 

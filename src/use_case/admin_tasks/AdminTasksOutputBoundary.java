@@ -5,4 +5,6 @@ import entity.Admin;
 public interface AdminTasksOutputBoundary {
     void prepareExit(Admin admin);
     void prepareEditTaskView(AdminTasksOutputData input);
+
+    void prepareTaskPopup(AdminTasksOutputDataPopup outputData);
 }

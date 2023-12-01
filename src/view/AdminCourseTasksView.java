@@ -2,8 +2,10 @@ package view;
 
 import entity.CourseTask;
 import interface_adapter.admin_course_tasks.AdminCourseTasksController;
+import interface_adapter.admin_course_tasks.AdminCourseTasksState;
 import interface_adapter.admin_course_tasks.AdminCourseTasksViewModel;
 import interface_adapter.admin_tasks.AdminTasksViewModel;
+import interface_adapter.student_tasks.StudentTasksState;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -68,6 +70,7 @@ public class AdminCourseTasksView extends JPanel implements ActionListener, Prop
                 if (e.getClickCount() == 2) {
                     // Double-click detected
                     // getSelectedValue is task name (unique)
+                    // popup of task description
                     tasksController.execute(tasks.getSelectedValue(), tasksViewModel.getState().getLoggedInUser());
                 }
             }
@@ -100,5 +103,11 @@ public class AdminCourseTasksView extends JPanel implements ActionListener, Prop
     }
     public void actionPerformed(ActionEvent evt){System.out.println("Click" + evt.getActionCommand());}
 
-    public void propertyChange(PropertyChangeEvent evt){}
+    public void propertyChange(PropertyChangeEvent evt){
+        String propName = evt.getPropertyName();
+        if (propName.equals("popup")) {
+            AdminCourseTasksState currState = (AdminCourseTasksState) evt.getNewValue();
+            JOptionPane.showMessageDialog(this, currState.getCurrentTaskInfo());
+        }
+    }
 }
