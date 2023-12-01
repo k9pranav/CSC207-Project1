@@ -4,6 +4,9 @@ import entity.Admin;
 import entity.AdminFactory;
 import entity.Person;
 
+import java.io.IOException;
+import java.security.GeneralSecurityException;
+
 public class SignupAdminInteractor implements SignupAdminInputBoundary {
 
     final SignupAdminDataAccessInterface userDataAccessObject;
@@ -19,7 +22,7 @@ public class SignupAdminInteractor implements SignupAdminInputBoundary {
     }
 
     @Override
-    public void execute(SignupAdminInputData signupAdminInputData) {
+    public void execute(SignupAdminInputData signupAdminInputData) throws GeneralSecurityException, IOException {
         if (userDataAccessObject.existsByEmail(signupAdminInputData.getEmail())){
             userPresenter.prepareFailView("User Already Exists");
         } else if (!signupAdminInputData.getPassword().equals(signupAdminInputData.getRepeatPassword())) {

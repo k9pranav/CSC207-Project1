@@ -16,7 +16,7 @@ public class LoginAdminInteractor implements LoginAdminInputBoundary {
         String email = loginAdminInputData.getEmail();
         String password = loginAdminInputData.getPassword();
 
-        if (!adminDataAccessObject.existByName(email)) {
+        if (!adminDataAccessObject.existByEmail(email)) {
             loginAdminPresenter.prepareFailView(email + "Account does not exist");
         } else {
             String pswrd = adminDataAccessObject.get(email).getPassword();

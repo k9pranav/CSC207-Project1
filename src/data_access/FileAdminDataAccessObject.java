@@ -5,6 +5,7 @@ import entity.AdminFactory;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import use_case.login_admin.LoginAdminDataAccessInterface;
 import use_case.signup_admin.SignupAdminDataAccessInterface;
 
 import java.io.FileWriter;
@@ -38,7 +39,7 @@ import java.util.Collections;
 import java.util.List;
 
 
-public class FileAdminDataAccessObject implements SignupAdminDataAccessInterface {
+public class FileAdminDataAccessObject implements SignupAdminDataAccessInterface, LoginAdminDataAccessInterface {
 
     private final JSONObject jsonObject;
 
@@ -133,11 +134,21 @@ public class FileAdminDataAccessObject implements SignupAdminDataAccessInterface
     }
 
     @Override
+    public boolean existByEmail(String identifier) {
+        return accounts.containsKey(identifier);
+    }
 
+    @Override
     public void save(Admin admin) throws IOException {
 
         accounts.put(admin.getEmail(), admin);
         this.save();
+    }
+
+    // fix
+    @Override
+    public Admin get(String email) {
+        return accounts.get(email);
     }
 
     private void save() throws IOException{
