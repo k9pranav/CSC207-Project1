@@ -28,15 +28,16 @@ public class AdminTasksPresenter implements AdminTasksOutputBoundary {
         this.homePageViewModel.setState(loggedInState);
         this.homePageViewModel.getState().setLoggedInUser(admin);
         homePageViewModel.firePropertyChanged();
-        viewManagerModel.setActiveView(loggedInViewModel.getViewName());
+        viewManagerModel.setActiveView(homePageViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
     }
 
     @Override
     public void prepareEditTaskView(AdminTasksOutputData edit){
         EditCourseTaskState editCourseTaskState = editCourseTaskViewModel.getState();
-        this.editCourseTaskViewModel.setState(editCourseTaskState);
-        this.editCourseTaskViewModel.getState().setCurrentTask(edit.getTask());
+        editCourseTaskViewModel.setState(editCourseTaskState);
+        editCourseTaskViewModel.getState().setLoggedIn(edit.getLoggedIn());
+        editCourseTaskViewModel.getState().setCurrentTask(edit.getTask());
         editCourseTaskViewModel.firePropertyChanged();
         viewManagerModel.setActiveView(editCourseTaskViewModel.getViewName());
         viewManagerModel.firePropertyChanged();

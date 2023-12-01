@@ -4,14 +4,14 @@ import entity.Course;
 
 import java.text.SimpleDateFormat;
 
-public class StudentCourseTasksOutputData {
+public class StudentTasksOutputData {
     private String name;
     private SimpleDateFormat deadline;
     private Float weight;
     private Float grade;
     private Course course;
 
-    public StudentCourseTasksOutputData(String name, SimpleDateFormat date, Float weight, Float grade, Course course){
+    public StudentTasksOutputData(String name, SimpleDateFormat date, Float weight, Float grade, Course course){
         this.name = name;
         this.deadline = date;
         this.weight = weight;

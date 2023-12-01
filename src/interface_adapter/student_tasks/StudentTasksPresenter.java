@@ -3,12 +3,11 @@ package interface_adapter.student_tasks;
 import entity.Student;
 import entity.StudentTask;
 import interface_adapter.ViewManagerModel;
-import interface_adapter.admin_logged_in.AdminLoggedInState;
 import interface_adapter.edit_student_task.EditStudentTaskState;
 import interface_adapter.edit_student_task.EditStudentTaskViewModel;
 import interface_adapter.student_logged_in.StudentLoggedInState;
 import interface_adapter.student_logged_in.StudentLoggedInViewModel;
-import use_case.student_tasks.StudentCourseTasksOutputData;
+import use_case.student_tasks.StudentTasksOutputData;
 import use_case.student_tasks.StudentTasksOutputBoundary;
 
 import java.text.SimpleDateFormat;
@@ -29,7 +28,7 @@ public class StudentTasksPresenter implements StudentTasksOutputBoundary {
     }
 
     @Override
-    public void prepareTaskPopup(StudentCourseTasksOutputData outputData){
+    public void prepareTaskPopup(StudentTasksOutputData outputData){
         StudentTasksState tasksState = tasksViewModel.getState();
 
         String taskInfo = "";
@@ -55,11 +54,12 @@ public class StudentTasksPresenter implements StudentTasksOutputBoundary {
         // goes back to home page
     }
     @Override
-    public void prepareEditTaskView(StudentTask editTask){
+    public void prepareEditTaskView(StudentTask editTask, Student student){
         EditStudentTaskState editTaskState = editStudentTaskViewModel.getState();
         this.editStudentTaskViewModel.setState(editTaskState);
         this.editStudentTaskViewModel.getState().setCurrentTask(editTask);
         // sets the current task being edited
+        editStudentTaskViewModel.getState().setLoggedIn(student);
         editStudentTaskViewModel.firePropertyChanged();
         viewManagerModel.setActiveView(editStudentTaskViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
