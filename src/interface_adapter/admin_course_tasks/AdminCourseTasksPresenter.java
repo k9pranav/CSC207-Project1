@@ -55,8 +55,8 @@ public class AdminCourseTasksPresenter implements AdminCourseTasksOutputBoundary
         taskInfo = taskInfo + "Task Name: " + outputData.getName() + "\n";
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         taskInfo = taskInfo + "Deadline: " + dateFormat.format(outputData.getDeadline())+ "\n";
+        taskInfo = taskInfo + "Type: " + outputData.getType() + "\n";
         taskInfo = taskInfo + "Weight: " + outputData.getWeight().toString() + "\n";
-        taskInfo = taskInfo + "Grade: " + outputData.getGrade().toString() + "\n";
         taskInfo = taskInfo + "Course: " + outputData.getCourseCode() + ": " + outputData.getCourseName() + "\n";
 
         tasksState.setCurrentTaskInfo(taskInfo);

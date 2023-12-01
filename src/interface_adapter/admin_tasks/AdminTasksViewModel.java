@@ -18,4 +18,6 @@ public class AdminTasksViewModel extends ViewModel{
         support.addPropertyChangeListener(listener);
     }
     public AdminTasksState getState(){return state;}
+
+    public void firePropertyChangedPopup() {support.firePropertyChange("state", null, this.state);}
 }

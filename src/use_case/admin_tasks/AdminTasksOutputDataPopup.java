@@ -1,17 +1,17 @@
-package use_case.admin_course_tasks;
+package use_case.admin_tasks;
 
 import entity.Course;
 
 import java.text.SimpleDateFormat;
 
-public class AdminCourseTasksPopupOutputData {
+public class AdminTasksOutputDataPopup {
     private String name;
     private SimpleDateFormat deadline;
     private Float weight;
     private Course course;
     private String type;
 
-    public AdminCourseTasksPopupOutputData(String name, SimpleDateFormat date, Float weight, Course course, String type){
+    public AdminTasksOutputDataPopup(String name, SimpleDateFormat date, Float weight, Course course, String type){
         this.name = name;
         this.deadline = date;
         this.weight = weight;

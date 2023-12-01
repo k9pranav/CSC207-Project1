@@ -33,10 +33,10 @@ public class AdminCourseTasksInteractor implements AdminCourseTasksInputBoundary
         CourseTask currentTask = (CourseTask) inputData.getLoggedIn().getTaskFromName(inputData.getButtonPressed());
         String name = currentTask.getTaskName();
         SimpleDateFormat deadline = currentTask.getDeadLine();
-        Float grade = currentTask.getGrade();
         Float weight = currentTask.getWeight();
         Course course = currentTask.getCourse();
-        AdminCourseTasksPopupOutputData outputData = new AdminCourseTasksPopupOutputData(name, deadline, weight, grade, course);
+        String type = currentTask.getType();
+        AdminCourseTasksPopupOutputData outputData = new AdminCourseTasksPopupOutputData(name, deadline, weight, course, type);
         tasksPresenter.prepareTaskPopup(outputData);
     }
 
