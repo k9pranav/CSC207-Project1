@@ -28,15 +28,17 @@ public class StudentTasksInteractor implements StudentTasksInputBoundary {
         assert currentTask != null;
         String name = currentTask.getTaskName();
         SimpleDateFormat deadline = currentTask.getDeadLine();
+        String type = currentTask.getType();
 
         if (currentTask instanceof CourseTask){
             Float grade = ((CourseTask) currentTask).getGrade();
             Float weight = ((CourseTask) currentTask).getWeight();
             Course course = ((CourseTask) currentTask).getCourse();
-            StudentTasksOutputData outputData = new StudentTasksOutputData(name, deadline, weight, grade, course);
+            StudentTasksOutputData outputData = new StudentTasksOutputData(name, deadline, weight, grade, course, type);
             tasksPresenter.prepareTaskPopup(outputData);
-        } else { // StudentTask
-            tasksPresenter.prepareEditTaskView((StudentTask) currentTask, tasksInputData.getLoggedIn());
+        } else { // StudentTask popup
+            StudentTasksOutputDataStudent outputData = StudentTasksOutputDataStudent(name, deadline, type);
+            tasksPresenter.prepareStudentTaskPopup(outputData);
         }
 
     }

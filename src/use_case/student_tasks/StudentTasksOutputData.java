@@ -11,17 +11,21 @@ public class StudentTasksOutputData {
     private Float grade;
     private Course course;
 
-    public StudentTasksOutputData(String name, SimpleDateFormat date, Float weight, Float grade, Course course){
+    private String type;
+
+    public StudentTasksOutputData(String name, SimpleDateFormat date, Float weight, Float grade, Course course, String type){
         this.name = name;
         this.deadline = date;
         this.weight = weight;
         this.grade = grade;
         this.course = course;
+        this.type = type;
     }
 
     public String getName(){
         return this.name;
     }
+    public String getType(){return type;}
 
     public SimpleDateFormat getDeadline(){
         return this.deadline;

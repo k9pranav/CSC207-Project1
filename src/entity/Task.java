@@ -18,4 +18,5 @@ public abstract class Task {
 
     public String getTaskName(){return this.taskName;}
     public SimpleDateFormat getDeadLine() {return deadLine;}
+    public String getType() {return type;}
 }
