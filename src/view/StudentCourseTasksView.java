@@ -2,6 +2,7 @@ package view;
 
 import entity.CourseTask;
 import interface_adapter.student_course_tasks.StudentCourseTasksController;
+import interface_adapter.student_course_tasks.StudentCourseTasksState;
 import interface_adapter.student_course_tasks.StudentCourseTasksViewModel;
 import interface_adapter.student_tasks.StudentTasksState;
 
@@ -83,7 +84,7 @@ public class StudentCourseTasksView extends JPanel implements ActionListener, Pr
     public void propertyChange(PropertyChangeEvent evt){
         String propName = evt.getPropertyName();
         if (propName.equals("popup")) {
-            StudentTasksState currState = (StudentTasksState) evt.getNewValue();
+            StudentCourseTasksState currState = (StudentCourseTasksState) evt.getNewValue();
             JOptionPane.showMessageDialog(this, currState.getCurrentTaskInfo());
         }
     }

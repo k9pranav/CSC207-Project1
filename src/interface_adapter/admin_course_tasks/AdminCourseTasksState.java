@@ -9,6 +9,7 @@ public class AdminCourseTasksState {
     private Admin adminLoggedIn;
     private Course course;
     private ArrayList<CourseTask> tasks;
+    private String currentTaskInfo;
 
     public AdminCourseTasksState(AdminCourseTasksState copy){adminLoggedIn = copy.adminLoggedIn;}
     public AdminCourseTasksState(){}
@@ -18,4 +19,7 @@ public class AdminCourseTasksState {
     public void setTasks(ArrayList<CourseTask> tasks){this.tasks = tasks;}
     public ArrayList<CourseTask> getTasks(){return this.tasks;}
     public void setCourse(Course course){this.course = course;}
+
+    public void setCurrentTaskInfo(String taskInfo) {this.currentTaskInfo = taskInfo;}
+    public String getCurrentTaskInfo(){return currentTaskInfo;}
 }
