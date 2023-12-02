@@ -2,6 +2,8 @@ package interface_adapter.student_courses;
 
 import entity.Student;
 import interface_adapter.ViewManagerModel;
+import interface_adapter.loggedin_student.LoggedInStudentState;
+import interface_adapter.loggedin_student.LoggedinStudentViewModel;
 import interface_adapter.student_course_tasks.StudentCourseTasksState;
 import interface_adapter.student_course_tasks.StudentCourseTasksViewModel;
 import interface_adapter.student_logged_in.StudentLoggedInState;
@@ -13,9 +15,9 @@ public class StudentCoursesPresenter implements StudentCoursesOutputBoundary {
 private final ViewManagerModel viewManagerModel;
 private final StudentCourseTasksViewModel tasksViewModel;
 private final StudentCoursesViewModel coursesViewModel;
-private final StudentLoggedInViewModel homePageViewModel;
+private final LoggedinStudentViewModel homePageViewModel;
 
-public StudentCoursesPresenter(ViewManagerModel viewManagerModel, StudentCoursesViewModel coursesViewModel, StudentCourseTasksViewModel tasksViewModel, StudentLoggedInViewModel homePageViewModel){
+public StudentCoursesPresenter(ViewManagerModel viewManagerModel, StudentCoursesViewModel coursesViewModel, StudentCourseTasksViewModel tasksViewModel, LoggedinStudentViewModel homePageViewModel){
     this.viewManagerModel = viewManagerModel;
     this.tasksViewModel = tasksViewModel;
     this.homePageViewModel = homePageViewModel;
@@ -45,9 +47,9 @@ public StudentCoursesPresenter(ViewManagerModel viewManagerModel, StudentCourses
 
     @Override
     public void prepareExit(Student student) {
-        StudentLoggedInState loggedInState = homePageViewModel.getState();
+        LoggedInStudentState loggedInState = homePageViewModel.getState();
         this.homePageViewModel.setState(loggedInState);
-        this.homePageViewModel.getState().setLoggedInUser(student);
+        //TODO: Adrien this.homePageViewModel.getState().setLoggedInUser(student);
         homePageViewModel.firePropertyChanged();
         viewManagerModel.setActiveView(homePageViewModel.getViewName());
         viewManagerModel.firePropertyChanged();

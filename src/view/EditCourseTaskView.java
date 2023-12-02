@@ -1,6 +1,5 @@
 package view;
 
-import entity.Admin;
 import interface_adapter.edit_course_task.EditCourseTaskController;
 import interface_adapter.edit_course_task.EditCourseTaskState;
 import interface_adapter.edit_course_task.EditCourseTaskViewModel;
@@ -48,8 +47,9 @@ public class EditCourseTaskView extends JPanel implements ActionListener,
 
 
     public EditCourseTaskView(EditCourseTaskViewModel editCourseTaskViewModel,
-                              EditCourseTaskController editCourseTaskController, JButton save) {
+                              EditCourseTaskController editCourseTaskController, JButton save, JButton save1) {
         this.editCourseTaskViewModel = editCourseTaskViewModel;
+        this.save = save1;
         this.editCourseTaskViewModel.addPropertyChangeListener(this);
         this.editCourseTaskController = editCourseTaskController;
 

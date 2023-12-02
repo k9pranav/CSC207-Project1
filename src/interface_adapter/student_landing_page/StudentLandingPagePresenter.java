@@ -1,6 +1,7 @@
 package interface_adapter.student_landing_page;
 
 import interface_adapter.ViewManagerModel;
+import interface_adapter.login_student.LoginStudentState;
 import interface_adapter.login_student.LoginStudentViewModel;
 import interface_adapter.signup_student.SignupStudentState;
 import interface_adapter.signup_student.SignupStudentViewModel;
@@ -29,8 +30,8 @@ public class StudentLandingPagePresenter implements StudentLandingPageOutputBoun
     }
     @Override
     public void prepareLoginLandingPage(){
-        SignupStudentState loginState = loginViewModel.getState();
-        this.loginViewModel.setState(signupState);
+        LoginStudentState loginState = loginViewModel.getState();
+        this.loginViewModel.setState(loginState);
         loginViewModel.firePropertyChanged();
         viewManagerModel.setActiveView(loginViewModel.getViewName());
         viewManagerModel.firePropertyChanged();

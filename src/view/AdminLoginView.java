@@ -54,7 +54,7 @@ public class AdminLoginView extends JPanel implements ActionListener, PropertyCh
                     public void actionPerformed(ActionEvent evt){
                         if (evt.getSource().equals(logIn)){
                             adminLoginController.execute("login",
-                                    loginViewModel.getState().getUsername(),
+                                    loginViewModel.getState().getEmail(),
                                     loginViewModel.getState().getPassword());
                         }
                     }
@@ -74,7 +74,7 @@ public class AdminLoginView extends JPanel implements ActionListener, PropertyCh
             @Override
             public void keyTyped (KeyEvent e){
                 LoginAdminState currentState = loginViewModel.getState();
-                currentState.setUsername(usernameInputField.getText());
+                currentState.setEmail(usernameInputField.getText());
                 loginViewModel.setState(currentState);
             }
             @Override
@@ -122,7 +122,7 @@ public class AdminLoginView extends JPanel implements ActionListener, PropertyCh
         }
 
         private void setFields(LoginAdminState state){
-            usernameInputField.setText(state.getUsername());
+            usernameInputField.setText(state.getEmail());
             passwordInputField.setText(state.getPassword());
         }
 

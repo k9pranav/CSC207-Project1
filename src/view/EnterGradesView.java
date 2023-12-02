@@ -1,22 +1,13 @@
 package view;
 
-import entity.CourseTask;
-import entity.Student;
 import interface_adapter.enter_grades.EnterGradesController;
-import interface_adapter.enter_grades.EnterGradesState;
 import interface_adapter.enter_grades.EnterGradesViewModel;
-import interface_adapter.login_admin.LoginAdminState;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.util.ArrayList;
-import java.util.Arrays;
 
 public class EnterGradesView extends JPanel implements ActionListener, PropertyChangeListener {
 
@@ -27,7 +18,8 @@ public class EnterGradesView extends JPanel implements ActionListener, PropertyC
     final JButton exit;
     final JButton releaseGrades;
 
-    public EnterGradesView(EnterGradesViewModel viewModel, EnterGradesController controller){
+    public EnterGradesView(EnterGradesViewModel viewModel, EnterGradesController controller, EnterGradesViewModel viewModel1, EnterGradesController controller1, JTextField[] gradeInputField, JButton exit, JButton releaseGrades) {
+        /* TODO: FIX OR DELETE
         this.viewModel = viewModel;
         this.viewModel.addPropertyChangeListener(this);
         this.controller = controller;
@@ -133,4 +125,20 @@ public class EnterGradesView extends JPanel implements ActionListener, PropertyC
             passwordInputField.setText(state.getPassword());
         }
      */
+        this.viewModel = viewModel1;
+        this.controller = controller1;
+        this.gradeInputField = gradeInputField;
+        this.exit = exit;
+        this.releaseGrades = releaseGrades;
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+
+    }
+
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+
+    }
 }

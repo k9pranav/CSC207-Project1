@@ -43,7 +43,7 @@ public class LoginAdminPresenter implements LoginAdminOutputBoundary {
     @Override
     public void prepareFailView(String error){
         LoginAdminState loginState = viewModel.getState();
-        loginState.setUsernameError(error);
+        loginState.setEmailError(error);
         viewModel.firePropertyChanged();
     }
 

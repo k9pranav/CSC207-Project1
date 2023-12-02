@@ -8,7 +8,6 @@ public class SignupStudentOutputData {
     final private String password;
     final private String repeatPassword;
 
-    //TODO -> change vars to vars needed
     public SignupStudentOutputData(String first_name, String last_name, String email, String password, String repeatPassword) {
         this.first_name = first_name;
         this.last_name = last_name;
@@ -26,7 +25,7 @@ public class SignupStudentOutputData {
         return last_name;
     }
 
-    String getEmail() {
+    public String getEmail() {
         return email;
     }
 
@@ -36,10 +35,6 @@ public class SignupStudentOutputData {
 
     public String getRepeatPassword() {
         return repeatPassword;
-    }
-
-    public void setCreationTime(String creationTime) {
-        this.creationTime = creationTime;
     }
 
 }

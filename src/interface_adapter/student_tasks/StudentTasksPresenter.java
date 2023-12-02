@@ -5,6 +5,8 @@ import entity.StudentTask;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.edit_student_task.EditStudentTaskState;
 import interface_adapter.edit_student_task.EditStudentTaskViewModel;
+import interface_adapter.loggedin_student.LoggedInStudentState;
+import interface_adapter.loggedin_student.LoggedinStudentViewModel;
 import interface_adapter.student_logged_in.StudentLoggedInState;
 import interface_adapter.student_logged_in.StudentLoggedInViewModel;
 import use_case.student_tasks.StudentTasksOutputData;
@@ -16,11 +18,11 @@ public class StudentTasksPresenter implements StudentTasksOutputBoundary {
 
     private final ViewManagerModel viewManagerModel;
     private final StudentTasksViewModel tasksViewModel;
-    private final StudentLoggedInViewModel homePageViewModel;
+    private final LoggedinStudentViewModel homePageViewModel;
     private final EditStudentTaskViewModel editStudentTaskViewModel;
     // when they press create new task button
 
-    public StudentTasksPresenter(ViewManagerModel viewManagerModel, StudentTasksViewModel tasksViewModel, StudentLoggedInViewModel homePageViewModel, EditStudentTaskViewModel editStudentTaskViewModel){
+    public StudentTasksPresenter(ViewManagerModel viewManagerModel, StudentTasksViewModel tasksViewModel, LoggedinStudentViewModel homePageViewModel, EditStudentTaskViewModel editStudentTaskViewModel){
         this.viewManagerModel = viewManagerModel;
         this.tasksViewModel = tasksViewModel;
         this.homePageViewModel = homePageViewModel;
@@ -44,9 +46,9 @@ public class StudentTasksPresenter implements StudentTasksOutputBoundary {
     }
     @Override
     public void prepareExit(Student student){
-        StudentLoggedInState loggedInState = homePageViewModel.getState();
+        LoggedInStudentState loggedInState = homePageViewModel.getState();
         this.homePageViewModel.setState(loggedInState);
-        this.homePageViewModel.getState().setLoggedInUser(student);
+        //TODO Adrien: this.homePageViewModel.getState().setLoggedInUser(student);
         // should set it to the currently logged in user's home page
         homePageViewModel.firePropertyChanged();
         viewManagerModel.setActiveView(homePageViewModel.getViewName());
@@ -54,7 +56,8 @@ public class StudentTasksPresenter implements StudentTasksOutputBoundary {
         // goes back to home page
     }
     @Override
-    public void prepareEditTaskView(StudentTask editTask, Student student){
+    public void prepareEditTaskView(StudentTask editTask, Student student) {
+        /*TODO:NADJA fix edit task stuff
         EditStudentTaskState editTaskState = editStudentTaskViewModel.getState();
         this.editStudentTaskViewModel.setState(editTaskState);
         this.editStudentTaskViewModel.getState().setCurrentTask(editTask);
@@ -62,6 +65,7 @@ public class StudentTasksPresenter implements StudentTasksOutputBoundary {
         editStudentTaskViewModel.getState().setLoggedIn(student);
         editStudentTaskViewModel.firePropertyChanged();
         viewManagerModel.setActiveView(editStudentTaskViewModel.getViewName());
-        viewManagerModel.firePropertyChanged();
+        viewManagerModel.firePropertyChanged()
+         */
     }
 }

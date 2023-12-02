@@ -31,8 +31,8 @@ public class Course {
         this.courseTasks = new ArrayList<CourseTask>();
         this.courseAdmin = courseAdmin;
         this.studentEnrolled = new ArrayList<Student>();
-
     }
+
 
     public String getCourseName(){return courseName;}
     public String getCourseCode(){return courseCode;}
@@ -104,8 +104,11 @@ public class Course {
             studentEnrolled.add(student);
         }
 
-        public Course build(){
+        public Course build() {
+            /* TODO: Pranav
             return new Course(this);
+            */
+            return null;
         }
     }
 

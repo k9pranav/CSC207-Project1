@@ -43,7 +43,7 @@ public class AdminCoursesPresenter implements AdminCoursesOutputBoundary {
     public void prepareExit(Admin admin){
         AdminLoggedInState loggedInState = homePageViewModel.getState();
         this.homePageViewModel.setState(loggedInState);
-        this.homePageViewModel.getState().setLoggedInUser(admin);
+        // TODO: Adrien this.homePageViewModel.getState().setLoggedInUser(admin);
         homePageViewModel.firePropertyChanged();
         viewManagerModel.setActiveView(homePageViewModel.getViewName());
         viewManagerModel.firePropertyChanged();

@@ -34,6 +34,8 @@ public class AdminCourseTasksPresenter implements AdminCourseTasksOutputBoundary
 
     @Override
     public void prepareEditTaskView(AdminCourseTasksOutputData outputData){
+        /*
+        TODO: Nadja
         EditCourseTaskState editCourseTaskState = editCourseTaskViewModel.getState();
         this.editCourseTaskViewModel.setState(editCourseTaskState);
         this.editCourseTaskViewModel.getState().setCurrentTask(outputData.getTask());
@@ -41,6 +43,8 @@ public class AdminCourseTasksPresenter implements AdminCourseTasksOutputBoundary
         editCourseTaskViewModel.firePropertyChanged();
         viewManagerModel.setActiveView(editCourseTaskViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
+
+         */
     }
 
 }
