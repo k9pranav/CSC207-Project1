@@ -11,7 +11,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
 public class AdminCoursesView extends JPanel implements ActionListener, PropertyChangeListener {
-    public final String viewName = "student courses page";
+    public final String viewName = "admin courses page";
     private final AdminCoursesViewModel coursesViewModel;
     private final AdminCoursesController coursesController;
     final JList<String> courses;
