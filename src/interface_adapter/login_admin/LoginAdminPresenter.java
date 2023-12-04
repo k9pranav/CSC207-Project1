@@ -37,6 +37,7 @@ public class LoginAdminPresenter implements LoginAdminOutputBoundary {
             AdminLoggedInState loggedInState = loggedInViewModel.getState();
             this.loggedInViewModel.setState(loggedInState);
             loggedInViewModel.firePropertyChanged();
+
             viewManagerModel.setActiveView(loggedInViewModel.getViewName());
             viewManagerModel.firePropertyChanged();
     }

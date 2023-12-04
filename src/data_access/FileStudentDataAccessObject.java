@@ -17,6 +17,7 @@ import entity.StudentFactory;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import use_case.login_student.LoginStudentDataAccessInterface;
 import use_case.signup_student.SignupStudentDataAccessInterface;
 
 import java.io.*;
@@ -26,7 +27,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class FileStudentDataAccessObject implements SignupStudentDataAccessInterface {
+public class FileStudentDataAccessObject implements SignupStudentDataAccessInterface, LoginStudentDataAccessInterface {
     private final JSONObject jsonObject;
     private StudentFactory studentFactory;
     private final Map<String, Student> accounts = new HashMap<>();
@@ -50,9 +51,11 @@ public class FileStudentDataAccessObject implements SignupStudentDataAccessInter
 
         if (jsonFile.length() == 0){
             jsonObject.put("admins", new JSONArray());
-            save();
+            // TODO: why are we saving this stuff when there are so student yet?????
+            //  save();
         } else {
-            try{JSONArray students = jsonObject.getJSONArray("students");
+            try {
+                JSONArray students = jsonObject.getJSONArray("students");
                 for (int i = 0; i < students.length(); i++) {
                     JSONObject j = new JSONObject(students.get(i));
                     String firstName = (String) j.get("firstName");
@@ -82,7 +85,7 @@ private static Credential getCredentials(final NetHttpTransport HTTP_TRANSPORT) 
     // Build flow and trigger user authorization request.
     GoogleAuthorizationCodeFlow flow = new GoogleAuthorizationCodeFlow.Builder(
             HTTP_TRANSPORT, JSON_FACTORY, clientSecrets, SCOPES)
-            .setDataStoreFactory(new FileDataStoreFactory(new java.io.File(TOKENS_DIRECTORY_PATH)))
+            .setDataStoreFactory(new FileDataStoreFactory(new File(TOKENS_DIRECTORY_PATH)))
             .setAccessType("offline")
             .build();
     LocalServerReceiver receiver = new LocalServerReceiver.Builder().setPort(8888).build();
@@ -115,11 +118,16 @@ public void createCalendar(Student student) throws IOException, GeneralSecurityE
         return accounts.containsKey(email);
     }
 
+
     @Override
     public void save(Student student) throws IOException {
-
         accounts.put(student.getEmail(), student);
         this.save();
+    }
+
+    @Override
+    public Student get(String email) {
+        return accounts.get(email);
     }
 
     private void save() throws IOException{

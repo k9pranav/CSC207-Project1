@@ -3,8 +3,11 @@ package data_access;
 import entity.Admin;
 import entity.AdminFactory;
 
+import entity.Student;
 import org.json.JSONArray;
 import org.json.JSONException;
+import use_case.login_admin.LoginAdminDataAccessInterface;
+import use_case.login_student.LoginStudentDataAccessInterface;
 import use_case.signup_admin.SignupAdminDataAccessInterface;
 
 import java.io.FileWriter;
@@ -38,7 +41,7 @@ import java.util.Collections;
 import java.util.List;
 
 
-public class FileAdminDataAccessObject implements SignupAdminDataAccessInterface {
+public class FileAdminDataAccessObject implements SignupAdminDataAccessInterface, LoginAdminDataAccessInterface {
 
     private final JSONObject jsonObject;
 
@@ -67,7 +70,8 @@ public class FileAdminDataAccessObject implements SignupAdminDataAccessInterface
 
         if (jsonFile.length() == 0){
             jsonObject.put("admins", new JSONArray());
-            save();
+            // TODO: this suff
+            //save();
         }else {
             try {
                 JSONArray admins = jsonObject.getJSONArray("admins");
@@ -100,7 +104,7 @@ public class FileAdminDataAccessObject implements SignupAdminDataAccessInterface
         // Build flow and trigger user authorization request.
         GoogleAuthorizationCodeFlow flow = new GoogleAuthorizationCodeFlow.Builder(
                 HTTP_TRANSPORT, JSON_FACTORY, clientSecrets, SCOPES)
-                .setDataStoreFactory(new FileDataStoreFactory(new java.io.File(TOKENS_DIRECTORY_PATH)))
+                .setDataStoreFactory(new FileDataStoreFactory(new File(TOKENS_DIRECTORY_PATH)))
                 .setAccessType("offline")
                 .build();
         LocalServerReceiver receiver = new LocalServerReceiver.Builder().setPort(8888).build();
@@ -133,11 +137,21 @@ public class FileAdminDataAccessObject implements SignupAdminDataAccessInterface
     }
 
     @Override
+    public boolean existByName(String email) {
+        return accounts.containsKey(email);
+    }
+
+    @Override
 
     public void save(Admin admin) throws IOException {
 
         accounts.put(admin.getEmail(), admin);
         this.save();
+    }
+
+    @Override
+    public Admin get(String email) {
+        return accounts.get(email);
     }
 
     private void save() throws IOException{

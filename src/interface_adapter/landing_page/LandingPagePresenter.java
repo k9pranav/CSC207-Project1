@@ -33,7 +33,7 @@ public class LandingPagePresenter implements LandingPageOutputBoundary {
         AdminLandingPageState adminState = adminLandingPageViewModel.getState();
         this.adminLandingPageViewModel.setState(adminState);
         adminLandingPageViewModel.firePropertyChanged();
-        viewManagerModel.setActiveView(studentLandingPageViewModel.getViewName());
+        viewManagerModel.setActiveView(adminLandingPageViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
     }
 }

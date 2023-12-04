@@ -25,6 +25,7 @@ public class StudentLandingPagePresenter implements StudentLandingPageOutputBoun
         SignupStudentState signupState = signupViewModel.getState();
         this.signupViewModel.setState(signupState);
         signupViewModel.firePropertyChanged();
+
         viewManagerModel.setActiveView(signupViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
     }
@@ -33,6 +34,7 @@ public class StudentLandingPagePresenter implements StudentLandingPageOutputBoun
         LoginStudentState loginState = loginViewModel.getState();
         this.loginViewModel.setState(loginState);
         loginViewModel.firePropertyChanged();
+
         viewManagerModel.setActiveView(loginViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
     }

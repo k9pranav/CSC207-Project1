@@ -13,7 +13,7 @@ import java.awt.event.KeyListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 public class AdminSignupView extends JPanel implements ActionListener, PropertyChangeListener {
-    public final String viewName = "admin sign up";
+    public final String viewName = "sign up admin";
 
     private final SignupAdminViewModel signupViewModel;
     private final JTextField usernameInputField = new JTextField(15);

@@ -1,5 +1,6 @@
 package view;
 
+import entity.Admin;
 import interface_adapter.edit_course_task.EditCourseTaskController;
 import interface_adapter.edit_course_task.EditCourseTaskState;
 import interface_adapter.edit_course_task.EditCourseTaskViewModel;
@@ -38,7 +39,7 @@ public class EditCourseTaskView extends JPanel implements ActionListener,
     //Task Weight. Need to add code to check if its float or not
     final JTextField taskWeight = new JTextField(15);
 
-    final JButton save;
+    // TODO final JButton save;
     final JButton exit;
 
 
@@ -47,9 +48,8 @@ public class EditCourseTaskView extends JPanel implements ActionListener,
 
 
     public EditCourseTaskView(EditCourseTaskViewModel editCourseTaskViewModel,
-                              EditCourseTaskController editCourseTaskController, JButton save, JButton save1) {
+                              EditCourseTaskController editCourseTaskController, JButton save) {
         this.editCourseTaskViewModel = editCourseTaskViewModel;
-        this.save = save1;
         this.editCourseTaskViewModel.addPropertyChangeListener(this);
         this.editCourseTaskController = editCourseTaskController;
 
