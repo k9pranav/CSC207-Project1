@@ -6,6 +6,7 @@ import use_case.signup_student.SignupStudentInputBoundary;
 import use_case.signup_student.SignupStudentInputData;
 public class LoginStudentController {
     final LoginStudentInputBoundary loginStudentUseCaseInteractor;
+
     public LoginStudentController(LoginStudentInputBoundary loginStudentUseCaseInteractor) {
         this.loginStudentUseCaseInteractor = loginStudentUseCaseInteractor;
     }

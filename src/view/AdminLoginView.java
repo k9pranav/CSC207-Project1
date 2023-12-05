@@ -20,8 +20,8 @@ public class AdminLoginView extends JPanel implements ActionListener, PropertyCh
 
     private final LoginAdminViewModel loginViewModel;
 
-    final JTextField usernameInputField = new JTextField(15);
-    private final JLabel usernameErrorField = new JLabel();
+    final JTextField emailInputField = new JTextField(15);
+    private final JLabel emailErrorField = new JLabel();
 
     final JPasswordField passwordInputField = new JPasswordField(15);
     private final JLabel passwordErrorField = new JLabel();
@@ -37,8 +37,8 @@ public class AdminLoginView extends JPanel implements ActionListener, PropertyCh
         JLabel title = new JLabel("Admin Login");
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        LabelTextPanel usernameInfo = new LabelTextPanel(
-                new JLabel("Username"), usernameInputField);
+        LabelTextPanel emailInfo = new LabelTextPanel(
+                new JLabel("Email"), emailInputField);
         LabelTextPanel passwordInfo = new LabelTextPanel(
                 new JLabel("Password"), passwordInputField
         );
@@ -54,27 +54,18 @@ public class AdminLoginView extends JPanel implements ActionListener, PropertyCh
                     public void actionPerformed(ActionEvent evt){
                         if (evt.getSource().equals(logIn)){
                             adminLoginController.execute("login",
-                                    loginViewModel.getState().getUsername(),
+                                    loginViewModel.getState().getEmail(),
                                     loginViewModel.getState().getPassword());
                         }
                     }
                 }
         );
-        cancel.addActionListener(
-                new ActionListener(){
-                    public void actionPerformed(ActionEvent evt){
-                        if (evt.getSource().equals(cancel)){
-                            adminLoginController.execute("cancel", "", "");
-                        }
-                    }
-                }
-        );
 
-        usernameInputField.addKeyListener(new KeyListener() {
+        emailInputField.addKeyListener(new KeyListener() {
             @Override
             public void keyTyped (KeyEvent e){
                 LoginAdminState currentState = loginViewModel.getState();
-                currentState.setUsername(usernameInputField.getText());
+                currentState.setEmail(emailInputField.getText());
                 loginViewModel.setState(currentState);
             }
             @Override
@@ -104,8 +95,8 @@ public class AdminLoginView extends JPanel implements ActionListener, PropertyCh
             this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
             this.add(title);
-            this.add(usernameInfo);
-            this.add(usernameErrorField);
+            this.add(emailInfo);
+            this.add(emailErrorField);
             this.add(passwordInfo);
             this.add(passwordErrorField);
             this.add(buttons);
@@ -122,7 +113,7 @@ public class AdminLoginView extends JPanel implements ActionListener, PropertyCh
         }
 
         private void setFields(LoginAdminState state){
-            usernameInputField.setText(state.getUsername());
+            emailInputField.setText(state.getEmail());
             passwordInputField.setText(state.getPassword());
         }
 

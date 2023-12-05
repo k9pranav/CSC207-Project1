@@ -1,7 +1,6 @@
 package use_case.login_admin;
 
 import entity.Admin;
-import use_case.landing_page.LandingPageOutputBoundary;
 
 public class LoginAdminInteractor implements LoginAdminInputBoundary {
     final LoginAdminDataAccessInterface adminDataAccessObject;

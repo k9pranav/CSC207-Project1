@@ -2,11 +2,13 @@ package use_case.login_student;
 
 import entity.Student;
 
-public interface LoginStudentDataAccessInterface {
-    boolean existByName(String identifier);
+import java.io.IOException;
 
-    void save(Student student);
+public interface LoginStudentDataAccessInterface {
+
+    void save(Student student) throws IOException;
 
     Student get(String email);
 
+    boolean existsByEmail(String identifier);
 }

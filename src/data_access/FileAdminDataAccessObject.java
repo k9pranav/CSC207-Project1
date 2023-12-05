@@ -3,20 +3,18 @@ package data_access;
 import entity.Admin;
 import entity.AdminFactory;
 
+import entity.Student;
 import org.json.JSONArray;
 import org.json.JSONException;
+import use_case.login_admin.LoginAdminDataAccessInterface;
+import use_case.login_student.LoginStudentDataAccessInterface;
 import use_case.signup_admin.SignupAdminDataAccessInterface;
-import
-
 
 import java.io.FileWriter;
 import java.io.IOException;
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.*;
-
-import org.json.JSONObject;
 
 import java.security.GeneralSecurityException;
 import java.util.HashMap;
@@ -37,19 +35,13 @@ import com.google.api.services.calendar.CalendarScopes;
 
 
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.FileWriter;
-import java.security.GeneralSecurityException;
-import java.util.Collections;
-import java.util.List;
-
 import java.util.Collections;
 import java.util.List;
 
 
-public class FileAdminDataAccessObject implements SignupAdminDataAccessInterface {
+public class FileAdminDataAccessObject implements SignupAdminDataAccessInterface, LoginAdminDataAccessInterface {
 
     private final JSONObject jsonObject;
 
@@ -76,7 +68,7 @@ public class FileAdminDataAccessObject implements SignupAdminDataAccessInterface
         this.jsonObject = new JSONObject(jsonFile);
         // the JSON file with all the admins
 
-        if (jsonFile.length() == 0){
+        if (!jsonObject.has("admins")){
             jsonObject.put("admins", new JSONArray());
             save();
         }else {
@@ -111,7 +103,7 @@ public class FileAdminDataAccessObject implements SignupAdminDataAccessInterface
         // Build flow and trigger user authorization request.
         GoogleAuthorizationCodeFlow flow = new GoogleAuthorizationCodeFlow.Builder(
                 HTTP_TRANSPORT, JSON_FACTORY, clientSecrets, SCOPES)
-                .setDataStoreFactory(new FileDataStoreFactory(new java.io.File(TOKENS_DIRECTORY_PATH)))
+                .setDataStoreFactory(new FileDataStoreFactory(new File(TOKENS_DIRECTORY_PATH)))
                 .setAccessType("offline")
                 .build();
         LocalServerReceiver receiver = new LocalServerReceiver.Builder().setPort(8888).build();
@@ -144,6 +136,11 @@ public class FileAdminDataAccessObject implements SignupAdminDataAccessInterface
     }
 
     @Override
+    public boolean existByName(String email) {
+        return accounts.containsKey(email);
+    }
+
+    @Override
 
     public void save(Admin admin) throws IOException {
 
@@ -151,7 +148,13 @@ public class FileAdminDataAccessObject implements SignupAdminDataAccessInterface
         this.save();
     }
 
+    @Override
+    public Admin get(String email) {
+        return accounts.get(email);
+    }
+
     private void save() throws IOException{
+        JSONArray adminArray = jsonObject.getJSONArray("admins");
         for (Admin admin : accounts.values()){
 
             JSONObject jsonObj = new JSONObject();
@@ -161,9 +164,9 @@ public class FileAdminDataAccessObject implements SignupAdminDataAccessInterface
             jsonObj.put("email", admin.getEmail());
             jsonObj.put("calendarId", admin.getCalendarId());
             jsonObj.put("courseList", admin.getCourses());
-            JSONArray adminUpdated = jsonObject.getJSONArray("admins").put(jsonObj);
-            jsonObject.put("admins", adminUpdated);
+            adminArray.put(jsonObj);
         }
+        jsonObject.put("admins", adminArray);
         FileWriter file = new FileWriter(pathToFile, false);
         file.write(jsonObject.toString());
         file.close();

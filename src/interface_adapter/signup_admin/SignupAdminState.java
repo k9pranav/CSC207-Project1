@@ -69,5 +69,6 @@ public class SignupAdminState {
     }
 
 
-
+    public void setError(String error) {
+    }
 }

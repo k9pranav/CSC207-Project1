@@ -1,5 +1,8 @@
 package interface_adapter.signup_admin;
 
+import interface_adapter.ViewManagerModel;
+import interface_adapter.login_admin.LoginAdminState;
+import interface_adapter.login_admin.LoginAdminViewModel;
 import use_case.signup_admin.SignupAdminOutputBoundary;
 import use_case.signup_admin.SignupAdminOutputData;
 import view.ViewManager;
@@ -14,7 +17,7 @@ public class SignupAdminPresenter implements SignupAdminOutputBoundary{
     private ViewManagerModel viewManager;
 
     public SignupAdminPresenter (SignupAdminViewModel signupAdminViewModel,
-                                 ViewManager viewManager, LoginAdminViewModel
+                                 ViewManagerModel viewManager, LoginAdminViewModel
                                          loginAdminViewModel){
         this.signupAdminViewModel = signupAdminViewModel;
         this.viewManager = viewManager;
@@ -26,12 +29,10 @@ public class SignupAdminPresenter implements SignupAdminOutputBoundary{
     public void prepareSuccessView(SignupAdminOutputData response){
         LoginAdminState loginAdminState = loginAdminViewModel.getState();
 
-        loginAdminState.setFirstName(response.getFirstName());
-        loginAdminState.setLastName(response.getLastName());
         loginAdminState.setEmail(response.getEmail());
 
         this.loginAdminViewModel.setState(loginAdminState);
-        loginAdminViewModel.firePropertyChange();
+        loginAdminViewModel.firePropertyChanged();
 
         viewManager.setActiveView(loginAdminViewModel.getViewName());
 

@@ -13,7 +13,7 @@ public class AdminLandingPageController {
         if ("signup".equals(buttonPressed)){
             adminLandingInteractor.execute("signup");
         }
-        else if ("admin".equals(buttonPressed)){
+        else if ("login".equals(buttonPressed)){
             adminLandingInteractor.execute("login");
         }
 
