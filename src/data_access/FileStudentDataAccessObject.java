@@ -49,10 +49,9 @@ public class FileStudentDataAccessObject implements SignupStudentDataAccessInter
         this.jsonObject = new JSONObject(jsonFile);
         // JSONfile with all students
 
-        if (jsonFile.length() == 0){
-            jsonObject.put("admins", new JSONArray());
-            // TODO: why are we saving this stuff when there are so student yet?????
-            //  save();
+        if (!jsonObject.has("students")){
+            jsonObject.put("students", new JSONArray());
+            save();
         } else {
             try {
                 JSONArray students = jsonObject.getJSONArray("students");
@@ -131,6 +130,8 @@ public void createCalendar(Student student) throws IOException, GeneralSecurityE
     }
 
     private void save() throws IOException{
+        JSONArray studentArray = jsonObject.getJSONArray("students");
+
         for (Student student : accounts.values()){
 
             JSONObject jsonObj = new JSONObject();
@@ -140,9 +141,10 @@ public void createCalendar(Student student) throws IOException, GeneralSecurityE
             jsonObj.put("email", student.getEmail());
             jsonObj.put("calendarId", student.getCalendarId());
             jsonObj.put("courseList", student.getCourses());
-            JSONArray studentUpdated = jsonObject.getJSONArray("students").put(jsonObj);
-            jsonObject.put("students", studentUpdated);
+            studentArray.put(jsonObj);
         }
+        jsonObject.put("students", studentArray);
+
         FileWriter file = new FileWriter(pathToFile, false);
         file.write(jsonObject.toString());
         file.close();

@@ -68,10 +68,9 @@ public class FileAdminDataAccessObject implements SignupAdminDataAccessInterface
         this.jsonObject = new JSONObject(jsonFile);
         // the JSON file with all the admins
 
-        if (jsonFile.length() == 0){
+        if (!jsonObject.has("admins")){
             jsonObject.put("admins", new JSONArray());
-            // TODO: this suff
-            //save();
+            save();
         }else {
             try {
                 JSONArray admins = jsonObject.getJSONArray("admins");
@@ -155,6 +154,7 @@ public class FileAdminDataAccessObject implements SignupAdminDataAccessInterface
     }
 
     private void save() throws IOException{
+        JSONArray adminArray = jsonObject.getJSONArray("admins");
         for (Admin admin : accounts.values()){
 
             JSONObject jsonObj = new JSONObject();
@@ -164,9 +164,9 @@ public class FileAdminDataAccessObject implements SignupAdminDataAccessInterface
             jsonObj.put("email", admin.getEmail());
             jsonObj.put("calendarId", admin.getCalendarId());
             jsonObj.put("courseList", admin.getCourses());
-            JSONArray adminUpdated = jsonObject.getJSONArray("admins").put(jsonObj);
-            jsonObject.put("admins", adminUpdated);
+            adminArray.put(jsonObj);
         }
+        jsonObject.put("admins", adminArray);
         FileWriter file = new FileWriter(pathToFile, false);
         file.write(jsonObject.toString());
         file.close();
