@@ -1,7 +1,8 @@
 package view;
 
-import interface_adapter.loggedin_student.LoggedInStudentState;
-import interface_adapter.loggedin_student.LoggedinStudentViewModel;
+import interface_adapter.student_logged_in.StudentLoggedInState;
+import interface_adapter.student_logged_in.StudentLoggedInViewModel;
+import interface_adapter.student_logged_in.StudentLoggedInViewModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,8 +12,8 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
 public class StudentLoggedInView extends JPanel implements ActionListener, PropertyChangeListener {
-    public final String viewName = "logged in";
-    private final LoggedinStudentViewModel loggedinStudentViewModel;
+    public final String viewName = "logged in student";
+    private final StudentLoggedInViewModel studentLoggedInViewModel;
 
     JLabel email;
 
@@ -21,9 +22,9 @@ public class StudentLoggedInView extends JPanel implements ActionListener, Prope
     /**
      * A window with a title and a JButton.
      */
-    public StudentLoggedInView(LoggedinStudentViewModel loggedInStudentViewModel) {
-        this.loggedinStudentViewModel = loggedInStudentViewModel;
-        this.loggedinStudentViewModel.addPropertyChangeListener(this);
+    public StudentLoggedInView(StudentLoggedInViewModel studentloggedInViewModel) {
+        this.studentLoggedInViewModel = studentloggedInViewModel;
+        this.studentLoggedInViewModel.addPropertyChangeListener(this);
 
         JLabel title = new JLabel("Logged In Screen");
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -54,7 +55,7 @@ public class StudentLoggedInView extends JPanel implements ActionListener, Prope
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        LoggedInStudentState state = (LoggedInStudentState) evt.getNewValue();
+        StudentLoggedInState state = (StudentLoggedInState) evt.getNewValue();
         email.setText(state.getEmail());
     }
 }

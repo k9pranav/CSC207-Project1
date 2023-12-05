@@ -4,6 +4,7 @@ import entity.AdminFactory;
 import entity.PersonFactory;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.admin_logged_in.AdminLoggedInViewModel;
+import interface_adapter.landing_page.LandingPageViewModel;
 import interface_adapter.login_admin.LoginAdminController;
 import interface_adapter.login_admin.LoginAdminPresenter;
 import interface_adapter.login_admin.LoginAdminViewModel;
@@ -21,13 +22,19 @@ public class LoginAdminUseCaseFactory {
 
     public static AdminLoginView create(
             ViewManagerModel viewManagerModel,
-            LoginAdminViewModel loginStudentViewModel,
+            LoginAdminViewModel loginAdminViewModel,
             AdminLoggedInViewModel loggedInViewModel,
+            LandingPageViewModel landingPageViewModel,
             LoginAdminDataAccessInterface userDataAccessObject) {
 
         try {
-            LoginAdminController loginController = createLoginUseCase(viewManagerModel, loginStudentViewModel, loggedInViewModel, userDataAccessObject);
-            return new AdminLoginView(loginStudentViewModel, loginController);
+            LoginAdminController loginController = createLoginUseCase(
+                    viewManagerModel,
+                    loginAdminViewModel,
+                    loggedInViewModel,
+                    landingPageViewModel,
+                    userDataAccessObject);
+            return new AdminLoginView(loginAdminViewModel, loginController);
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Could not open user data file.");
         }
@@ -39,11 +46,10 @@ public class LoginAdminUseCaseFactory {
             ViewManagerModel viewManagerModel,
             LoginAdminViewModel loginViewModel,
             AdminLoggedInViewModel loggedInViewModel,
+            LandingPageViewModel landingPageViewModel,
             LoginAdminDataAccessInterface userDataAccessObject) throws IOException {
 
-        // Notice how we pass this method's parameters to the Presenter.
-        /*
-        LoginAdminOutputBoundary loginOutputBoundary = new LoginAdminPresenter(viewManagerModel, loggedInViewModel, loginViewModel);
+        LoginAdminOutputBoundary loginOutputBoundary = new LoginAdminPresenter(viewManagerModel, loginViewModel, landingPageViewModel, loggedInViewModel );
 
         PersonFactory userFactory = new AdminFactory();
 
@@ -51,7 +57,5 @@ public class LoginAdminUseCaseFactory {
                 userDataAccessObject, loginOutputBoundary);
 
         return new LoginAdminController(loginInteractor);
-         */
-        return null;
     }
 }
