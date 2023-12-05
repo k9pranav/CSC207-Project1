@@ -20,12 +20,15 @@ public class LoginStudentInteractor implements LoginStudentInputBoundary{
         String password = loginStudentInputData.getPassword();
 
         if (!studentDataAccessObject.existsByEmail(email)) {
-            loginStudentPresenter.prepareFailView(email + "Account does not exist");
+            loginStudentPresenter.prepareFailView( "Account " + email + " does not exist");
         } else {
             Student student = studentDataAccessObject.get(loginStudentInputData.getEmail());
 
             LoginStudentOutputData loginStudentOutputData = new LoginStudentOutputData(student.getEmail(), false);
             loginStudentPresenter.prepareSuccessView(loginStudentOutputData);
         }
+    }
+    public void executeCancel(){
+        loginStudentPresenter.prepareCancelView();
     }
 }

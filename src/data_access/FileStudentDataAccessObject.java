@@ -19,6 +19,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import use_case.login_student.LoginStudentDataAccessInterface;
 import use_case.signup_student.SignupStudentDataAccessInterface;
+import org.apache.commons.io.FileUtils;
+
 
 import java.io.*;
 import java.security.GeneralSecurityException;
@@ -34,6 +36,15 @@ public class FileStudentDataAccessObject implements SignupStudentDataAccessInter
     private static final String APPLICATION_NAME = "Creamy GOATS";
     private static final JsonFactory JSON_FACTORY = GsonFactory.getDefaultInstance();
 
+    private static final String studentsKey = "students";
+    private static final String firstNameKey = "firstname";
+    private static final String lastNameKey = "lastname";
+    private static final String passwordKey = "password";
+    private static final String emailKey = "email";
+    private static final String calendarIDKey = "calendarID";
+    private static final String courseListKey = "courseList";
+
+
     private static final String TOKENS_DIRECTORY_PATH = "tokens2";
     // not sure if we should make a separate folder for these tokens too..
 
@@ -46,24 +57,27 @@ public class FileStudentDataAccessObject implements SignupStudentDataAccessInter
         this.studentFactory = studentFactory;
         this.pathToFile = pathToFile;
         File jsonFile = new File(pathToFile);
-        this.jsonObject = new JSONObject(jsonFile);
-        // JSONfile with all students
+        String jsonString = "{}";
+        if (jsonFile.exists()) {
+            jsonString = FileUtils.readFileToString(jsonFile, "UTF-8");
+        }
+        this.jsonObject = new JSONObject(jsonString);
 
-        if (!jsonObject.has("students")){
-            jsonObject.put("students", new JSONArray());
+        if (!jsonObject.has(this.studentsKey)){
+            jsonObject.put(this.studentsKey, new JSONArray());
             save();
         } else {
             try {
-                JSONArray students = jsonObject.getJSONArray("students");
+                JSONArray students = jsonObject.getJSONArray(this.studentsKey);
                 for (int i = 0; i < students.length(); i++) {
-                    JSONObject j = new JSONObject(students.get(i));
-                    String firstName = (String) j.get("firstName");
-                    String lastName = (String) j.get("lastName");
-                    String password = (String) j.get("password");
-                    String repeatPassword = (String) j.get("password");
-                    String email = (String) j.get("email");
-                    Student student = (Student) studentFactory.create(firstName, lastName, password, repeatPassword, email);
-                    // check this
+                    JSONObject j = (JSONObject) students.get(i);
+                    String firstName = (String) j.get(this.firstNameKey);
+                    String lastName = (String) j.get(this.lastNameKey);
+                    String password = (String) j.get(this.passwordKey);
+                    String email = (String) j.get(this.emailKey);
+                    // TODO remove repeat password from the factory, no need to store it
+                    Student student = (Student) studentFactory.create(firstName, lastName, password, password, email);
+                    // TODO miss CalendarIDKey and CourseListKey
                     accounts.put(student.getEmail(), student);
                 } // file has emails as the key and a list of JSON files for each admin
         }catch (JSONException e){
@@ -130,20 +144,19 @@ public void createCalendar(Student student) throws IOException, GeneralSecurityE
     }
 
     private void save() throws IOException{
-        JSONArray studentArray = jsonObject.getJSONArray("students");
-
+        JSONArray studentArray = jsonObject.getJSONArray(this.studentsKey);
         for (Student student : accounts.values()){
 
             JSONObject jsonObj = new JSONObject();
-            jsonObj.put("firstname", student.getFirstName());
-            jsonObj.put("lastname", student.getLastName());
-            jsonObj.put("password", student.getPassword());
-            jsonObj.put("email", student.getEmail());
-            jsonObj.put("calendarId", student.getCalendarId());
-            jsonObj.put("courseList", student.getCourses());
+            jsonObj.put(this.firstNameKey, student.getFirstName());
+            jsonObj.put(this.lastNameKey, student.getLastName());
+            jsonObj.put(this.passwordKey, student.getPassword());
+            jsonObj.put(this.emailKey, student.getEmail());
+            jsonObj.put(this.calendarIDKey, student.getCalendarId());
+            jsonObj.put(this.courseListKey, student.getCourses());
             studentArray.put(jsonObj);
         }
-        jsonObject.put("students", studentArray);
+        jsonObject.put(this.studentsKey, studentArray);
 
         FileWriter file = new FileWriter(pathToFile, false);
         file.write(jsonObject.toString());

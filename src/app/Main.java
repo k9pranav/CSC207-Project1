@@ -3,19 +3,17 @@ package app;
 import data_access.FileAdminDataAccessObject;
 import data_access.FileStudentDataAccessObject;
 import entity.AdminFactory;
-import entity.PersonFactory;
 import entity.StudentFactory;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.admin_landing_page.AdminLandingPageViewModel;
 import interface_adapter.admin_logged_in.AdminLoggedInViewModel;
 import interface_adapter.landing_page.LandingPageViewModel;
-import interface_adapter.loggedin_student.LoggedinStudentViewModel;
 import interface_adapter.login_admin.LoginAdminViewModel;
 import interface_adapter.login_student.LoginStudentViewModel;
 import interface_adapter.signup_admin.SignupAdminViewModel;
 import interface_adapter.signup_student.SignupStudentViewModel;
 import interface_adapter.student_landing_page.StudentLandingPageViewModel;
-import use_case.login_student.LoginStudentDataAccessInterface;
+import interface_adapter.student_logged_in.StudentLoggedInViewModel;
 import view.*;
 
 import javax.swing.*;
@@ -45,29 +43,30 @@ public class Main {
         //Landing page
         LandingPageViewModel landingPageViewModel = new LandingPageViewModel();
 
-        //Student loging/Signup
+        //Student login/Signup
         StudentLandingPageViewModel studentLandingPageViewModel = new StudentLandingPageViewModel();
         SignupStudentViewModel signupStudentViewModel = new SignupStudentViewModel();
         LoginStudentViewModel loginStudentViewModel = new LoginStudentViewModel();
-        LoggedinStudentViewModel loggedInStudentViewModel = new LoggedinStudentViewModel();
+        StudentLoggedInViewModel studentLoggedInViewModel = new StudentLoggedInViewModel();
 
-        //Admin loging/Signup
+        //Admin login/Signup
         AdminLandingPageViewModel adminLandingPageViewModel = new AdminLandingPageViewModel();
         SignupAdminViewModel signupAdminViewModel = new SignupAdminViewModel();
         LoginAdminViewModel loginAdminViewModel = new LoginAdminViewModel();
-        AdminLoggedInViewModel loggedInAdminViewModel = new AdminLoggedInViewModel();
+        AdminLoggedInViewModel adminLoggedInViewModel = new AdminLoggedInViewModel();
+
         System.out.println(System.getProperty("user.dir"));
 
         FileStudentDataAccessObject studentDataAccessObject;
 
         try {
-            studentDataAccessObject = new FileStudentDataAccessObject("./users.json", new StudentFactory());
+            studentDataAccessObject = new FileStudentDataAccessObject("./users_students.json", new StudentFactory());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
         FileAdminDataAccessObject adminDataAccessObject;
         try {
-            adminDataAccessObject = new FileAdminDataAccessObject("./users.json", new AdminFactory());
+            adminDataAccessObject = new FileAdminDataAccessObject("./users_admins.json", new AdminFactory());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -93,19 +92,18 @@ public class Main {
                 adminDataAccessObject);
         views.add(adminsignupView, adminsignupView.viewName);
 
-        StudentLoginView loginStudentView = LoginStudentUseCaseFactory.create(viewManagerModel, loginStudentViewModel, loggedInStudentViewModel, studentDataAccessObject);
+        StudentLoginView loginStudentView = LoginStudentUseCaseFactory.create(viewManagerModel, loginStudentViewModel, studentLoggedInViewModel, landingPageViewModel, studentDataAccessObject);
         views.add(loginStudentView, loginStudentView.viewName);
 
         AdminLoginView loginAdminView = LoginAdminUseCaseFactory.create(viewManagerModel, loginAdminViewModel,
-                loggedInAdminViewModel, adminDataAccessObject);
+                adminLoggedInViewModel, landingPageViewModel,adminDataAccessObject);
         views.add(loginAdminView, loginAdminView.viewName);
 
-        StudentLoggedInView loggedInStudentView = new StudentLoggedInView(loggedInStudentViewModel);
+        StudentLoggedInView loggedInStudentView = new StudentLoggedInView(studentLoggedInViewModel);
         views.add(loggedInStudentView, loggedInStudentView.viewName);
 
-        //TODO: Adrien when Json stuff works
-        // AdminLoggedInView loggedInAdminView = new AdminLoggedInView(loggedInAdminViewModel);
-        // views.add(loggedInAdminView, loggedInAdminView.viewName);
+        AdminLoggedInView loggedInAdminView = new AdminLoggedInView(adminLoggedInViewModel);
+        views.add(loggedInAdminView, loggedInAdminView.viewName);
 
         viewManagerModel.setActiveView(landingPageView.viewName);
         viewManagerModel.firePropertyChanged();

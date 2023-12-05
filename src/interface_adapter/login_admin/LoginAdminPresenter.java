@@ -21,7 +21,11 @@ public class LoginAdminPresenter implements LoginAdminOutputBoundary {
     private final LandingPageViewModel landingViewModel;
     private final AdminLoggedInViewModel loggedInViewModel;
 
-    public LoginAdminPresenter(ViewManagerModel viewManagerModel, LoginAdminViewModel viewModel, LandingPageViewModel landingViewModel, AdminLoggedInViewModel loggedInViewModel) {
+    public LoginAdminPresenter(
+            ViewManagerModel viewManagerModel,
+            LoginAdminViewModel viewModel,
+            LandingPageViewModel landingViewModel,
+            AdminLoggedInViewModel loggedInViewModel) {
         this.loggedInViewModel = loggedInViewModel;
         this.viewManagerModel = viewManagerModel;
         this.viewModel = viewModel;
@@ -29,12 +33,14 @@ public class LoginAdminPresenter implements LoginAdminOutputBoundary {
     }
 
     @Override
-    public void prepareSuccessView(LoginAdminOutputData outputData){
+    public void prepareSuccessView(LoginAdminOutputData response){
             // On success, switch to the logged in view
             // still need to figure out how to implement logged in view, and what info is necessary
             // when switching to the view
             LoginAdminState loginState = viewModel.getState();
             AdminLoggedInState loggedInState = loggedInViewModel.getState();
+            loggedInState.setEmail(response.getEmail());
+
             this.loggedInViewModel.setState(loggedInState);
             loggedInViewModel.firePropertyChanged();
 
