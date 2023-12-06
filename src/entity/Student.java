@@ -44,7 +44,7 @@ public class Student implements Person{
     public String getEmail() {
         return email;
     }
-    public void setTask(StudentTask task){
+    public void setTask(Task task){
         this.tasks.add(task);
     }
     public void addCourseTask(CourseTask task){
