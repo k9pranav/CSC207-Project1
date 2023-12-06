@@ -1,6 +1,5 @@
 package view;
 
-mport app.Main;
 import app.Main;
 import data_access.FileStudentDataAccessObject;
 import entity.PersonFactory;
@@ -15,6 +14,10 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 
 import static org.junit.Assert.*;
+import org.assertj.swing.edt.GuiActionRunner;
+import org.assertj.swing.fixture.FrameFixture;
+import org.assertj.swing.junit.testcase.AssertJSwingJUnitTestCase;
+import org.junit.Test;
 
 
 
@@ -27,7 +30,7 @@ public class StudentSignUpTest {
     static boolean SignUpWorks = false;
 
     //Adding two students
-    public void addTwoStudents (){
+    public void addTwoStudents () throws IOException {
         StudentFactory sFactory = new StudentFactory();
         FileStudentDataAccessObject fstudentDAO;
         try {
@@ -95,7 +98,7 @@ public class StudentSignUpTest {
 
     }
 
-    public void testStudentLogin(){
+    public void testStudentLogin() throws IOException {
         addTwoStudents();
         Main.main(null);
         JButton studentLandingPageButton = getStudentLandingPageButton();
@@ -103,6 +106,31 @@ public class StudentSignUpTest {
 
         JButton studentLoginPage = getStudentLoginPageButton();
         studentLoginPage.doClick();
+
+        JFrame app = null;
+        Window[] windows = Window.getWindows();
+        for (Window window : windows) {
+            if (window instanceof JFrame) {
+                app = (JFrame) window;
+            }
+        }
+
+        Component root = app.getComponent(0);
+        Component cp = ((JRootPane) root).getContentPane();
+        JPanel jp = (JPanel) cp;
+        JPanel jp2 = (JPanel) jp.getComponent(0);
+        StudentLoginView sv = (StudentLoginView) jp2.getComponent(0);
+
+        String email = "pranav.kansal@mail.utoronto.ca";
+        String password = "MyPassword";
+
+        window = new FrameFixture(robot(), sv);
+        window.show();
+
+        window.textBox(sv.emailInputField).enterText(email);
+        window.textBox(sv.passwordInputField).enterText(password);
+
+
 
 
 
