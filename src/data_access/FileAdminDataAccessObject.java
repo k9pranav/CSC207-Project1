@@ -3,9 +3,11 @@ package data_access;
 import entity.Admin;
 import entity.AdminFactory;
 
+import entity.Course;
 import entity.Student;
 import org.json.JSONArray;
 import org.json.JSONException;
+import use_case.edit_course_task.EditCourseTaskDataAccessInterface;
 import use_case.login_admin.LoginAdminDataAccessInterface;
 import use_case.login_student.LoginStudentDataAccessInterface;
 import use_case.signup_admin.SignupAdminDataAccessInterface;
@@ -17,6 +19,7 @@ import org.json.JSONObject;
 import java.io.*;
 
 import java.security.GeneralSecurityException;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -41,7 +44,7 @@ import java.util.Collections;
 import java.util.List;
 
 
-public class FileAdminDataAccessObject implements SignupAdminDataAccessInterface, LoginAdminDataAccessInterface {
+public class FileAdminDataAccessObject implements SignupAdminDataAccessInterface, LoginAdminDataAccessInterface, EditCourseTaskDataAccessInterface {
 
     private final JSONObject jsonObject;
 
@@ -170,5 +173,46 @@ public class FileAdminDataAccessObject implements SignupAdminDataAccessInterface
         FileWriter file = new FileWriter(pathToFile, false);
         file.write(jsonObject.toString());
         file.close();
+    }
+    public boolean doesAdminHaveCourse(Course course) {
+        if (!jsonObject.getJSONArray("admins").
+                get("courseList").contains(course.getCourseName())){
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    @Override
+    public void createTask(String taskName, String taskType, SimpleDateFormat taskDeadline, Course taskCourse, float taskWeight) {
+
+        //Creating a json newTaskObject to store my task details
+        jsonObject  = new JSONObject();
+        newTask.put("Task Name", taskName);
+        newTask.put("Task Type", taskType);
+        newTask.put("Deadline", taskDeadline);
+        newTask.put("Task Weight", taskWeight);
+
+        //Fetching the task from the courses json, and adding my task
+        jsonObject.getJSONArray("courses").getJSONArray(taskCourse.getCourseName()).put("Task", newTask);
+
+        //Creating the task
+        Event event = new Event().
+                setSummary(taskName).
+                setDescription(taskType);
+        //Setting the end time aka deadline
+        DateTime deadLine = new DateTime(taskDeadline);
+        EventDateTime end = new EventDateTime().setDateTime(deadLine).
+                setTimeZone("America/Toronto");
+
+        event.setEnd(end);
+
+        //Fetching the calendar
+        String calendarId = taskCourse.getCourseAdmin().getEmail();
+
+        //Adding it to calendar
+        event = service.events().insert(calendarId, event).execute();
+
+
     }
 }
