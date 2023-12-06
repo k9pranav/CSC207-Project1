@@ -1,0 +1,32 @@
+{
+  "Math_1" : {
+    "name": "Math course 1",
+    "code": "Math_1",
+    "year": 2023,
+    "description": "this is a course about Math",
+    "session": "session math",
+    "tasks": [],
+    "admin": "Rogers",
+    "students_enrolled": []
+  },
+  "CSC_1" : {
+  "name": "CSC course 1",
+  "code": "CSC_1",
+  "year": 2023,
+  "description": "this is a course about computer sciences",
+  "session": "session computer",
+  "tasks": [],
+  "admin": "Billy",
+  "students_enrolled": []
+  },
+  "Math_2" : {
+  "name": "Math course 2",
+  "code": "Math_2",
+  "year": 2023,
+  "description": "this is a course about Math",
+  "session": "session math",
+  "tasks": [],
+  "admin": "Rogers",
+  "students_enrolled": []
+}
+}

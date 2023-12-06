@@ -93,7 +93,7 @@ public class StudentLoginView extends JPanel implements ActionListener, Property
             @Override
             public void keyTyped(KeyEvent e){
                 LoginStudentState currentState = loginViewModel.getState();
-                currentState.setEmail(passwordInputField.getText()+ e.getKeyChar());
+                currentState.setPassword(passwordInputField.getText()+ e.getKeyChar());
                 loginViewModel.setState(currentState);
             }
             @Override
