@@ -21,7 +21,7 @@ public class Course {
      * @param courseDescription
      * @param courseAdmin
      */
-    Course(String courseName, String courseCode, Integer courseYear, String courseSession,
+    public Course(String courseName, String courseCode, Integer courseYear, String courseSession,
            String courseDescription, Admin courseAdmin){
         this.courseName = courseName;
         this.courseCode = courseCode;

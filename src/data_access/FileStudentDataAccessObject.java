@@ -1,5 +1,6 @@
 package data_access;
 
+import app.CourseFactory;
 import com.google.api.client.auth.oauth2.Credential;
 import com.google.api.client.extensions.java6.auth.oauth2.AuthorizationCodeInstalledApp;
 import com.google.api.client.extensions.jetty.auth.oauth2.LocalServerReceiver;
@@ -12,6 +13,7 @@ import com.google.api.client.json.gson.GsonFactory;
 import com.google.api.client.util.store.FileDataStoreFactory;
 import com.google.api.services.calendar.Calendar;
 import com.google.api.services.calendar.CalendarScopes;
+import entity.Course;
 import entity.Student;
 import entity.StudentFactory;
 import org.json.JSONArray;
@@ -24,10 +26,7 @@ import org.apache.commons.io.FileUtils;
 
 import java.io.*;
 import java.security.GeneralSecurityException;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class FileStudentDataAccessObject implements SignupStudentDataAccessInterface, LoginStudentDataAccessInterface {
     private final JSONObject jsonObject;
@@ -77,14 +76,19 @@ public class FileStudentDataAccessObject implements SignupStudentDataAccessInter
                     String email = (String) j.get(this.emailKey);
                     // TODO remove repeat password from the factory, no need to store it
                     Student student = (Student) studentFactory.create(firstName, lastName, password, password, email);
-                    // TODO miss CalendarIDKey and CourseListKey
+                    // TODO add CalendarIDKey
+                    JSONArray courses = j.getJSONArray(this.courseListKey);
+                    for (int k = 0; k < courses.length(); k++) {
+                        String course_code = (String) courses.get(k);
+                        student.setCourse(CourseFactory.load(course_code));
+                    }
+
                     accounts.put(student.getEmail(), student);
                 } // file has emails as the key and a list of JSON files for each admin
         }catch (JSONException e){
                 throw new RuntimeException(e);
             }
     }
-
 }
 private static Credential getCredentials(final NetHttpTransport HTTP_TRANSPORT) throws IOException{
     // Load client secrets.
@@ -145,7 +149,7 @@ public void createCalendar(Student student) throws IOException, GeneralSecurityE
 
     private void save() throws IOException{
         JSONArray studentArray = jsonObject.getJSONArray(this.studentsKey);
-        for (Student student : accounts.values()){
+            for (Student student : accounts.values()){
 
             JSONObject jsonObj = new JSONObject();
             jsonObj.put(this.firstNameKey, student.getFirstName());
@@ -153,7 +157,9 @@ public void createCalendar(Student student) throws IOException, GeneralSecurityE
             jsonObj.put(this.passwordKey, student.getPassword());
             jsonObj.put(this.emailKey, student.getEmail());
             jsonObj.put(this.calendarIDKey, student.getCalendarId());
-            jsonObj.put(this.courseListKey, student.getCourses());
+            ArrayList<Course> a = student.getCourses();
+            JSONArray j = new JSONArray(a);
+            jsonObj.put(this.courseListKey, j );
             studentArray.put(jsonObj);
         }
         jsonObject.put(this.studentsKey, studentArray);

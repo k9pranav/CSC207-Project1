@@ -29,12 +29,18 @@ public class StudentCoursesView extends JPanel implements ActionListener, Proper
         this.coursesViewModel = coursesViewModel;
         this.coursesViewModel.addPropertyChangeListener(this);
         this.coursesController = coursesController;
+
+        /* TODO usuless as it is called by the main
         Student student = coursesViewModel.getState().getLoggedInUser();
 
         String[] courseStrings = new String[student.getCourses().size()];
         for (int i = 0; i < student.getCourses().size(); i++){
             courseStrings[i] = student.getCourses().get(i).getCourseCode() + ": " + student.getCourses().get(i).getCourseName();
         }
+
+         */
+        String[] courseStrings = new String[1];
+        courseStrings[0] = "hello";
         this.courses = new JList<>(courseStrings);
 
         viewTasksButton = new JButton(coursesViewModel.GET_TASKS_LABEL);
@@ -118,6 +124,13 @@ public class StudentCoursesView extends JPanel implements ActionListener, Proper
     @Override
     public void propertyChange(PropertyChangeEvent evt){
         String propName = evt.getPropertyName();
+        Student student = coursesViewModel.getState().getLoggedInUser();
+
+        String[] courseStrings = new String[student.getCourses().size()];
+        for (int i = 0; i < student.getCourses().size(); i++){
+            courseStrings[i] = student.getCourses().get(i).getCourseName() + ": " + student.getCourses().get(i).getCourseDescription();
+        }
+        this.courses.setListData(courseStrings);
         if (propName.equals("popup")){
             // display the average popup
             StudentCoursesState currState = (StudentCoursesState) evt.getNewValue();

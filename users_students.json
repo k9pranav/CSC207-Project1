@@ -1,1 +1,1 @@
-{"students":[{"firstname":"y","password":"y","courseList":[],"email":"y","lastname":"y"}]}
+{"students":[{"firstname":"y","password":"y","courseList":["Math_1", "CSC_1"],"email":"ya","lastname":"y"},{"firstname":"q","password":"q","courseList":["Math_2"],"email":"qa","lastname":"q"},{"firstname":"qa","password":"qa","courseList":["CSC_1"],"email":"qw","lastname":"qa"},{"firstname":"q","password":"q","courseList":[],"email":"qr","lastname":"q"},{"firstname":"e","password":"e","courseList":[],"email":"er","lastname":"e"}]}
