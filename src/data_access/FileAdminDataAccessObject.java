@@ -1,5 +1,8 @@
 package data_access;
 
+import com.google.api.client.util.DateTime;
+import com.google.api.services.calendar.model.Event;
+import com.google.api.services.calendar.model.EventDateTime;
 import entity.Admin;
 import entity.AdminFactory;
 
@@ -44,7 +47,7 @@ import java.util.Collections;
 import java.util.List;
 
 
-public class FileAdminDataAccessObject implements SignupAdminDataAccessInterface, LoginAdminDataAccessInterface, EditCourseTaskDataAccessInterface {
+public class FileAdminDataAccessObject implements SignupAdminDataAccessInterface, LoginAdminDataAccessInterface, EditCourseTaskDataAccessInterface{
 
     private final JSONObject jsonObject;
 
@@ -174,45 +177,71 @@ public class FileAdminDataAccessObject implements SignupAdminDataAccessInterface
         file.write(jsonObject.toString());
         file.close();
     }
+
+    /*
     public boolean doesAdminHaveCourse(Course course) {
-        if (!jsonObject.getJSONArray("admins").
-                get("courseList").contains(course.getCourseName())){
+        if (!jsonObject.getJSONArray("admins").get("courseList").contains(course.getCourseName())){
             return false;
         } else {
             return true;
         }
     }
+    */
 
     @Override
-    public void createTask(String taskName, String taskType, SimpleDateFormat taskDeadline, Course taskCourse, float taskWeight) {
+    public void createTask(String taskName, String taskType, SimpleDateFormat taskDeadline, Course taskCourse, float taskWeight) throws IOException, GeneralSecurityException {
 
         //Creating a json newTaskObject to store my task details
-        jsonObject  = new JSONObject();
+        JSONObject newTask = new JSONObject();
         newTask.put("Task Name", taskName);
         newTask.put("Task Type", taskType);
         newTask.put("Deadline", taskDeadline);
         newTask.put("Task Weight", taskWeight);
 
         //Fetching the task from the courses json, and adding my task
-        jsonObject.getJSONArray("courses").getJSONArray(taskCourse.getCourseName()).put("Task", newTask);
 
-        //Creating the task
+        // get the courses json array:
+        JSONArray jsonArray = jsonObject.getJSONArray("courses");
+        // find the specific course
+        JSONObject target = null;
+        for (int i=0; i<jsonArray.length(); i++) {
+            JSONObject currentObject = jsonArray.getJSONObject(i);
+            if (currentObject.has(taskCourse.getCourseCode())){
+                target = currentObject;
+                break;
+            }
+        }
+        // target is now the course JSONObject
+        target.getJSONArray("tasks").put(newTask);
+
+
+        //Creating the task in the google calendar
+
+        final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
+        Calendar service =
+                new Calendar.Builder(HTTP_TRANSPORT, JSON_FACTORY, getCredentials(HTTP_TRANSPORT))
+                        .setApplicationName(APPLICATION_NAME)
+                        .build();
+
         Event event = new Event().
                 setSummary(taskName).
                 setDescription(taskType);
+
         //Setting the end time aka deadline
-        DateTime deadLine = new DateTime(taskDeadline);
+        DateTime deadLine = new DateTime(String.valueOf(taskDeadline));
         EventDateTime end = new EventDateTime().setDateTime(deadLine).
                 setTimeZone("America/Toronto");
 
         event.setEnd(end);
 
+        // setting start time
+
         //Fetching the calendar
-        String calendarId = taskCourse.getCourseAdmin().getEmail();
+        String calendarId = taskCourse.getCourseAdmin().getCalendarId();
 
         //Adding it to calendar
         event = service.events().insert(calendarId, event).execute();
-
-
+        System.out.printf("Event created: %s\n", event.getHtmlLink());
     }
+
 }

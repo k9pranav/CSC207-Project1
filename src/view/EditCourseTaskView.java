@@ -1,6 +1,7 @@
 package view;
 
 import entity.Admin;
+import entity.Course;
 import interface_adapter.edit_course_task.EditCourseTaskController;
 import interface_adapter.edit_course_task.EditCourseTaskState;
 import interface_adapter.edit_course_task.EditCourseTaskViewModel;
@@ -14,6 +15,9 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.io.IOException;
+import java.security.GeneralSecurityException;
+import java.text.SimpleDateFormat;
 
 public class EditCourseTaskView extends JPanel implements ActionListener,
         PropertyChangeListener {
@@ -26,7 +30,7 @@ public class EditCourseTaskView extends JPanel implements ActionListener,
     final JTextField taskNameField = new JTextField(15);
 
     //Task Course Name
-    final JTextField taskCourseName = new JTextField(15);
+    final JTextField taskCourseCode = new JTextField(15);
     //Error Field. Will pop up if the admin does not have the course
     private final JLabel taskCourseErrorName = new JLabel();
 
@@ -39,12 +43,8 @@ public class EditCourseTaskView extends JPanel implements ActionListener,
     //Task Weight. Need to add code to check if its float or not
     final JTextField taskWeight = new JTextField(15);
 
-    // TODO final JButton save;
+    final JButton saveButton;
     final JButton exit;
-
-
-
-
 
 
     public EditCourseTaskView(EditCourseTaskViewModel editCourseTaskViewModel,
@@ -61,7 +61,7 @@ public class EditCourseTaskView extends JPanel implements ActionListener,
                 new JLabel("Task Name: "), taskNameField);
 
         LabelTextPanel taskCourseInfo = new LabelTextPanel(
-                new JLabel("Task Course: "), taskCourseName);
+                new JLabel("Task Course: "), taskCourseCode);
 
         LabelTextPanel taskTypeInfo = new LabelTextPanel(
                 new JLabel("Task Type: "), taskType);
@@ -73,7 +73,7 @@ public class EditCourseTaskView extends JPanel implements ActionListener,
                 new JLabel("Task Weight: "), taskWeight);
 
         JPanel Buttons = new JPanel();
-        save = new JButton(editCourseTaskViewModel.SAVE_BUTTON_LABEL);
+        saveButton = new JButton(editCourseTaskViewModel.SAVE_BUTTON_LABEL);
         Buttons.add(save);
         exit = new JButton(editCourseTaskViewModel.EXIT_BUTTON_LABEL);
         Buttons.add(exit);
@@ -100,11 +100,11 @@ public class EditCourseTaskView extends JPanel implements ActionListener,
             }
         });
 
-        taskCourseName.addKeyListener(new KeyListener() {
+        taskCourseCode.addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent e) {
                 EditCourseTaskState currentState = EditCourseTaskViewModel.getState();
-                currentState.setTaskCourseName(taskCourseName.getText() + e.getKeyChar());
+                currentState.setTaskCourseCode(taskCourseCode.getText() + e.getKeyChar());
                 editCourseTaskViewModel.setState(currentState);
             }
 
@@ -182,6 +182,33 @@ public class EditCourseTaskView extends JPanel implements ActionListener,
 
             }
         });
+
+        saveButton.addActionListener(
+                new ActionListener(){
+                    public void actionPerformed(ActionEvent evt){
+                        if (evt.getSource().equals(saveButton)){
+                            EditCourseTaskState currentState = EditCourseTaskViewModel.getState();
+                            try {
+                                editCourseTaskController.execute(currentState.getTaskName(), currentState.getTaskType(),
+                                        currentState.getTaskDeadline(), currentState.getTaskWeight(),
+                                        currentState.getCourseCode(), currentState.getLoggedInUser());
+                            } catch (GeneralSecurityException | IOException e) {
+                                throw new RuntimeException(e);
+                            }
+                        }
+                    }
+                }
+        );
+
+        exit.addActionListener(
+                new ActionListener(){
+                    public void actionPerformed(ActionEvent evt){
+                        if (evt.getSource().equals(exit)){
+                            editCourseTaskController.executeExit(EditCourseTaskViewModel.getState().getLoggedInUser());
+                        }
+                    }
+                }
+        );
 
         this.add(title);
         this.add(taskNameInfo);

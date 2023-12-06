@@ -95,33 +95,6 @@ public class Student implements Person{
         // adds the course to courses list, grades map, task grades map if it's new
     }
 
-    public void setCourseGrade(String courseCode, Float grade){
-        this.studentGrades.put(courseCode, grade);
-    }
-
-    public void setTaskGrade(String taskName, Float grade){
-        CourseTask task = (CourseTask) this.getTaskFromName(taskName);
-        this.studentTaskGrades.get(task.getCourse().getCourseCode()).put(taskName, grade);
-
-        // change the current course grade
-        Set<String> gradedTasks = studentTaskGrades.get(task.getCourse().getCourseCode()).keySet();
-        Float currentGrade1 = 0.0f;
-        for (String key: gradedTasks) {
-            currentGrade1 += studentTaskGrades.get(task.getCourse().getCourseCode()).get(key);
-        }
-        float currentGrade = (currentGrade1 / gradedTasks.size());
-        studentGrades.put(task.getCourse().getCourseCode(), currentGrade);
-    }
-
-    public Float getTaskGrade(String taskName){
-        CourseTask task = (CourseTask) this.getTaskFromName(taskName);
-        return this.studentTaskGrades.get(task.getCourse().getCourseCode()).get(taskName);
-    }
-
-    public Float getCourseGrade(String courseCode){
-        return this.studentGrades.get(courseCode);
-    }
-
     public HashMap<String, Float> getStudentGrades(){
         return studentGrades;
     }

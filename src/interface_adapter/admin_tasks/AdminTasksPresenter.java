@@ -26,7 +26,7 @@ public class AdminTasksPresenter implements AdminTasksOutputBoundary {
     public void prepareExit(Admin admin){
         AdminLoggedInState loggedInState = homePageViewModel.getState();
         this.homePageViewModel.setState(loggedInState);
-        //TODO: LASANDRA this.homePageViewModel.getState().setLoggedInUser(admin);
+        //TODO: LASANDA this.homePageViewModel.getState().setLoggedInUser(admin);
         homePageViewModel.firePropertyChanged();
         viewManagerModel.setActiveView(homePageViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
