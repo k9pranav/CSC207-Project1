@@ -15,11 +15,13 @@ public class EditCourseTaskInteractor implements EditCourseTaskInputBoundary{
     final EditCourseTaskDataAccessInterface editCourseTaskDataAccessInterface;
 
     final EditCourseTaskOutputBoundary editCourseTaskOutputBoundary;
+    final EditCourseTaskStudentDataAccessInterface studentDAO;
 
     public EditCourseTaskInteractor(EditCourseTaskDataAccessInterface editCourseTaskDataAccessInterface,
-                                    EditCourseTaskOutputBoundary editCourseTaskOutputBoundary) {
+                                    EditCourseTaskOutputBoundary editCourseTaskOutputBoundary, EditCourseTaskStudentDataAccessInterface studentDAO) {
         this.editCourseTaskDataAccessInterface = editCourseTaskDataAccessInterface;
         this.editCourseTaskOutputBoundary = editCourseTaskOutputBoundary;
+        this.studentDAO = studentDAO;
     }
 
     @Override
@@ -44,7 +46,7 @@ public class EditCourseTaskInteractor implements EditCourseTaskInputBoundary{
         // add tasks to students in course
         for (Student student: taskCourse.getStudentsEnrolled()) {
             student.setTask(newTaskAdded);
-            // need to call DAO somewhere here
+            studentDAO.createTask(taskName, taskType, taskDeadline, taskCourse, taskWeight, student);
         }
         ;
     }

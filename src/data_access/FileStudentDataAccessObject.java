@@ -9,25 +9,32 @@ import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.gson.GsonFactory;
+import com.google.api.client.util.DateTime;
 import com.google.api.client.util.store.FileDataStoreFactory;
 import com.google.api.services.calendar.Calendar;
 import com.google.api.services.calendar.CalendarScopes;
+import com.google.api.services.calendar.model.Event;
+import com.google.api.services.calendar.model.EventDateTime;
+import entity.Course;
 import entity.Student;
 import entity.StudentFactory;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import use_case.edit_course_task.EditCourseTaskDataAccessInterface;
+import use_case.edit_course_task.EditCourseTaskStudentDataAccessInterface;
 import use_case.login_student.LoginStudentDataAccessInterface;
 import use_case.signup_student.SignupStudentDataAccessInterface;
 
 import java.io.*;
 import java.security.GeneralSecurityException;
+import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class FileStudentDataAccessObject implements SignupStudentDataAccessInterface, LoginStudentDataAccessInterface {
+public class FileStudentDataAccessObject implements SignupStudentDataAccessInterface, LoginStudentDataAccessInterface, EditCourseTaskStudentDataAccessInterface {
     private final JSONObject jsonObject;
     private StudentFactory studentFactory;
     private final Map<String, Student> accounts = new HashMap<>();
@@ -148,5 +155,61 @@ public void createCalendar(Student student) throws IOException, GeneralSecurityE
         FileWriter file = new FileWriter(pathToFile, false);
         file.write(jsonObject.toString());
         file.close();
+    }
+
+    @Override
+    public void createTask(String taskName, String taskType, SimpleDateFormat taskDeadline, Course taskCourse, float taskWeight, Student student) throws IOException, GeneralSecurityException {
+
+        //Creating a json newTaskObject to store my task details
+        JSONObject newTask = new JSONObject();
+        newTask.put("Task Name", taskName);
+        newTask.put("Task Type", taskType);
+        newTask.put("Deadline", taskDeadline);
+        newTask.put("Task Weight", taskWeight);
+
+        //Fetching the task from the courses json, and adding my task
+
+        // get the courses json array:
+        JSONArray jsonArray = jsonObject.getJSONArray("courses");
+        // find the specific course
+        JSONObject target = null;
+        for (int i=0; i<jsonArray.length(); i++) {
+            JSONObject currentObject = jsonArray.getJSONObject(i);
+            if (currentObject.has(taskCourse.getCourseCode())){
+                target = currentObject;
+                break;
+            }
+        }
+        // target is now the course JSONObject
+        target.getJSONArray("tasks").put(newTask);
+
+
+        //Creating the task in the google calendar
+
+        final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
+        Calendar service =
+                new Calendar.Builder(HTTP_TRANSPORT, JSON_FACTORY, getCredentials(HTTP_TRANSPORT))
+                        .setApplicationName(APPLICATION_NAME)
+                        .build();
+
+        Event event = new Event().
+                setSummary(taskName).
+                setDescription(taskType);
+
+        //Setting the end time aka deadline
+        DateTime deadLine = new DateTime(String.valueOf(taskDeadline));
+        EventDateTime end = new EventDateTime().setDateTime(deadLine).
+                setTimeZone("America/Toronto");
+
+        event.setEnd(end);
+
+        // setting start time
+
+        //Fetching the calendar
+        String calendarId = student.getCalendarId();
+
+        //Adding it to calendar
+        event = service.events().insert(calendarId, event).execute();
+        System.out.printf("Event created: %s\n", event.getHtmlLink());
     }
 }
