@@ -160,30 +160,6 @@ public void createCalendar(Student student) throws IOException, GeneralSecurityE
     @Override
     public void createTask(String taskName, String taskType, SimpleDateFormat taskDeadline, Course taskCourse, float taskWeight, Student student) throws IOException, GeneralSecurityException {
 
-        //Creating a json newTaskObject to store my task details
-        JSONObject newTask = new JSONObject();
-        newTask.put("Task Name", taskName);
-        newTask.put("Task Type", taskType);
-        newTask.put("Deadline", taskDeadline);
-        newTask.put("Task Weight", taskWeight);
-
-        //Fetching the task from the courses json, and adding my task
-
-        // get the courses json array:
-        JSONArray jsonArray = jsonObject.getJSONArray("courses");
-        // find the specific course
-        JSONObject target = null;
-        for (int i=0; i<jsonArray.length(); i++) {
-            JSONObject currentObject = jsonArray.getJSONObject(i);
-            if (currentObject.has(taskCourse.getCourseCode())){
-                target = currentObject;
-                break;
-            }
-        }
-        // target is now the course JSONObject
-        target.getJSONArray("tasks").put(newTask);
-
-
         //Creating the task in the google calendar
 
         final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
