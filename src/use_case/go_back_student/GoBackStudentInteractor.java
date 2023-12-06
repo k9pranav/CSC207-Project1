@@ -2,16 +2,15 @@ package use_case.go_back_student;
 
 import entity.Admin;
 import entity.Student;
-import interface_adapter.go_back_student.GoBackStudentPresenter;
 
-public class GoBackStudentStudentInteractor implements GoBackStudentInputBoundary {
+public class GoBackStudentInteractor implements GoBackStudentInputBoundary {
 
     final GoBackStudentDataAccessInterface userDataAccessObject;
 
     final GoBackStudentOutputBoundary goBackPresenter;
 
 
-    public GoBackStudentStudentInteractor(GoBackStudentDataAccessInterface userDataAccessObject, GoBackStudentOutputBoundary goBackPresenter) {
+    public GoBackStudentInteractor(GoBackStudentDataAccessInterface userDataAccessObject, GoBackStudentOutputBoundary goBackPresenter) {
         this.userDataAccessObject = userDataAccessObject;
         this.goBackPresenter = goBackPresenter;
     }

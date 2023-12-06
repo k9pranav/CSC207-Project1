@@ -8,13 +8,13 @@ import use_case.go_back_student.GoBackStudentOutputData;
 
 public class GoBackStudentPresenter implements GoBackStudentOutputBoundary {
 
-    private final GoBackStudentSViewModel goBackViewModel;
+    private final GoBackStudentViewModel goBackViewModel;
 
     private final LoggedinStudentViewModel loggedInViewModel;
 
     private ViewManagerModel viewManagerModel;
 
-    public GoBackStudentPresenter(GoBackStudentSViewModel goBackViewModel, ViewManagerModel viewManagerModel, LoggedinStudentViewModel loggedInViewModel) {
+    public GoBackStudentPresenter(GoBackStudentViewModel goBackViewModel, ViewManagerModel viewManagerModel, LoggedinStudentViewModel loggedInViewModel) {
         this.goBackViewModel = goBackViewModel;
         this.loggedInViewModel = loggedInViewModel;
         this.viewManagerModel = viewManagerModel;

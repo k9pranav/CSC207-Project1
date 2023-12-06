@@ -5,13 +5,13 @@ import interface_adapter.ViewModel;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
-public class GoBackStudentSViewModel extends ViewModel {
+public class GoBackStudentViewModel extends ViewModel {
 
     private GoBackStudentState state = new GoBackStudentState();
 
     public static final String GO_BACK_BUTTON_LABEL = "Go Back";
 
-    public GoBackStudentSViewModel() {
+    public GoBackStudentViewModel() {
         super("go back");
     }
 
