@@ -17,6 +17,10 @@ public class StudentLoggedInViewModel extends ViewModel {
 
     public static final String COURSES_BUTTON_LABEL = "Courses";
 
+    public static final String CALENDAR_BUTTON_LABEL = "Calendar";
+
+
+
     private StudentLoggedInState student_state = new StudentLoggedInState();
 
     public StudentLoggedInViewModel() {

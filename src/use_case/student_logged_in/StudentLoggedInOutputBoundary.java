@@ -4,4 +4,6 @@ import data_access.FileStudentDataAccessObject;
 
 public interface StudentLoggedInOutputBoundary {
     public void prepareCourseLandingPage(FileStudentDataAccessObject studentDataAccessObject);
+
+    void prepareCalendarPage(FileStudentDataAccessObject fileStudentDataAccessObject);
 }

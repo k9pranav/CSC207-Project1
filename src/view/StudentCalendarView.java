@@ -4,6 +4,8 @@ import entity.*;
 import interface_adapter.go_back_student.GoBackStudentController;
 import interface_adapter.go_back_student.GoBackStudentState;
 import interface_adapter.go_back_student.GoBackStudentViewModel;
+import interface_adapter.student_calendar.StudentCalendarState;
+import interface_adapter.student_logged_in.StudentLoggedInState;
 import interface_adapter.student_tasks.StudentTasksController;
 import interface_adapter.student_tasks.StudentTasksState;
 import interface_adapter.student_tasks.StudentTasksViewModel;
@@ -32,7 +34,7 @@ public class StudentCalendarView extends JPanel implements ActionListener, Prope
     private final JPanel footer;
     private final JButton goBackBtn;
 
-    private final String email;
+    private String email;
 
     private final String accountType;
 
@@ -55,6 +57,7 @@ public class StudentCalendarView extends JPanel implements ActionListener, Prope
         this.tasksController = studentTasksController;
 
         Student student = tasksViewModel.getState().getLoggedInUser();
+        email = student.getEmail();
 
         this.allTasks = student.getTasks();
         //updateEventYearMap(allTasks);

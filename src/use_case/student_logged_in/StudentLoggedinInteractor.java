@@ -16,6 +16,8 @@ public class StudentLoggedinInteractor implements StudentLoggedInInputBoundary {
     public void execute(String buttonPressed){
         if ("courses".equals(buttonPressed)){
             this.studentLoggedInPresenter.prepareCourseLandingPage(this.fileStudentDataAccessObject);
+        } else if ("calendar".equals(buttonPressed)) {
+            this.studentLoggedInPresenter.prepareCalendarPage(this.fileStudentDataAccessObject);
         }
     }
 

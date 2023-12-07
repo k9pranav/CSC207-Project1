@@ -19,6 +19,8 @@ public class StudentLoggedInView extends JPanel implements ActionListener, Prope
     JLabel email;
     private final JButton coursesButton;
 
+    private final JButton calendarButton;
+
     //final JButton logOut;
 
     /**
@@ -38,7 +40,7 @@ public class StudentLoggedInView extends JPanel implements ActionListener, Prope
         //logOut = new JButton(loggedInStudentViewModel.LOGOUT_BUTTON_LABEL);
         //buttons.add(logOut);
         //logOut.addActionListener(this);
-        coursesButton = new JButton(studentloggedInViewModel.COURSES_BUTTON_LABEL);
+        this.coursesButton = new JButton(studentloggedInViewModel.COURSES_BUTTON_LABEL);
         buttons.add(coursesButton);
         coursesButton.addActionListener(
                 new ActionListener(){
@@ -49,6 +51,21 @@ public class StudentLoggedInView extends JPanel implements ActionListener, Prope
                     }
                 }
         );
+
+        this.calendarButton = new JButton(studentLoggedInViewModel.CALENDAR_BUTTON_LABEL);
+        calendarButton.addActionListener(
+                new ActionListener(){
+                    public void actionPerformed(ActionEvent evt){
+                        if (evt.getSource().equals(calendarButton)){
+                            studentLoggedInController.execute("calendar");
+                        }
+                    }
+                }
+        );
+
+
+
+
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         this.add(title);
