@@ -12,6 +12,7 @@ import java.beans.PropertyChangeListener;
 import interface_adapter.login_admin.LoginAdminController;
 import interface_adapter.login_admin.LoginAdminState;
 import interface_adapter.login_admin.LoginAdminViewModel;
+import interface_adapter.login_student.LoginStudentState;
 
 public class AdminLoginView extends JPanel implements ActionListener, PropertyChangeListener {
 
@@ -20,8 +21,8 @@ public class AdminLoginView extends JPanel implements ActionListener, PropertyCh
 
     private final LoginAdminViewModel loginViewModel;
 
-    final JTextField usernameInputField = new JTextField(15);
-    private final JLabel usernameErrorField = new JLabel();
+    final JTextField emailInputField = new JTextField(15);
+    private final JLabel emailErrorField = new JLabel();
 
     final JPasswordField passwordInputField = new JPasswordField(15);
     private final JLabel passwordErrorField = new JLabel();
@@ -37,8 +38,8 @@ public class AdminLoginView extends JPanel implements ActionListener, PropertyCh
         JLabel title = new JLabel("Admin Login");
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        LabelTextPanel usernameInfo = new LabelTextPanel(
-                new JLabel("Username"), usernameInputField);
+        LabelTextPanel emailInfo = new LabelTextPanel(
+                new JLabel("Email"), emailInputField);
         LabelTextPanel passwordInfo = new LabelTextPanel(
                 new JLabel("Password"), passwordInputField
         );
@@ -54,27 +55,30 @@ public class AdminLoginView extends JPanel implements ActionListener, PropertyCh
                     public void actionPerformed(ActionEvent evt){
                         if (evt.getSource().equals(logIn)){
                             adminLoginController.execute("login",
-                                    loginViewModel.getState().getUsername(),
+                                    loginViewModel.getState().getEmail(),
                                     loginViewModel.getState().getPassword());
                         }
                     }
                 }
         );
+
         cancel.addActionListener(
                 new ActionListener(){
                     public void actionPerformed(ActionEvent evt){
                         if (evt.getSource().equals(cancel)){
-                            adminLoginController.execute("cancel", "", "");
+                            adminLoginController.execute("cancel",
+                                    null,
+                                    null);
                         }
                     }
                 }
         );
 
-        usernameInputField.addKeyListener(new KeyListener() {
+        emailInputField.addKeyListener(new KeyListener() {
             @Override
             public void keyTyped (KeyEvent e){
                 LoginAdminState currentState = loginViewModel.getState();
-                currentState.setUsername(usernameInputField.getText());
+                currentState.setEmail(emailInputField.getText() + e.getKeyChar());
                 loginViewModel.setState(currentState);
             }
             @Override
@@ -90,7 +94,7 @@ public class AdminLoginView extends JPanel implements ActionListener, PropertyCh
             @Override
             public void keyTyped(KeyEvent e){
                 LoginAdminState currentState = loginViewModel.getState();
-                currentState.setPassword(passwordInputField.getText());
+                currentState.setPassword(passwordInputField.getText() + e.getKeyChar());
                 loginViewModel.setState(currentState);
             }
             @Override
@@ -104,8 +108,8 @@ public class AdminLoginView extends JPanel implements ActionListener, PropertyCh
             this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
             this.add(title);
-            this.add(usernameInfo);
-            this.add(usernameErrorField);
+            this.add(emailInfo);
+            this.add(emailErrorField);
             this.add(passwordInfo);
             this.add(passwordErrorField);
             this.add(buttons);
@@ -118,11 +122,13 @@ public class AdminLoginView extends JPanel implements ActionListener, PropertyCh
         @Override
         public void propertyChange(PropertyChangeEvent evt){
             LoginAdminState state = (LoginAdminState) evt.getNewValue();
-            setFields(state);
+            if (state.getEmailError() != null) {
+                JOptionPane.showMessageDialog(this, state.getEmailError());
+            }
         }
 
         private void setFields(LoginAdminState state){
-            usernameInputField.setText(state.getUsername());
+            emailInputField.setText(state.getEmail());
             passwordInputField.setText(state.getPassword());
         }
 

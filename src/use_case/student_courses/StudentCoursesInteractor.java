@@ -27,7 +27,7 @@ public class StudentCoursesInteractor implements StudentCoursesInputBoundary{
             // get average button pressed
             float total = 0.0f;
             int count = 0;
-            HashMap<String, Integer> courseGrades = input.getLoggedIn().getStudentGrades();
+            HashMap<String, Float> courseGrades = input.getLoggedIn().getStudentGrades();
             for (final String key : courseGrades.keySet()) {
                 count = count + 1;
                 total = total + courseGrades.get(key);

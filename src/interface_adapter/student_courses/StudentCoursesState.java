@@ -12,7 +12,7 @@ public class StudentCoursesState {
     }
 
     public StudentCoursesState(){}
-    public void setStudentLoggedIn(Student student){this.studentLoggedIn = student;}
+    public void setLoggedInUser(Student student){this.studentLoggedIn = student;}
     public Student getLoggedInUser(){return this.studentLoggedIn;}
 
     public void setAverage(String avg){this.average = avg;}

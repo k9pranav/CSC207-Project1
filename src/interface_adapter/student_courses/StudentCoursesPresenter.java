@@ -2,7 +2,10 @@ package interface_adapter.student_courses;
 
 import entity.Student;
 import interface_adapter.ViewManagerModel;
+import interface_adapter.loggedin_student.LoggedInStudentState;
+import interface_adapter.loggedin_student.LoggedinStudentViewModel;
 import interface_adapter.student_course_tasks.StudentCourseTasksState;
+import interface_adapter.student_course_tasks.StudentCourseTasksViewModel;
 import interface_adapter.student_logged_in.StudentLoggedInState;
 import interface_adapter.student_logged_in.StudentLoggedInViewModel;
 import use_case.student_courses.StudentCoursesOutputBoundary;
@@ -35,7 +38,7 @@ public StudentCoursesPresenter(ViewManagerModel viewManagerModel, StudentCourses
     public void prepareCourseTasksView(StudentCoursesOutputData outputData) {
         StudentCourseTasksState tasksState = tasksViewModel.getState();
         this.tasksViewModel.setState(tasksState);
-        this.tasksViewModel.getState().setLoggedInUser(outputData.getLoggedInUser());
+        this.tasksViewModel.getState().setStudentLoggedIn(outputData.getLoggedInUser());
         this.tasksViewModel.getState().setTasks(outputData.getTasks());
         tasksViewModel.firePropertyChanged();
         viewManagerModel.setActiveView(tasksViewModel.getViewName());
@@ -45,11 +48,10 @@ public StudentCoursesPresenter(ViewManagerModel viewManagerModel, StudentCourses
     @Override
     public void prepareExit(Student student) {
         StudentLoggedInState loggedInState = homePageViewModel.getState();
-        this.homePageViewModel.getState(loggedInState);
-        this.homePageViewModel.getState().setLoggedInUser(student);
+        this.homePageViewModel.setState(loggedInState);
+        //TODO: Adrien this.homePageViewModel.getState().setLoggedInUser(student);
         homePageViewModel.firePropertyChanged();
         viewManagerModel.setActiveView(homePageViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
-        // goes back to home page
     }
 }

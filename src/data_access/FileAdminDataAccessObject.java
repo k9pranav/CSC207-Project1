@@ -3,20 +3,19 @@ package data_access;
 import entity.Admin;
 import entity.AdminFactory;
 
+import entity.Student;
+import org.apache.commons.io.FileUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
+import use_case.login_admin.LoginAdminDataAccessInterface;
+import use_case.login_student.LoginStudentDataAccessInterface;
 import use_case.signup_admin.SignupAdminDataAccessInterface;
-import
-
 
 import java.io.FileWriter;
 import java.io.IOException;
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.*;
-
-import org.json.JSONObject;
 
 import java.security.GeneralSecurityException;
 import java.util.HashMap;
@@ -37,19 +36,13 @@ import com.google.api.services.calendar.CalendarScopes;
 
 
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.FileWriter;
-import java.security.GeneralSecurityException;
-import java.util.Collections;
-import java.util.List;
-
 import java.util.Collections;
 import java.util.List;
 
 
-public class FileAdminDataAccessObject implements SignupAdminDataAccessInterface {
+public class FileAdminDataAccessObject implements SignupAdminDataAccessInterface, LoginAdminDataAccessInterface {
 
     private final JSONObject jsonObject;
 
@@ -68,28 +61,40 @@ public class FileAdminDataAccessObject implements SignupAdminDataAccessInterface
     private static final String CREDENTIALS_FILE_PATH = "main/resources/credentials.json";
 
     private final String pathToFile;
+
+    private static final String adminsKey = "admins";
+    private static final String firstNameKey = "firstname";
+    private static final String lastNameKey = "lastname";
+    private static final String passwordKey = "password";
+    private static final String emailKey = "email";
+    private static final String calendarIDKey = "calendarID";
+    private static final String courseListKey = "courseList";
     public FileAdminDataAccessObject(String pathToFile, AdminFactory adminFactory) throws IOException {
 
         this.adminFactory = adminFactory;
         this.pathToFile = pathToFile;
         File jsonFile = new File(pathToFile);
-        this.jsonObject = new JSONObject(jsonFile);
+        String jsonString = "{}";
+        if (jsonFile.exists()) {
+            jsonString = FileUtils.readFileToString(jsonFile, "UTF-8");
+        }
+        this.jsonObject = new JSONObject(jsonString);
         // the JSON file with all the admins
 
-        if (jsonFile.length() == 0){
-            jsonObject.put("admins", new JSONArray());
+        if (!jsonObject.has(this.adminsKey)){
+            jsonObject.put(this.adminsKey, new JSONArray());
             save();
         }else {
             try {
-                JSONArray admins = jsonObject.getJSONArray("admins");
+                JSONArray admins = jsonObject.getJSONArray(this.adminsKey);
                 for (int i = 0; i < admins.length(); i++) {
-                    JSONObject j = new JSONObject(admins.get(i));
-                    String firstName = (String) j.get("firstName");
-                    String lastName = (String) j.get("lastName");
-                    String password = (String) j.get("password");
-                    String repeatPassword = (String) j.get("password");
-                    String email = (String) j.get("email");
-                    Admin admin = adminFactory.create(firstName, lastName, password, repeatPassword, email);
+                    JSONObject j = (JSONObject) admins.get(i);
+                    String firstName = (String) j.get(this.firstNameKey);
+                    String lastName = (String) j.get(this.lastNameKey);
+                    String password = (String) j.get(this.passwordKey);
+                    String email = (String) j.get(this.emailKey);
+                    // TODO remove repeat password from the factory, no need to store it
+                    Admin admin = adminFactory.create(firstName, lastName, password, password, email);
                     accounts.put(admin.getEmail(), admin);
                 }
                 // the file has emails as the key and then a list of JSON files for each admin
@@ -111,7 +116,7 @@ public class FileAdminDataAccessObject implements SignupAdminDataAccessInterface
         // Build flow and trigger user authorization request.
         GoogleAuthorizationCodeFlow flow = new GoogleAuthorizationCodeFlow.Builder(
                 HTTP_TRANSPORT, JSON_FACTORY, clientSecrets, SCOPES)
-                .setDataStoreFactory(new FileDataStoreFactory(new java.io.File(TOKENS_DIRECTORY_PATH)))
+                .setDataStoreFactory(new FileDataStoreFactory(new File(TOKENS_DIRECTORY_PATH)))
                 .setAccessType("offline")
                 .build();
         LocalServerReceiver receiver = new LocalServerReceiver.Builder().setPort(8888).build();
@@ -144,6 +149,11 @@ public class FileAdminDataAccessObject implements SignupAdminDataAccessInterface
     }
 
     @Override
+    public boolean existByName(String email) {
+        return accounts.containsKey(email);
+    }
+
+    @Override
 
     public void save(Admin admin) throws IOException {
 
@@ -151,19 +161,25 @@ public class FileAdminDataAccessObject implements SignupAdminDataAccessInterface
         this.save();
     }
 
+    @Override
+    public Admin get(String email) {
+        return accounts.get(email);
+    }
+
     private void save() throws IOException{
+        JSONArray adminArray = jsonObject.getJSONArray(this.adminsKey);
         for (Admin admin : accounts.values()){
 
             JSONObject jsonObj = new JSONObject();
-            jsonObj.put("firstname", admin.getFirstName());
-            jsonObj.put("lastname", admin.getLastName());
-            jsonObj.put("password", admin.getPassword());
-            jsonObj.put("email", admin.getEmail());
-            jsonObj.put("calendarId", admin.getCalendarId());
-            jsonObj.put("courseList", admin.getCourses());
-            JSONArray adminUpdated = jsonObject.getJSONArray("admins").put(jsonObj);
-            jsonObject.put("admins", adminUpdated);
+            jsonObj.put(this.firstNameKey, admin.getFirstName());
+            jsonObj.put(this.lastNameKey, admin.getLastName());
+            jsonObj.put(this.passwordKey, admin.getPassword());
+            jsonObj.put(this.emailKey, admin.getEmail());
+            jsonObj.put(this.calendarIDKey, admin.getCalendarId());
+            jsonObj.put(this.courseListKey, admin.getCourses());
+            adminArray.put(jsonObj);
         }
+        jsonObject.put(this.adminsKey, adminArray);
         FileWriter file = new FileWriter(pathToFile, false);
         file.write(jsonObject.toString());
         file.close();

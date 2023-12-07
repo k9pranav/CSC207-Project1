@@ -57,6 +57,7 @@ public class StudentTasksView extends JPanel implements ActionListener, Property
         exit.setBorderPainted(false);
         exit.setFocusPainted(false);
         buttonPanel.add(exit);
+
         newStudentTask = new JButton(taskViewModel.NEW_STUDENT_TASK_LABEL);
         add(buttonPanel, BorderLayout.NORTH);
         add(scrollPane, BorderLayout.EAST);

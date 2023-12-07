@@ -12,7 +12,7 @@ public class StudentLandingPageController {
         if ("signup".equals(buttonPressed)){
             studentLandingInteractor.execute("signup");
         }
-        else if ("admin".equals(buttonPressed)){
+        else if ("login".equals(buttonPressed)){
             studentLandingInteractor.execute("login");
         }
 

@@ -13,7 +13,7 @@ import java.awt.event.KeyListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 public class AdminSignupView extends JPanel implements ActionListener, PropertyChangeListener {
-    public final String viewName = "admin sign up";
+    public final String viewName = "sign up admin";
 
     private final SignupAdminViewModel signupViewModel;
     private final JTextField usernameInputField = new JTextField(15);
@@ -52,11 +52,12 @@ public class AdminSignupView extends JPanel implements ActionListener, PropertyC
                 new ActionListener() {
                     public void actionPerformed(ActionEvent evt) {
                         if (evt.getSource().equals(signUp)) {
-                            signupController.execute(signupViewModel.getState().getEmail(),
+                            signupController.execute(
                                     signupViewModel.getState().getLastName(),
                                     signupViewModel.getState().getFirstName(),
                                     String.valueOf(signupViewModel.getState().getPassword()),
-                                    String.valueOf(signupViewModel.getState().getRepeatPassword()));
+                                    String.valueOf(signupViewModel.getState().getRepeatPassword()),
+                                    signupViewModel.getState().getEmail());
                         }
                     }
                 }

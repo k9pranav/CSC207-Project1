@@ -1,41 +1,40 @@
 package use_case.signup_admin;
 
-import entity.Admin;
-import entity.AdminFactory;
-import entity.Person;
+import entity.*;
+import use_case.signup_student.SignupStudentInputData;
+import use_case.signup_student.SignupStudentOutputData;
+
+import java.io.IOException;
 
 public class SignupAdminInteractor implements SignupAdminInputBoundary {
 
-    final SignupAdminDataAccessInterface userDataAccessObject;
-    final SignupAdminOutputBoundary userPresenter;
-    Admin admin;
+    final SignupAdminDataAccessInterface adminDataAccessObject;
+    final SignupAdminOutputBoundary adminPresenter;
+    final AdminFactory adminFactory;
 
     public SignupAdminInteractor(SignupAdminDataAccessInterface userDataAccessObject,
                                  SignupAdminOutputBoundary userPresenter,
-                                 AdminFactory adminFactory){
-        this.userDataAccessObject = userDataAccessObject;
-        this.userPresenter = userPresenter;
-        this.admin = admin;
+                                 AdminFactory adminFactory) {
+        this.adminDataAccessObject = userDataAccessObject;
+        this.adminPresenter = userPresenter;
+        this.adminFactory = adminFactory;
     }
 
     @Override
     public void execute(SignupAdminInputData signupAdminInputData) {
-        if (userDataAccessObject.existsByEmail(signupAdminInputData.getEmail())){
-            userPresenter.prepareFailView("User Already Exists");
+        if (adminDataAccessObject.existsByEmail(signupAdminInputData.getEmail())) {
+            adminPresenter.prepareFailView("User Already Exists");
         } else if (!signupAdminInputData.getPassword().equals(signupAdminInputData.getRepeatPassword())) {
-            userPresenter.prepareFailView("Passwords Don't Match");
+            adminPresenter.prepareFailView("Passwords Don't Match");
         } else {
-            Admin admin = new Admin(signupAdminInputData.getFirstName(),
-                    signupAdminInputData.getLastName(), signupAdminInputData.getPassword(),
-                    signupAdminInputData.getRepeatPassword(), signupAdminInputData.getEmail());
-
-            userDataAccessObject.createCalendar(admin);
-            userDataAccessObject.save(admin);
-
-
-            SignupAdminOutputData signupAdminOutputData = new SignupAdminOutputData(admin.getFirstName(),
-                    admin.getLastName(), admin.getEmail(), false);
+            try {
+                Admin admin = (Admin) adminFactory.create(signupAdminInputData.getFirstName(), signupAdminInputData.getLastName(), signupAdminInputData.getPassword(), signupAdminInputData.getRepeatPassword(), signupAdminInputData.getEmail());
+                adminDataAccessObject.save(admin);
+                SignupAdminOutputData signupAdminOutputData = new SignupAdminOutputData(admin.getFirstName(), admin.getLastName(), admin.getEmail(), admin.getPassword(), admin.getRepeatPassword());
+                adminPresenter.prepareSuccessView(signupAdminOutputData);
+            } catch (IOException ex) {
+                System.out.println("Error in user");
+            }
         }
-
     }
 }

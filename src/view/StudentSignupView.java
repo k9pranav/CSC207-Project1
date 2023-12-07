@@ -14,7 +14,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
 public class StudentSignupView extends JPanel implements ActionListener, PropertyChangeListener {
-    public final String viewName = "admin sign up";
+    public final String viewName = "sign up student";
 
     private final SignupStudentViewModel signupViewModel;
     private final JTextField usernameInputField = new JTextField(15);
@@ -53,11 +53,12 @@ public class StudentSignupView extends JPanel implements ActionListener, Propert
                 new ActionListener() {
                     public void actionPerformed(ActionEvent evt) {
                         if (evt.getSource().equals(signUp)) {
-                            signupController.execute(signupViewModel.getState().getEmail(),
+                            signupController.execute(
                                     signupViewModel.getState().getLastName(),
                                     signupViewModel.getState().getFirstName(),
                                     String.valueOf(signupViewModel.getState().getPassword()),
-                                    String.valueOf(signupViewModel.getState().getRepeatPassword()));
+                                    String.valueOf(signupViewModel.getState().getRepeatPassword()),
+                                    signupViewModel.getState().getEmail());
                         }
                     }
                 }
@@ -83,7 +84,8 @@ public class StudentSignupView extends JPanel implements ActionListener, Propert
                     @Override
                     public void keyReleased(KeyEvent e) {
                     }
-                });
+                }
+                );
 
         firstNameInputField.addKeyListener(
                 new KeyListener() {

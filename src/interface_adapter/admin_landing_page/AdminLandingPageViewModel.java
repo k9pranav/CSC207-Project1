@@ -5,7 +5,7 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
 public class AdminLandingPageViewModel extends ViewModel {
-    public final String TITLE_LABEL = "Student Portal";
+    public final String TITLE_LABEL = "Administrator Portal";
 
     public final String SIGNUP_BUTTON_LABEL = "Sign up";
     public final String LOGIN_BUTTON_LABEL = "Login";
@@ -13,7 +13,7 @@ public class AdminLandingPageViewModel extends ViewModel {
     private AdminLandingPageState state = new AdminLandingPageState();
 
     public AdminLandingPageViewModel() {
-        super("student landing page");
+        super("admin landing page");
     }
 
     public void setState(AdminLandingPageState state) {

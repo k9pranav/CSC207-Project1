@@ -12,7 +12,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
 public class StudentLandingPageView extends JPanel implements ActionListener, PropertyChangeListener {
-    public final String viewName = "admin landing page";
+    public final String viewName = "student landing page";
     private final StudentLandingPageViewModel studentLandingPageViewModel;
     private final StudentLandingPageController studentLandingPageController;
     private final JButton signUp;

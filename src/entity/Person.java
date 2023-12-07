@@ -17,4 +17,5 @@ public interface Person {
 
     String getCalendarId();
 
+    void setCalendarID(String id);
 }
