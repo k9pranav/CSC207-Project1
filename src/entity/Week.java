@@ -1,8 +1,10 @@
 package entity;
 
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.NoSuchElementException;
 
-public class Week {
+public class Week implements Iterable<Day>{
 
     private final Month month;
 
@@ -31,4 +33,32 @@ public class Week {
     public Day getDay(int index) {
         return daysArrayList.get(index);
     }
+
+    @Override
+    public Iterator<Day> iterator() {
+        return new dayIterator();
+    }
+
+    private class dayIterator implements Iterator<Day> {
+
+        int currentDay = 0;
+
+        dayIterator() {}
+
+        @Override
+        public boolean hasNext() {
+            return currentDay < daysArrayList.size() && daysArrayList.get(currentDay) != null;
+        }
+
+        @Override
+        public Day next() {
+            if (currentDay >= daysArrayList.size()){
+                throw new NoSuchElementException();
+            } else {
+                return daysArrayList.get(currentDay++);
+            }
+        }
+    }
+
+
 }

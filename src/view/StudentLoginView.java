@@ -3,6 +3,7 @@ package view;
 import interface_adapter.login_student.LoginStudentController;
 import interface_adapter.login_student.LoginStudentState;
 import interface_adapter.login_student.LoginStudentViewModel;
+import interface_adapter.signup_admin.SignupAdminState;
 import interface_adapter.signup_student.SignupStudentState;
 
 import javax.swing.*;
@@ -26,7 +27,7 @@ public class StudentLoginView extends JPanel implements ActionListener, Property
     private final JLabel passwordErrorField = new JLabel();
 
     final JButton logIn;
-
+    final JButton cancel;
     public StudentLoginView(LoginStudentViewModel loginViewModel, LoginStudentController studentLoginController){
         this.loginViewModel = loginViewModel;
         this.loginViewModel.addPropertyChangeListener(this);
@@ -44,12 +45,27 @@ public class StudentLoginView extends JPanel implements ActionListener, Property
         JPanel buttons = new JPanel();
         logIn = new JButton(loginViewModel.LOGIN_BUTTON_LABEL);
         buttons.add(logIn);
+        cancel = new JButton(loginViewModel.CANCEL_BUTTON_LABEL);
+        buttons.add(cancel);
 
         logIn.addActionListener(
                 new ActionListener(){
                     public void actionPerformed(ActionEvent evt){
                         if (evt.getSource().equals(logIn)){
                             studentLoginController.execute(
+                                    "login",
+                                    loginViewModel.getState().getEmail(),
+                                    loginViewModel.getState().getPassword());
+                        }
+                    }
+                }
+        );
+        cancel.addActionListener(
+                new ActionListener(){
+                    public void actionPerformed(ActionEvent evt){
+                        if (evt.getSource().equals(cancel)){
+                            studentLoginController.execute(
+                                    "cancel",
                                     loginViewModel.getState().getEmail(),
                                     loginViewModel.getState().getPassword());
                         }
@@ -61,7 +77,7 @@ public class StudentLoginView extends JPanel implements ActionListener, Property
             @Override
             public void keyTyped (KeyEvent e){
                 LoginStudentState currentState = loginViewModel.getState();
-                currentState.setEmail(emailInputField.getText());
+                currentState.setEmail(emailInputField.getText()+ e.getKeyChar());
                 loginViewModel.setState(currentState);
             }
             @Override
@@ -77,7 +93,7 @@ public class StudentLoginView extends JPanel implements ActionListener, Property
             @Override
             public void keyTyped(KeyEvent e){
                 LoginStudentState currentState = loginViewModel.getState();
-                currentState.setPassword(passwordInputField.getText());
+                currentState.setPassword(passwordInputField.getText()+ e.getKeyChar());
                 loginViewModel.setState(currentState);
             }
             @Override
@@ -105,7 +121,9 @@ public class StudentLoginView extends JPanel implements ActionListener, Property
     @Override
     public void propertyChange(PropertyChangeEvent evt){
         LoginStudentState state = (LoginStudentState) evt.getNewValue();
-        setFields(state);
+        if (state.getEmailError() != null) {
+            JOptionPane.showMessageDialog(this, state.getEmailError());
+        }
     }
 
     private void setFields(LoginStudentState state){

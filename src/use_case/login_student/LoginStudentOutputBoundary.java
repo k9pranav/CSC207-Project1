@@ -6,4 +6,5 @@ public interface LoginStudentOutputBoundary {
     void prepareSuccessView(LoginStudentOutputData student);
 
     void prepareFailView(String error);
+    void prepareCancelView();
 }

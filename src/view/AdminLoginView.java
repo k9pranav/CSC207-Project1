@@ -12,6 +12,7 @@ import java.beans.PropertyChangeListener;
 import interface_adapter.login_admin.LoginAdminController;
 import interface_adapter.login_admin.LoginAdminState;
 import interface_adapter.login_admin.LoginAdminViewModel;
+import interface_adapter.login_student.LoginStudentState;
 
 public class AdminLoginView extends JPanel implements ActionListener, PropertyChangeListener {
 
@@ -61,11 +62,23 @@ public class AdminLoginView extends JPanel implements ActionListener, PropertyCh
                 }
         );
 
+        cancel.addActionListener(
+                new ActionListener(){
+                    public void actionPerformed(ActionEvent evt){
+                        if (evt.getSource().equals(cancel)){
+                            adminLoginController.execute("cancel",
+                                    null,
+                                    null);
+                        }
+                    }
+                }
+        );
+
         emailInputField.addKeyListener(new KeyListener() {
             @Override
             public void keyTyped (KeyEvent e){
                 LoginAdminState currentState = loginViewModel.getState();
-                currentState.setEmail(emailInputField.getText());
+                currentState.setEmail(emailInputField.getText() + e.getKeyChar());
                 loginViewModel.setState(currentState);
             }
             @Override
@@ -81,7 +94,7 @@ public class AdminLoginView extends JPanel implements ActionListener, PropertyCh
             @Override
             public void keyTyped(KeyEvent e){
                 LoginAdminState currentState = loginViewModel.getState();
-                currentState.setPassword(passwordInputField.getText());
+                currentState.setPassword(passwordInputField.getText() + e.getKeyChar());
                 loginViewModel.setState(currentState);
             }
             @Override
@@ -109,7 +122,9 @@ public class AdminLoginView extends JPanel implements ActionListener, PropertyCh
         @Override
         public void propertyChange(PropertyChangeEvent evt){
             LoginAdminState state = (LoginAdminState) evt.getNewValue();
-            setFields(state);
+            if (state.getEmailError() != null) {
+                JOptionPane.showMessageDialog(this, state.getEmailError());
+            }
         }
 
         private void setFields(LoginAdminState state){

@@ -2,31 +2,39 @@ package use_case.signup_admin;
 
 public class SignupAdminOutputData {
 
-    private final String firstName;
-    private final String lastName;
+    final private String first_name;
+    final private String last_name;
     private final String email;
+    final private String password;
+    final private String repeatPassword;
 
     private boolean useCaseFailed;
 
-    public SignupAdminOutputData(String firstName, String lastName,
-                            String email, boolean useCaseFailed) {
-        this.firstName = firstName;
-        this.lastName = lastName;
+    public SignupAdminOutputData(String first_name, String last_name, String email, String password, String repeatPassword) {
+        this.first_name = first_name;
+        this.last_name = last_name;
         this.email = email;
-        this.useCaseFailed = useCaseFailed;
+        this.password = password;
+        this.repeatPassword = repeatPassword;
+    }
+    String getFirstName() {
+        return first_name;
     }
 
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
+    String getLastName() {
+        return last_name;
     }
 
     public String getEmail() {
         return email;
     }
 
+    String getPassword() {
+        return password;
+    }
+
+    public String getRepeatPassword() {
+        return repeatPassword;
+    }
 
 }

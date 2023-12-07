@@ -3,10 +3,11 @@ package app;
 import entity.StudentFactory;
 import entity.PersonFactory;
 import interface_adapter.ViewManagerModel;
-import interface_adapter.loggedin_student.LoggedinStudentViewModel;
+import interface_adapter.landing_page.LandingPageViewModel;
 import interface_adapter.login_student.LoginStudentController;
 import interface_adapter.login_student.LoginStudentPresenter;
 import interface_adapter.login_student.LoginStudentViewModel;
+import interface_adapter.student_logged_in.StudentLoggedInViewModel;
 import use_case.login_student.LoginStudentDataAccessInterface;
 import use_case.login_student.LoginStudentInputBoundary;
 import use_case.login_student.LoginStudentInteractor;
@@ -25,11 +26,12 @@ public class LoginStudentUseCaseFactory {
     public static StudentLoginView create(
             ViewManagerModel viewManagerModel,
             LoginStudentViewModel loginStudentViewModel,
-            LoggedinStudentViewModel loggedInViewModel,
+            StudentLoggedInViewModel studentLoggedInViewModel,
+            LandingPageViewModel landingPageViewModel,
             LoginStudentDataAccessInterface userDataAccessObject) {
 
         try {
-            LoginStudentController loginController = createLoginUseCase(viewManagerModel, loginStudentViewModel, loggedInViewModel, userDataAccessObject);
+            LoginStudentController loginController = createLoginUseCase(viewManagerModel, loginStudentViewModel, studentLoggedInViewModel, landingPageViewModel, userDataAccessObject);
             return new StudentLoginView(loginStudentViewModel, loginController);
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Could not open user data file.");
@@ -41,9 +43,10 @@ public class LoginStudentUseCaseFactory {
     private static LoginStudentController createLoginUseCase(
             ViewManagerModel viewManagerModel,
             LoginStudentViewModel loginViewModel,
-            LoggedinStudentViewModel loggedInViewModel,
+            StudentLoggedInViewModel loggedInViewModel,
+            LandingPageViewModel landingPageViewModel,
             LoginStudentDataAccessInterface userDataAccessObject) throws IOException {
-        LoginStudentOutputBoundary loginOutputBoundary = new LoginStudentPresenter(viewManagerModel, loggedInViewModel, loginViewModel);
+        LoginStudentOutputBoundary loginOutputBoundary = new LoginStudentPresenter(viewManagerModel, loggedInViewModel, landingPageViewModel, loginViewModel);
         PersonFactory userFactory = new StudentFactory();
         LoginStudentInputBoundary loginInteractor = new LoginStudentInteractor(userDataAccessObject, loginOutputBoundary);
         return new LoginStudentController(loginInteractor);

@@ -15,9 +15,9 @@ public class StudentCoursesPresenter implements StudentCoursesOutputBoundary {
 private final ViewManagerModel viewManagerModel;
 private final StudentCourseTasksViewModel tasksViewModel;
 private final StudentCoursesViewModel coursesViewModel;
-private final LoggedinStudentViewModel homePageViewModel;
+private final StudentLoggedInViewModel homePageViewModel;
 
-public StudentCoursesPresenter(ViewManagerModel viewManagerModel, StudentCoursesViewModel coursesViewModel, StudentCourseTasksViewModel tasksViewModel, LoggedinStudentViewModel homePageViewModel){
+public StudentCoursesPresenter(ViewManagerModel viewManagerModel, StudentCoursesViewModel coursesViewModel, StudentCourseTasksViewModel tasksViewModel, StudentLoggedInViewModel homePageViewModel){
     this.viewManagerModel = viewManagerModel;
     this.tasksViewModel = tasksViewModel;
     this.homePageViewModel = homePageViewModel;
@@ -47,12 +47,11 @@ public StudentCoursesPresenter(ViewManagerModel viewManagerModel, StudentCourses
 
     @Override
     public void prepareExit(Student student) {
-        LoggedInStudentState loggedInState = homePageViewModel.getState();
+        StudentLoggedInState loggedInState = homePageViewModel.getState();
         this.homePageViewModel.setState(loggedInState);
         //TODO: Adrien this.homePageViewModel.getState().setLoggedInUser(student);
         homePageViewModel.firePropertyChanged();
         viewManagerModel.setActiveView(homePageViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
-        // goes back to home page
     }
 }

@@ -12,7 +12,7 @@ public class SignupStudentController {
                         String repeatPassword, String email) {
 
         SignupStudentInputData signupStudentInputData = new SignupStudentInputData(firstName,
-                lastName, password, repeatPassword, email);
+                lastName, email, password, repeatPassword );
 
         studentSignupUseCaseInteractor.execute(signupStudentInputData);
 
