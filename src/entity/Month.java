@@ -1,16 +1,16 @@
 package entity;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 public class Month implements Iterable<Week>{
-
     private final int monthNumber;
 
     private final int year;
 
-    private ArrayList<Week> weeksArrayList = new ArrayList<>();
+    private HashMap<Integer, Week> weeksList = new HashMap<>();
 
 
     public Month(int monthNumber, int year) {
@@ -19,7 +19,7 @@ public class Month implements Iterable<Week>{
     }
 
     public void addWeeks(Week week) {
-        this.weeksArrayList.add(week);
+        this.weeksList.put(week.getWeekInMonth() ,week);
     }
 
     public int getMonthNumber() {
@@ -31,7 +31,15 @@ public class Month implements Iterable<Week>{
     }
 
     public Week getWeek(int index) {
-        return weeksArrayList.get(index);
+        if(weeksList.containsKey(index)){
+            return weeksList.get(index);
+        } else {
+            throw new RuntimeException();
+        }
+    }
+
+    public boolean hasWeek(int weekNum){
+        return weeksList.containsKey(weekNum);
     }
 
     @Override
@@ -50,7 +58,7 @@ public class Month implements Iterable<Week>{
          */
         @Override
         public boolean hasNext() {
-            return currentWeek < weeksArrayList.size() && weeksArrayList.get(currentWeek) != null;
+            return currentWeek < weeksList.size() && weeksList.get(currentWeek) != null;
         }
 
         /**
@@ -58,11 +66,17 @@ public class Month implements Iterable<Week>{
          */
         @Override
         public Week next() {
-            if (currentWeek >= weeksArrayList.size()){
+            if (currentWeek >= weeksList.size()){
                 throw new NoSuchElementException();
             } else {
-                return weeksArrayList.get(currentWeek++);
+                return weeksList.get(currentWeek++);
             }
         }
     }
+
+
+
+
+
+
 }
