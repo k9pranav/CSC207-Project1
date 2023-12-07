@@ -12,6 +12,7 @@ import interface_adapter.login_admin.LoginAdminViewModel;
 import interface_adapter.login_student.LoginStudentViewModel;
 import interface_adapter.signup_admin.SignupAdminViewModel;
 import interface_adapter.signup_student.SignupStudentViewModel;
+import interface_adapter.student_calendar.StudentCalendarViewModel;
 import interface_adapter.student_course_tasks.StudentCourseTasksViewModel;
 import interface_adapter.student_courses.StudentCoursesViewModel;
 import interface_adapter.student_landing_page.StudentLandingPageViewModel;
@@ -53,6 +54,7 @@ public class Main {
         StudentLoggedInViewModel studentLoggedInViewModel = new StudentLoggedInViewModel();
         StudentCoursesViewModel studentCoursesViewModel = new StudentCoursesViewModel();
         StudentCourseTasksViewModel studentTasksViewModel = new StudentCourseTasksViewModel();
+        StudentCalendarViewModel calendarViewModel = new StudentCalendarViewModel();
 
         //Admin login/Signup
         AdminLandingPageViewModel adminLandingPageViewModel = new AdminLandingPageViewModel();
@@ -89,7 +91,7 @@ public class Main {
                 adminLandingPageViewModel, signupAdminViewModel, loginAdminViewModel);
         views.add(adminLandingPageView, adminLandingPageView.viewName);
 
-        StudentLoggedInView loggedInStudentView = StudentLoggedInUseCaseFactory.create(viewManagerModel, studentLoggedInViewModel, studentCoursesViewModel, studentDataAccessObject);
+        StudentLoggedInView loggedInStudentView = StudentLoggedInUseCaseFactory.create(viewManagerModel, studentLoggedInViewModel, studentCoursesViewModel, calendarViewModel, studentDataAccessObject);
         views.add(loggedInStudentView, loggedInStudentView.viewName);
 
         StudentCoursesView studentCoursesView = StudentCoursesUseCaseFactory.create(viewManagerModel, studentCoursesViewModel, studentTasksViewModel, studentLoggedInViewModel);
@@ -109,6 +111,8 @@ public class Main {
         AdminLoginView loginAdminView = LoginAdminUseCaseFactory.create(viewManagerModel, loginAdminViewModel,
                 adminLoggedInViewModel, landingPageViewModel,adminDataAccessObject);
         views.add(loginAdminView, loginAdminView.viewName);
+
+
 
         AdminLoggedInView loggedInAdminView = new AdminLoggedInView(adminLoggedInViewModel);
         views.add(loggedInAdminView, loggedInAdminView.viewName);

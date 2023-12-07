@@ -10,8 +10,11 @@ public class StudentLoggedInController {
 
     }
     public void execute(String buttonPressed){
-        if ("courses".equals(buttonPressed)){
+        if ("courses".equals(buttonPressed)) {
             studentLoggedInInputInteractor.execute("courses");
+        } else if ("calendar".equals(buttonPressed)) {
+            studentLoggedInInputInteractor.execute("calendar");
+
         }
     }
 }

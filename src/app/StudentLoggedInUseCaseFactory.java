@@ -2,6 +2,7 @@ package app;
 
 import data_access.FileStudentDataAccessObject;
 import interface_adapter.ViewManagerModel;
+import interface_adapter.student_calendar.StudentCalendarViewModel;
 import interface_adapter.student_courses.StudentCoursesViewModel;
 import interface_adapter.student_logged_in.StudentLoggedInController;
 import interface_adapter.student_logged_in.StudentLoggedInPresenter;
@@ -17,12 +18,18 @@ public class StudentLoggedInUseCaseFactory {
             ViewManagerModel viewManagerModel,
             StudentLoggedInViewModel studentLoggedInViewModel,
             StudentCoursesViewModel studentCoursesViewModel,
+            StudentCalendarViewModel studentCalendarViewModel,
             FileStudentDataAccessObject fileStudentDataAccessObject) {
+
+
     StudentLoggedInController studentLoggedInController = createStudentLoggedInPageUseCase(
             viewManagerModel,
             studentLoggedInViewModel,
             studentCoursesViewModel,
+            studentCalendarViewModel,
             fileStudentDataAccessObject);
+
+
     return new StudentLoggedInView(studentLoggedInController, studentLoggedInViewModel);
     }
 
@@ -30,9 +37,10 @@ public class StudentLoggedInUseCaseFactory {
                 ViewManagerModel viewManagerModel,
                 StudentLoggedInViewModel studentLoggedInViewModel,
                 StudentCoursesViewModel studentCoursesViewModel,
+                StudentCalendarViewModel studentCalendarViewModel,
                 FileStudentDataAccessObject fileStudentDataAccessObject
                 ) {
-            StudentLoggedInOutputBoundary studentLoggedInOutputBoundary = new StudentLoggedInPresenter(viewManagerModel, studentLoggedInViewModel, studentCoursesViewModel);
+            StudentLoggedInOutputBoundary studentLoggedInOutputBoundary = new StudentLoggedInPresenter(viewManagerModel, studentLoggedInViewModel, studentCoursesViewModel, studentCalendarViewModel);
 
             StudentLoggedInInputBoundary interactor = new StudentLoggedinInteractor(studentLoggedInOutputBoundary, fileStudentDataAccessObject);
             return new StudentLoggedInController(interactor);
