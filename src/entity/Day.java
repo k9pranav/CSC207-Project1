@@ -1,5 +1,6 @@
 package entity;
 
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 
 public class Day {
@@ -17,8 +18,16 @@ public class Day {
         this.dayOfTheWeek = dayOfTheWeek;
     }
 
-    public void addTasks(String taskName, Task taskObj){
-        this.mapOfTasks.put(taskName, taskObj);
+    public void addTasks(SimpleDateFormat taskName, Task taskObj){
+        this.mapOfTasks.put(taskName.format("hh:mm:ss"), taskObj);
+    }
+
+    public Task getTask(String time){
+        if(mapOfTasks.containsKey(time)){
+            return mapOfTasks.get(time);
+        } else {
+            throw new RuntimeException();
+        }
     }
 
     public int getDayOfTheMonth(){

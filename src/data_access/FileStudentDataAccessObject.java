@@ -19,6 +19,7 @@ import entity.StudentFactory;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import use_case.go_back_student.GoBackStudentDataAccessInterface;
 import use_case.login_student.LoginStudentDataAccessInterface;
 import use_case.signup_student.SignupStudentDataAccessInterface;
 import org.apache.commons.io.FileUtils;
@@ -28,7 +29,7 @@ import java.io.*;
 import java.security.GeneralSecurityException;
 import java.util.*;
 
-public class FileStudentDataAccessObject implements SignupStudentDataAccessInterface, LoginStudentDataAccessInterface {
+public class FileStudentDataAccessObject implements SignupStudentDataAccessInterface, LoginStudentDataAccessInterface, GoBackStudentDataAccessInterface {
     private final JSONObject jsonObject;
     private StudentFactory studentFactory;
     private final Map<String, Student> accounts = new HashMap<>();

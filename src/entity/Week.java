@@ -1,6 +1,7 @@
 package entity;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
@@ -10,7 +11,7 @@ public class Week implements Iterable<Day>{
 
     private final int weekInMonth;
 
-    private ArrayList<Day> daysArrayList = new ArrayList<>();
+    private HashMap<Integer, Day> daysList = new HashMap<>();
 
     public Week(Month month, int weekInMonth) {
         this.month = month;
@@ -18,7 +19,7 @@ public class Week implements Iterable<Day>{
     }
 
     public void addDays(Day day) {
-        daysArrayList.add(day.getDayOfTheWeek(), day);
+        daysList.put(day.getDayOfTheWeek() - 1, day);
 
     }
 
@@ -30,8 +31,16 @@ public class Week implements Iterable<Day>{
         return month;
     }
 
-    public Day getDay(int index) {
-        return daysArrayList.get(index);
+    public Day getDay(int dayOfWeek) {
+        if (daysList.containsKey(dayOfWeek)){
+            return daysList.get(dayOfWeek);
+        } else {
+            throw new RuntimeException();
+        }
+    }
+
+    public boolean hasDay(int dayOfWeek){
+        return daysList.containsKey(dayOfWeek);
     }
 
     @Override
@@ -47,15 +56,15 @@ public class Week implements Iterable<Day>{
 
         @Override
         public boolean hasNext() {
-            return currentDay < daysArrayList.size() && daysArrayList.get(currentDay) != null;
+            return currentDay < daysList.size() && daysList.get(currentDay) != null;
         }
 
         @Override
         public Day next() {
-            if (currentDay >= daysArrayList.size()){
+            if (currentDay >= daysList.size()){
                 throw new NoSuchElementException();
             } else {
-                return daysArrayList.get(currentDay++);
+                return daysList.get(currentDay++);
             }
         }
     }

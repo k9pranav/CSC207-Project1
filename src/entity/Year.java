@@ -1,6 +1,7 @@
 package entity;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
@@ -8,7 +9,7 @@ public class Year implements Iterable<Month>{
 
     private final int year;
 
-    private ArrayList<Month> monthsArrayList = new ArrayList<>();
+    private HashMap<Integer, Month> monthsList = new HashMap<>();
 
 
     public Year(int year) {
@@ -16,7 +17,7 @@ public class Year implements Iterable<Month>{
     }
 
     public void addMonth(Month month) {
-        this.monthsArrayList.add(month.getMonthNumber(), month);
+        this.monthsList.put(month.getMonthNumber(), month);
     }
 
     public int getYear() {
@@ -24,8 +25,14 @@ public class Year implements Iterable<Month>{
     }
 
     public Month getMonth(int monthNumber){
-        return monthsArrayList.get(monthNumber);
+        return monthsList.get(monthNumber);
     }
+
+    public boolean hasMonth(int index){
+        return monthsList.containsKey(index);
+
+    }
+
 
 
     /**
@@ -45,7 +52,7 @@ public class Year implements Iterable<Month>{
          */
         @Override
         public boolean hasNext() {
-            return currentMonth < monthsArrayList.size() && monthsArrayList.get(currentMonth) != null;
+            return currentMonth < monthsList.size() && monthsList.get(currentMonth) != null;
         }
 
         /**
@@ -53,12 +60,14 @@ public class Year implements Iterable<Month>{
          */
         @Override
         public Month next() {
-            if (currentMonth >= monthsArrayList.size()){
+            if (currentMonth >= monthsList.size()){
                 throw new NoSuchElementException();
             } else {
-                return  monthsArrayList.get(currentMonth);
+                return  monthsList.get(currentMonth);
             }
         }
     }
 }
+
+
 
